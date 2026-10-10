@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>مهدی مجاهد | طراح و توسعه‌دهنده وب</title>
 <meta name="description" content="پورتفولیوی مهدی مجاهد — طراحی وب، ادیت فیلم و عکس، پوستر، لوگو و برندینگ">
+
+<link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="img/20261011_025918.ico">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
@@ -167,11 +172,16 @@ body.has-cursor .cursor-glow{opacity:1}
 .logo-mark{
   width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
   background:linear-gradient(140deg,var(--gold),#8a7a00);
-  color:#001830;font-weight:900;font-size:1rem;flex:none;
+  color:#001830;flex:none;
   box-shadow:0 0 26px rgba(217,194,0,.45);
   animation:markGlow 4s ease-in-out infinite;
+  overflow:hidden;
 }
 @keyframes markGlow{50%{box-shadow:0 0 44px rgba(217,194,0,.85)}}
+.logo-mark img{
+  width:68%;height:68%;object-fit:contain;
+  filter:invert(1) brightness(0.1);
+}
 .logo small{display:block;font-size:.52rem;font-weight:500;color:var(--muted);letter-spacing:.14em;line-height:1.2}
 
 .burger{
@@ -363,6 +373,7 @@ h2.title em{
 
 .btn > span{
   position:relative;z-index:1;
+  flex:1;
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   padding:.85rem 1.8rem;border-radius:999px;
   background:var(--panel-2);
@@ -468,11 +479,16 @@ h1.hero-title em::after{
   background:conic-gradient(from 0deg,var(--gold),#001830,var(--gold));
   animation:spin 7s linear infinite;
 }
-.avatar-ring i{
+.avatar-inner{
   position:absolute;inset:4px;border-radius:50%;background:var(--bg-2);
-  display:grid;place-items:center;font-size:1.7rem;font-style:normal;
-  color:var(--gold);
+  display:grid;place-items:center;overflow:hidden;
   animation:spin 7s linear infinite reverse;
+}
+.avatar-inner img{
+  width:66%;height:66%;object-fit:contain;
+}
+html[data-theme="light"] .avatar-inner img{
+  filter:invert(1) brightness(0.15);
 }
 .hero-card h3{text-align:center;font-size:.95rem;font-weight:800;margin-bottom:.2rem}
 .hero-card p.role{text-align:center;color:var(--muted);font-size:.74rem;margin-bottom:1.1rem}
@@ -568,11 +584,16 @@ h1.hero-title em::after{
   background:var(--gold);box-shadow:0 0 22px var(--gold);
 }
 .core{
-  position:absolute;inset:38%;border-radius:50%;
+  position:absolute;inset:36%;border-radius:50%;
   background:linear-gradient(140deg,var(--gold),#001830);
-  display:grid;place-items:center;font-size:clamp(1rem,2.6vw,1.3rem);font-weight:900;color:#fff;
+  display:grid;place-items:center;
   box-shadow:0 0 60px rgba(217,194,0,.45);
   animation:cardFloat 6s ease-in-out infinite;
+  overflow:hidden;
+  padding:14%;
+}
+.core img{
+  width:100%;height:100%;object-fit:contain;
 }
 
 /* ============================================================
@@ -808,7 +829,7 @@ footer{
   .header{padding:.65rem .9rem}
   .header.scrolled{padding:.5rem .9rem}
   .logo{font-size:.9rem;gap:.45rem}
-  .logo-mark{width:34px;height:34px;border-radius:11px;font-size:.92rem}
+  .logo-mark{width:34px;height:34px;border-radius:11px}
   .logo small{font-size:.5rem;letter-spacing:.1em}
 
   .burger{width:42px;height:42px;border-radius:13px}
@@ -827,15 +848,16 @@ footer{
   .badge{font-size:.66rem;padding:.35rem .8rem;margin-bottom:1rem}
   h1.hero-title{font-size:clamp(1.3rem,6.5vw,1.9rem);margin-bottom:.9rem;line-height:1.28}
   .hero-sub{font-size:.82rem;margin-bottom:1.4rem}
-  .hero-cta{gap:.5rem;flex-direction:column;align-items:stretch}
-  .hero-cta .btn{width:100%}
 
-  .btn > span{padding:.75rem 1.2rem;font-size:.78rem;gap:.4rem}
-  .btn.big > span{padding:.85rem 1.4rem;font-size:.82rem}
+  /* دکمه‌ها: اندازهٔ طبیعی، وسط‌چین — کادر چرخان دقیقاً دور خود دکمه */
+  .hero-cta{gap:.55rem;flex-direction:column;align-items:center}
+  .hero-cta .btn{width:auto;max-width:100%}
+
+  .btn > span{padding:.75rem 1.4rem;font-size:.8rem;gap:.4rem}
+  .btn.big > span{padding:.85rem 1.6rem;font-size:.84rem}
 
   .hero-card{padding:1.3rem 1.1rem;border-radius:20px}
   .avatar-ring{width:74px;height:74px;margin-bottom:.9rem}
-  .avatar-ring i{font-size:1.5rem}
   .hero-card h3{font-size:.9rem}
   .hero-card p.role{font-size:.7rem;margin-bottom:1rem}
   .stat-row{gap:.4rem}
@@ -899,8 +921,8 @@ footer{
   section{padding:2.2rem .85rem}
   h1.hero-title{font-size:clamp(1.2rem,7vw,1.7rem)}
   .hero-sub{font-size:.78rem}
-  .btn > span{padding:.7rem 1rem;font-size:.74rem}
-  .btn.big > span{padding:.78rem 1.2rem;font-size:.78rem}
+  .btn > span{padding:.7rem 1.15rem;font-size:.76rem}
+  .btn.big > span{padding:.78rem 1.35rem;font-size:.8rem}
   .nav-list a{font-size:1.15rem}
   .social-grid{gap:.5rem}
   .social{padding:.85rem .5rem}
@@ -936,7 +958,9 @@ footer{
 <!-- ===== HEADER ===== -->
 <header class="header" id="header">
   <a href="#home" class="logo">
-    <span class="logo-mark">م</span>
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
     <span>
       مهدی مجاهد
       <small>WEB &amp; VISUAL</small>
@@ -1001,7 +1025,11 @@ footer{
     </div>
 
     <div class="hero-card" data-reveal="scale" style="--d:.3s">
-      <div class="avatar-ring"><i class="fa-solid fa-user-pen"></i></div>
+      <div class="avatar-ring">
+        <span class="avatar-inner">
+          <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+        </span>
+      </div>
       <h3>مهدی مجاهد</h3>
       <p class="role">Graphic Designer · Editor · Web Developer</p>
 
@@ -1104,7 +1132,9 @@ footer{
         <div class="orbit"><i></i></div>
         <div class="orbit"><i></i></div>
         <div class="orbit"><i></i></div>
-        <div class="core"><i class="fa-solid fa-star"></i></div>
+        <div class="core">
+          <img src="img/20261011_025918.ico" alt="مهدی مجاهد" loading="lazy">
+        </div>
       </div>
     </div>
   </div>
@@ -1549,7 +1579,7 @@ document.querySelectorAll('.skill').forEach(card => {
 })();
 
 /* ============================================================
-   10. COMMENTS — با قابلیت «دیدن نظرات بیشتر»
+   10. COMMENTS
    ============================================================ */
 (function comments(){
   const STORE = 'portfolio_comments_v2';
@@ -1598,75 +1628,4 @@ document.querySelectorAll('.skill').forEach(card => {
     return `
       <div class="comment" style="animation-delay:${i * 0.05}s">
         <div class="c-avatar">${escapeHTML(c.name.trim().charAt(0))}</div>
-        <div class="c-body">
-          <div class="c-head">
-            <span class="c-name">${escapeHTML(c.name)}</span>
-            <span class="c-time">${timeAgo(c.t)}</span>
-          </div>
-          <p class="c-text">${escapeHTML(c.text)}</p>
-        </div>
-      </div>
-    `;
-  }
-
-  function render(){
-    const data = load();
-    if (!data.length){
-      list.innerHTML = '<div class="empty-note">هنوز نظری ثبت نشده — اولین نفر باشید <i class="fa-solid fa-star" style="color:var(--gold)"></i></div>';
-      return;
-    }
-
-    const visible = data.slice(0, PAGE_SIZE);
-    let html = visible.map(commentHTML).join('');
-
-    if (data.length > PAGE_SIZE){
-      html += `
-        <div class="load-more-wrap">
-          <button type="button" class="btn" id="loadMoreBtn">
-            <span>دیدن نظرات بیشتر <i class="fa-solid fa-chevron-down"></i> (${toFa(data.length - PAGE_SIZE)} نظر دیگر)</span>
-          </button>
-        </div>
-      `;
-    }
-
-    list.innerHTML = html;
-
-    const btn = document.getElementById('loadMoreBtn');
-    if (btn){
-      btn.addEventListener('click', () => {
-        const all = load();
-        list.innerHTML = all.map(commentHTML).join('');
-      });
-    }
-  }
-
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const name = nameI.value.trim();
-    const text = textI.value.trim();
-
-    if (name.length < 2){ msg.textContent = 'لطفاً نام معتبر وارد کنید.'; return; }
-    if (text.length < 5){ msg.textContent = 'متن نظر خیلی کوتاه است.'; return; }
-
-    const data = load();
-    data.unshift({ name, text, t: Date.now() });
-    save(data.slice(0, 80));
-
-    form.reset();
-    msg.textContent = 'نظر شما با موفقیت ثبت شد ✦';
-    render();
-
-    setTimeout(() => { msg.textContent = ''; }, 3500);
-  });
-
-  render();
-})();
-
-/* ============================================================
-   11. YEAR
-   ============================================================ */
-document.getElementById('year').textContent = toFa(new Date().getFullYear());
-</script>
-
-</body>
-</html>
+        <div class
