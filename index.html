@@ -4,10 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>مهدی مجاهد | طراح و توسعه‌دهنده وب</title>
-<meta name="description" content="پورتفولیوی شخصی — طراحی وب، ادیت فیلم و عکس، پوستر و برندینگ">
+<meta name="description" content="پورتفولیوی مهدی مجاهد — طراحی وب، ادیت فیلم و عکس، پوستر، لوگو و برندینگ">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
 /* ============================================================
    1. TOKENS
@@ -193,7 +194,7 @@ body.has-cursor .cursor-glow{opacity:1}
 .burger.open i:nth-child(3){transform:rotate(-45deg)}
 
 /* ============================================================
-   4. NAV — fade + slide from top (بدون clip-path)
+   4. NAV
    ============================================================ */
 .nav{
   position:fixed;inset:0;z-index:110;
@@ -305,7 +306,7 @@ h2.title em{
 .lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:60ch}
 
 /* ============================================================
-   6. REVEAL — فقط عمودی (از بالا به پایین)
+   6. REVEAL
    ============================================================ */
 [data-reveal]{
   opacity:0;transform:translateY(40px);
@@ -320,27 +321,52 @@ h2.title em{
 /* ============================================================
    7. BUTTONS
    ============================================================ */
+@property --btn-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
 .btn{
   position:relative;display:inline-flex;padding:2px;border-radius:999px;
   overflow:hidden;isolation:isolate;cursor:pointer;flex:none;max-width:100%;
 }
 .btn::before{
-  content:"";position:absolute;inset:-160%;z-index:0;
-  background:conic-gradient(from 0deg,
-    transparent 0deg,transparent 190deg,
-    var(--gold) 265deg,#fff8c4 300deg,var(--gold) 330deg,
-    transparent 360deg);
-  animation:spin 3.6s linear infinite;
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:2px;
+  background:conic-gradient(
+    from var(--btn-angle),
+    transparent 0deg,
+    transparent 190deg,
+    var(--gold) 265deg,
+    #fff8c4 300deg,
+    var(--gold) 330deg,
+    transparent 360deg
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: btnSpin 3.6s linear infinite;
+  z-index: 0;
+  pointer-events: none;
 }
 .btn:nth-child(even)::before{animation-duration:4.6s;animation-direction:reverse}
-@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes btnSpin{to{--btn-angle:360deg}}
 
 .btn > span{
   position:relative;z-index:1;
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   padding:.85rem 1.8rem;border-radius:999px;
   background:var(--panel-2);
-  border:1px solid var(--stroke);
+  border:1px solid transparent;
   backdrop-filter:blur(16px) saturate(180%);
   -webkit-backdrop-filter:blur(16px) saturate(180%);
   font-weight:700;font-size:.85rem;white-space:nowrap;
@@ -445,6 +471,7 @@ h1.hero-title em::after{
 .avatar-ring i{
   position:absolute;inset:4px;border-radius:50%;background:var(--bg-2);
   display:grid;place-items:center;font-size:1.7rem;font-style:normal;
+  color:var(--gold);
   animation:spin 7s linear infinite reverse;
 }
 .hero-card h3{text-align:center;font-size:.95rem;font-weight:800;margin-bottom:.2rem}
@@ -506,13 +533,26 @@ h1.hero-title em::after{
 .about-text p{color:var(--muted);margin-bottom:.9rem;font-size:clamp(.82rem,1.2vw,.92rem)}
 .about-text strong{color:var(--text);font-weight:700}
 
+.resume-items{list-style:none;display:flex;flex-direction:column;gap:.6rem;margin-bottom:1rem}
+.resume-items li{
+  display:flex;align-items:flex-start;gap:.7rem;
+  color:var(--muted);font-size:clamp(.8rem,1.1vw,.88rem);
+}
+.resume-items li i{
+  color:var(--gold);font-size:.85rem;margin-top:.35rem;flex:none;
+  width:1.1rem;text-align:center;
+}
+.resume-items li strong{color:var(--text)}
+
 .chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.4rem}
 .chip{
+  display:inline-flex;align-items:center;gap:.4rem;
   padding:.42rem .9rem;border-radius:999px;font-size:.72rem;font-weight:600;
   background:var(--panel);border:1px solid var(--stroke);
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
   transition:.35s var(--ease);cursor:default;
 }
+.chip i{color:var(--gold);font-size:.75rem}
 .chip:hover{transform:translateY(-3px) scale(1.04);border-color:var(--gold);color:var(--gold);box-shadow:var(--glow)}
 
 .about-visual{position:relative;aspect-ratio:1;width:100%;max-width:min(100%,360px);margin-inline:auto}
@@ -559,7 +599,7 @@ h1.hero-title em::after{
 
 .skill-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem;position:relative;gap:.5rem}
 .skill-name{font-weight:700;font-size:.85rem;display:flex;align-items:center;gap:.5rem;min-width:0}
-.skill-name i{font-style:normal;font-size:.95rem;flex:none}
+.skill-name i{font-style:normal;font-size:.9rem;flex:none;color:var(--gold);width:1.1rem;text-align:center}
 .skill-num{font-weight:900;color:var(--gold);font-size:.88rem;font-variant-numeric:tabular-nums;flex:none}
 .skill-bar{height:6px;border-radius:99px;background:var(--stroke);overflow:hidden;position:relative}
 .skill-bar i{
@@ -663,6 +703,9 @@ h1.hero-title em::after{
   border:1px dashed var(--stroke);border-radius:16px;
 }
 
+.load-more-wrap{display:flex;justify-content:center;padding-top:.8rem}
+.load-more-wrap .btn > span{padding:.65rem 1.4rem;font-size:.78rem}
+
 /* ============================================================
    14. SOCIAL
    ============================================================ */
@@ -684,10 +727,21 @@ h1.hero-title em::after{
 }
 .social:hover::before{opacity:1}
 .social:hover{transform:translateY(-6px);border-color:var(--gold);box-shadow:var(--glow)}
-.social i{font-style:normal;font-size:1.35rem;display:block;margin-bottom:.4rem;position:relative;transition:.5s var(--ease-2)}
+.social i{font-size:1.35rem;display:block;margin-bottom:.4rem;position:relative;transition:.5s var(--ease-2);color:var(--gold)}
 .social:hover i{transform:scale(1.18)}
 .social b{display:block;font-size:.78rem;font-weight:700;position:relative}
 .social small{font-size:.6rem;color:var(--muted);position:relative}
+
+.social.coming-soon{opacity:.7;cursor:default}
+.social.coming-soon:hover{transform:none;border-color:var(--stroke);box-shadow:none}
+.social.coming-soon i{opacity:.5}
+.social .soon-tag{
+  position:absolute;top:.5rem;left:.5rem;
+  font-size:.55rem;font-weight:700;
+  padding:.2rem .5rem;border-radius:99px;
+  background:var(--accent-soft);color:var(--gold);
+  border:1px solid rgba(217,194,0,.25);
+}
 
 /* ============================================================
    15. FOOTER
@@ -801,6 +855,7 @@ footer{
   .chip{font-size:.68rem;padding:.35rem .75rem}
   .about-visual{max-width:min(85%,240px)}
   .about-text p{font-size:.8rem}
+  .resume-items li{font-size:.78rem}
 
   .skills-grid{grid-template-columns:1fr;gap:.65rem;margin-top:1.6rem}
   .skill{padding:.95rem 1.05rem;border-radius:14px}
@@ -881,7 +936,7 @@ footer{
 <!-- ===== HEADER ===== -->
 <header class="header" id="header">
   <a href="#home" class="logo">
-    <span class="logo-mark">ن</span>
+    <span class="logo-mark">م</span>
     <span>
       مهدی مجاهد
       <small>WEB &amp; VISUAL</small>
@@ -935,25 +990,25 @@ footer{
       </h1>
 
       <p class="hero-sub" data-reveal style="--d:.46s">
-        توسعه‌دهنده و طراح وب، ادیتور فیلم و عکس، طراح پوستر و دانش‌آموختهٔ مهندسی کامپیوتر.
-        از یک ایدهٔ خام تا محصولی زنده و چشم‌نواز، مسیر را با دقت و سلیقه طی می‌کنم.
+        طراح گرافیک، تدوینگر و توسعه‌دهنده وب با بیش از ۸ سال تجربه.
+        از طراحی پوستر و لوگو تا ساخت فیلم و کدنویسی وب — ایده‌ها را به واقعیت تبدیل می‌کنم.
       </p>
 
       <div class="hero-cta" data-reveal style="--d:.58s">
-        <a href="#portfolio" class="btn"><span>مشاهده نمونه‌کارها ↗</span></a>
+        <a href="#portfolio" class="btn"><span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span></a>
         <a href="#contact" class="btn ghost"><span>تماس با من</span></a>
       </div>
     </div>
 
     <div class="hero-card" data-reveal="scale" style="--d:.3s">
-      <div class="avatar-ring"><i>👤</i></div>
-      <h3>نام و نام خانوادگی</h3>
-      <p class="role">Web Developer · Visual Designer · Editor</p>
+      <div class="avatar-ring"><i class="fa-solid fa-user-pen"></i></div>
+      <h3>مهدی مجاهد</h3>
+      <p class="role">Graphic Designer · Editor · Web Developer</p>
 
       <div class="stat-row">
-        <div class="stat"><b data-count="5">۰</b><span>سال تجربه</span></div>
-        <div class="stat"><b data-count="80">۰</b><span>پروژه</span></div>
-        <div class="stat"><b data-count="40">۰</b><span>مشتری</span></div>
+        <div class="stat"><b data-count="8">۰</b><span>سال تجربه</span></div>
+        <div class="stat"><b data-count="500">۰</b><span>پروژه</span></div>
+        <div class="stat"><b data-count="100">۰</b><span>مشتری</span></div>
       </div>
     </div>
 
@@ -969,16 +1024,20 @@ footer{
 <div class="marquee">
   <div class="marquee-track">
     <span>WEB DEVELOPMENT</span><span>·</span>
-    <span>UI / UX DESIGN</span><span>·</span>
-    <span>VIDEO EDITING</span><span>·</span>
-    <span>PHOTO RETOUCH</span><span>·</span>
     <span>POSTER DESIGN</span><span>·</span>
+    <span>VIDEO EDITING</span><span>·</span>
+    <span>LOGO DESIGN</span><span>·</span>
+    <span>TYPOGRAPHY</span><span>·</span>
+    <span>KUFIC ART</span><span>·</span>
+    <span>PHOTO RETOUCH</span><span>·</span>
     <span>BRANDING</span><span>·</span>
     <span>WEB DEVELOPMENT</span><span>·</span>
-    <span>UI / UX DESIGN</span><span>·</span>
-    <span>VIDEO EDITING</span><span>·</span>
-    <span>PHOTO RETOUCH</span><span>·</span>
     <span>POSTER DESIGN</span><span>·</span>
+    <span>VIDEO EDITING</span><span>·</span>
+    <span>LOGO DESIGN</span><span>·</span>
+    <span>TYPOGRAPHY</span><span>·</span>
+    <span>KUFIC ART</span><span>·</span>
+    <span>PHOTO RETOUCH</span><span>·</span>
     <span>BRANDING</span><span>·</span>
   </div>
 </div>
@@ -992,24 +1051,52 @@ footer{
     <div class="about-grid">
       <div class="about-text">
         <p data-reveal style="--d:.12s">
-          من <strong>نام شما</strong> هستم؛ توسعه‌دهنده و طراح وب با تحصیلات <strong>مهندسی کامپیوتر</strong>.
-          کارم را با کدنویسی شروع کردم و بعد به سمت طراحی بصری، ادیت فیلم و عکس و طراحی پوستر کشیده شدم.
-        </p>
-        <p data-reveal style="--d:.2s">
-          باور دارم یک محصول خوب، فقط زیبا نیست؛ <strong>سریع، کاربردی و ماندگار</strong> است.
-          به همین دلیل هر پروژه را از زاویهٔ فنی و بصری همزمان بررسی می‌کنم.
-        </p>
-        <p data-reveal style="--d:.28s">
-          اگر به دنبال کسی هستید که هم سایت شما را بسازد، هم هویت بصری‌تان را طراحی کند و هم محتوای ویدیویی‌تان را تدوین کند — جای درستی آمده‌اید.
+          من <strong>مهدی مجاهد</strong> هستم؛ طراح گرافیک، تدوینگر و توسعه‌دهنده وب.
+          مسیرم را از دبیرستان با رشتهٔ <strong>شبکه و نرم‌افزار</strong> شروع کردم و در دانشگاه
+          مدرک کارشناسی <strong>مهندسی کامپیوتر — فناوری اطلاعات (IT)</strong> گرفتم.
         </p>
 
-        <div class="chips" data-reveal style="--d:.36s">
-          <span class="chip">🎓 مهندسی کامپیوتر</span>
-          <span class="chip">💻 توسعه وب</span>
-          <span class="chip">🎨 طراحی گرافیک</span>
-          <span class="chip">🎬 تدوین فیلم</span>
-          <span class="chip">📸 ادیت عکس</span>
-          <span class="chip">🖼️ طراحی پوستر</span>
+        <ul class="resume-items">
+          <li data-reveal style="--d:.18s">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <span>کارشناسی <strong>مهندسی کامپیوتر — فناوری اطلاعات (IT)</strong></span>
+          </li>
+          <li data-reveal style="--d:.22s">
+            <i class="fa-solid fa-network-wired"></i>
+            <span>دیپلم <strong>شبکه و نرم‌افزار</strong> — فنی و حرفه‌ای</span>
+          </li>
+          <li data-reveal style="--d:.26s">
+            <i class="fa-solid fa-palette"></i>
+            <span>بیش از <strong>۸ سال تجربه</strong> در طراحی پوستر و ادیت</span>
+          </li>
+          <li data-reveal style="--d:.3s">
+            <i class="fa-solid fa-bullhorn"></i>
+            <span><strong>سه سال مسئول</strong> متن‌های گردان سایبری شهرستان</span>
+          </li>
+          <li data-reveal style="--d:.34s">
+            <i class="fa-solid fa-chalkboard-user"></i>
+            <span><strong>مدرس موبایل‌گرافی</strong> در شهرستان</span>
+          </li>
+          <li data-reveal style="--d:.38s">
+            <i class="fa-solid fa-camera-retro"></i>
+            <span>فیلم‌برداری و عکاسی حرفه‌ای از رویدادها</span>
+          </li>
+        </ul>
+
+        <p data-reveal style="--d:.42s">
+          پوسترهای <strong>مراسمات مذهبی، تبلیغاتی، اطلاع‌رسانی</strong> و غیره می‌سازم.
+          طراح <strong>لوگو، پروفایل، تایپوگرافی و کوفی‌بنایی</strong> هستم و طراحی سنتی
+          و مدرن را به‌صورت تلفیقی ارائه می‌دهم.
+        </p>
+
+        <div class="chips" data-reveal style="--d:.48s">
+          <span class="chip"><i class="fa-solid fa-graduation-cap"></i> مهندسی IT</span>
+          <span class="chip"><i class="fa-solid fa-network-wired"></i> شبکه و نرم‌افزار</span>
+          <span class="chip"><i class="fa-solid fa-palette"></i> طراحی گرافیک</span>
+          <span class="chip"><i class="fa-solid fa-film"></i> تدوین فیلم</span>
+          <span class="chip"><i class="fa-solid fa-camera"></i> عکاسی</span>
+          <span class="chip"><i class="fa-solid fa-pen-nib"></i> کوفی‌بنایی</span>
+          <span class="chip"><i class="fa-solid fa-shapes"></i> تایپوگرافی</span>
         </div>
       </div>
 
@@ -1017,7 +1104,7 @@ footer{
         <div class="orbit"><i></i></div>
         <div class="orbit"><i></i></div>
         <div class="orbit"><i></i></div>
-        <div class="core">✦</div>
+        <div class="core"><i class="fa-solid fa-star"></i></div>
       </div>
     </div>
   </div>
@@ -1034,65 +1121,65 @@ footer{
 
     <div class="skills-grid">
 
-      <div class="skill" data-reveal style="--d:.05s" data-skill="95">
+      <div class="skill" data-reveal style="--d:.05s" data-skill="70">
         <div class="skill-top">
-          <span class="skill-name"><i>🌐</i> HTML / CSS</span>
+          <span class="skill-name"><i class="fa-brands fa-html5"></i> HTML / CSS</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.1s" data-skill="88">
+      <div class="skill" data-reveal style="--d:.1s" data-skill="30">
         <div class="skill-top">
-          <span class="skill-name"><i>⚡</i> JavaScript</span>
+          <span class="skill-name"><i class="fa-brands fa-js"></i> JavaScript</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.15s" data-skill="80">
+      <div class="skill" data-reveal style="--d:.15s" data-skill="50">
         <div class="skill-top">
-          <span class="skill-name"><i>⚛️</i> React / Next.js</span>
+          <span class="skill-name"><i class="fa-brands fa-php"></i> PHP</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.2s" data-skill="92">
+      <div class="skill" data-reveal style="--d:.2s" data-skill="99">
         <div class="skill-top">
-          <span class="skill-name"><i>🎨</i> UI / UX Design</span>
+          <span class="skill-name"><i class="fa-solid fa-mobile-screen"></i> PixelLab</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.25s" data-skill="94">
+      <div class="skill" data-reveal style="--d:.25s" data-skill="86">
         <div class="skill-top">
-          <span class="skill-name"><i>🖌️</i> Photoshop</span>
+          <span class="skill-name"><i class="fa-solid fa-wand-magic-sparkles"></i> Alight Motion</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.3s" data-skill="90">
+      <div class="skill" data-reveal style="--d:.3s" data-skill="89">
         <div class="skill-top">
-          <span class="skill-name"><i>🎬</i> Premiere Pro</span>
+          <span class="skill-name"><i class="fa-solid fa-scissors"></i> CapCut</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.35s" data-skill="82">
+      <div class="skill" data-reveal style="--d:.35s" data-skill="39">
         <div class="skill-top">
-          <span class="skill-name"><i>✨</i> After Effects</span>
+          <span class="skill-name"><i class="fa-solid fa-layer-group"></i> Adobe Photoshop</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
       </div>
 
-      <div class="skill" data-reveal style="--d:.4s" data-skill="75">
+      <div class="skill" data-reveal style="--d:.4s" data-skill="90">
         <div class="skill-top">
-          <span class="skill-name"><i>🐍</i> Python</span>
+          <span class="skill-name"><i class="fa-solid fa-robot"></i> Artificial Intelligence</span>
           <span class="skill-num">0%</span>
         </div>
         <div class="skill-bar"><i></i></div>
@@ -1108,11 +1195,11 @@ footer{
     <div class="cta-box" data-reveal="scale">
       <h2>نمونه‌کارهای من را ببینید</h2>
       <p>
-        گزیده‌ای از پروژه‌های وب، طراحی‌های گرافیکی، پوسترها و ویدیوهایی که ساخته‌ام.
+        گزیده‌ای از پروژه‌های وب، طراحی‌های گرافیکی، پوسترها، لوگوها و ویدیوهایی که ساخته‌ام.
         هرکدام یک داستان پشت خودشان دارند.
       </p>
       <a href="#" class="btn big" target="_blank" rel="noopener">
-        <span>مشاهده نمونه‌کارها ↗</span>
+        <span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span>
       </a>
     </div>
   </div>
@@ -1138,7 +1225,7 @@ footer{
           <label for="cText">نظر شما</label>
           <textarea id="cText" maxlength="400" placeholder="تجربه‌تان را بنویسید..." required></textarea>
         </div>
-        <button type="submit" class="btn"><span>ارسال نظر ✦</span></button>
+        <button type="submit" class="btn"><span>ارسال نظر <i class="fa-solid fa-paper-plane"></i></span></button>
         <div class="form-msg" id="formMsg"></div>
       </form>
 
@@ -1158,24 +1245,43 @@ footer{
     </p>
 
     <div class="social-grid">
-      <a class="social" href="#" target="_blank" rel="noopener" data-reveal style="--d:.05s">
-        <i>📸</i><b>اینستاگرام</b><small>@username</small>
+
+      <a class="social" href="https://eitaa.com/mahmoj_ir" target="_blank" rel="noopener" data-reveal style="--d:.05s">
+        <i class="fa-solid fa-comment-dots"></i><b>ایتا</b><small>mahmoj_ir@</small>
       </a>
-      <a class="social" href="#" target="_blank" rel="noopener" data-reveal style="--d:.1s">
-        <i>💻</i><b>گیت‌هاب</b><small>github.com/username</small>
+
+      <a class="social" href="https://instagram.com/mahmoj.ir" target="_blank" rel="noopener" data-reveal style="--d:.1s">
+        <i class="fa-brands fa-instagram"></i><b>اینستاگرام</b><small>mahmoj.ir@</small>
       </a>
-      <a class="social" href="#" target="_blank" rel="noopener" data-reveal style="--d:.15s">
-        <i>💼</i><b>لینکدین</b><small>in/username</small>
+
+      <a class="social" href="https://t.me/mahmoj_ir" target="_blank" rel="noopener" data-reveal style="--d:.15s">
+        <i class="fa-brands fa-telegram"></i><b>تلگرام</b><small>mahmoj_ir@</small>
       </a>
-      <a class="social" href="#" target="_blank" rel="noopener" data-reveal style="--d:.2s">
-        <i>✈️</i><b>تلگرام</b><small>@username</small>
+
+      <a class="social" href="https://t.me/mahmoj_graph" target="_blank" rel="noopener" data-reveal style="--d:.2s">
+        <i class="fa-solid fa-palette"></i><b>کانال گرافیک</b><small>mahmoj_graph@</small>
       </a>
-      <a class="social" href="#" target="_blank" rel="noopener" data-reveal style="--d:.25s">
-        <i>▶️</i><b>یوتیوب</b><small>@channel</small>
-      </a>
-      <a class="social" href="mailto:you@example.com" data-reveal style="--d:.3s">
-        <i>✉️</i><b>ایمیل</b><small>you@example.com</small>
-      </a>
+
+      <div class="social coming-soon" data-reveal style="--d:.25s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-brands fa-github"></i><b>گیت‌هاب</b><small>—</small>
+      </div>
+
+      <div class="social coming-soon" data-reveal style="--d:.3s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-solid fa-cube"></i><b>روبیکا</b><small>—</small>
+      </div>
+
+      <div class="social coming-soon" data-reveal style="--d:.35s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-solid fa-check-double"></i><b>بله</b><small>—</small>
+      </div>
+
+      <div class="social coming-soon" data-reveal style="--d:.4s">
+        <span class="soon-tag">به‌زودی...</span>
+        <i class="fa-brands fa-whatsapp"></i><b>واتس‌اپ</b><small>—</small>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1190,17 +1296,17 @@ footer{
         <h3>پروژه‌ای در ذهن دارید؟</h3>
         <p>بیایید درباره‌اش حرف بزنیم — از ایده تا اجرا کنارتان هستم.</p>
       </div>
-      <a href="mailto:you@example.com" class="btn"><span>درخواست پروژه ✦</span></a>
+      <a href="https://eitaa.com/mahmoj_ir" target="_blank" rel="noopener" class="btn"><span>درخواست پروژه <i class="fa-solid fa-bolt"></i></span></a>
     </div>
 
     <div class="foot-bottom">
-      <span>© <span id="year"></span> نام شما — تمامی حقوق محفوظ است.</span>
-      <span>ساخته‌شده با <span style="color:var(--gold)">♥</span> و کد — میزبانی روی GitHub Pages</span>
+      <span>© <span id="year"></span> مهدی مجاهد — تمامی حقوق محفوظ است.</span>
+      <span>ساخته‌شده با <i class="fa-solid fa-heart" style="color:var(--gold)"></i> و کد — میزبانی روی GitHub Pages</span>
     </div>
   </div>
 </footer>
 
-<button class="to-top" id="toTop" aria-label="بازگشت به بالا">↑</button>
+<button class="to-top" id="toTop" aria-label="بازگشت به بالا"><i class="fa-solid fa-arrow-up"></i></button>
 
 <script>
 /* ============================================================
@@ -1336,7 +1442,7 @@ document.querySelectorAll('[data-count]').forEach(el => statObserver.observe(el)
 (function typewriter(){
   const el = document.getElementById('typed');
   const lines = [
-    'const dev = "نام شما";',
+    'const dev = "Mahdi Mojahed";',
     'design + code + motion',
     'let ideas = becomeReality();'
   ];
@@ -1443,19 +1549,27 @@ document.querySelectorAll('.skill').forEach(card => {
 })();
 
 /* ============================================================
-   10. COMMENTS
+   10. COMMENTS — با قابلیت «دیدن نظرات بیشتر»
    ============================================================ */
 (function comments(){
-  const STORE = 'portfolio_comments_v1';
+  const STORE = 'portfolio_comments_v2';
   const form  = document.getElementById('commentForm');
   const list  = document.getElementById('commentsList');
   const msg   = document.getElementById('formMsg');
   const nameI = document.getElementById('cName');
   const textI = document.getElementById('cText');
 
+  const PAGE_SIZE = 4;
+
   const seed = [
-    { name:'سارا م.',  text:'همکاری با ایشان تجربهٔ بسیار خوبی بود. سایت دقیقاً همان چیزی شد که در ذهن داشتم و سرعت بارگذاری فوق‌العاده است.', t: Date.now() - 86400000 * 4 },
-    { name:'مهدی ک.', text:'تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود.', t: Date.now() - 86400000 * 2 }
+    { name:'سارا محمدی',  text:'همکاری با آقای مجاهد تجربهٔ بسیار خوبی بود. پوسترهای مراسم را دقیقاً همان‌طور که در ذهن داشتم طراحی کرد و سرعت تحویل فوق‌العاده بود.', t: Date.now() - 86400000 * 5 },
+    { name:'علی رضایی',   text:'تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود. حتماً دوباره همکاری می‌کنم.', t: Date.now() - 86400000 * 4 },
+    { name:'فاطمه کریمی', text:'طراحی لوگو و هویت بصری برندم را به ایشان سپردم. ترکیب طراحی سنتی و مدرن که انجام دادند بی‌نظیر بود.', t: Date.now() - 86400000 * 3 },
+    { name:'حسین نوری',   text:'کلاس موبایل‌گرافی ایشان را شرکت کردم. تدریس بسیار روان و کاربردی بود. از این‌که این فرصت را داشتم خیلی خوشحالم.', t: Date.now() - 86400000 * 2.5 },
+    { name:'مریم احمدی',  text:'برای طراحی پوستر تبلیغاتی فروشگاهم سفارش دادم. نتیجه فراتر از انتظارم بود. ترکیب رنگ‌ها و تایپوگرافی عالی بود.', t: Date.now() - 86400000 * 2 },
+    { name:'رضا صادقی',   text:'طراحی کوفی‌بنایی برای مسجد محله‌مان را ایشان انجام دادند. با دقت و وسواس خاصی کار را به پایان رساندند. خدا قوت.', t: Date.now() - 86400000 * 1.5 },
+    { name:'زهرا موسوی',  text:'سایت شرکت را با ایشان سفارش دادیم. هم از نظر ظاهری زیبا بود و هم سرعت بارگذاری بالایی داشت. پشتیبانی خوبی هم داشتند.', t: Date.now() - 86400000 },
+    { name:'امیر حسینی',  text:'عکاسی مراسم عروسی‌مان را ایشان انجام دادند. لحظات ناب را به بهترین شکل ثبت کردند. کیفیت ادیت عکس‌ها هم عالی بود.', t: Date.now() - 3600000 * 10 }
   ];
 
   function load(){
@@ -1480,13 +1594,8 @@ document.querySelectorAll('.skill').forEach(card => {
     ));
   }
 
-  function render(){
-    const data = load();
-    if (!data.length){
-      list.innerHTML = '<div class="empty-note">هنوز نظری ثبت نشده — اولین نفر باشید ✦</div>';
-      return;
-    }
-    list.innerHTML = data.map((c, i) => `
+  function commentHTML(c, i){
+    return `
       <div class="comment" style="animation-delay:${i * 0.05}s">
         <div class="c-avatar">${escapeHTML(c.name.trim().charAt(0))}</div>
         <div class="c-body">
@@ -1497,7 +1606,38 @@ document.querySelectorAll('.skill').forEach(card => {
           <p class="c-text">${escapeHTML(c.text)}</p>
         </div>
       </div>
-    `).join('');
+    `;
+  }
+
+  function render(){
+    const data = load();
+    if (!data.length){
+      list.innerHTML = '<div class="empty-note">هنوز نظری ثبت نشده — اولین نفر باشید <i class="fa-solid fa-star" style="color:var(--gold)"></i></div>';
+      return;
+    }
+
+    const visible = data.slice(0, PAGE_SIZE);
+    let html = visible.map(commentHTML).join('');
+
+    if (data.length > PAGE_SIZE){
+      html += `
+        <div class="load-more-wrap">
+          <button type="button" class="btn" id="loadMoreBtn">
+            <span>دیدن نظرات بیشتر <i class="fa-solid fa-chevron-down"></i> (${toFa(data.length - PAGE_SIZE)} نظر دیگر)</span>
+          </button>
+        </div>
+      `;
+    }
+
+    list.innerHTML = html;
+
+    const btn = document.getElementById('loadMoreBtn');
+    if (btn){
+      btn.addEventListener('click', () => {
+        const all = load();
+        list.innerHTML = all.map(commentHTML).join('');
+      });
+    }
   }
 
   form.addEventListener('submit', e => {
@@ -1510,7 +1650,7 @@ document.querySelectorAll('.skill').forEach(card => {
 
     const data = load();
     data.unshift({ name, text, t: Date.now() });
-    save(data.slice(0, 60));
+    save(data.slice(0, 80));
 
     form.reset();
     msg.textContent = 'نظر شما با موفقیت ثبت شد ✦';
