@@ -305,12 +305,13 @@ h2.title em{
 .lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:60ch}
 
 /* ============================================================
-   7. REVEAL
+   7. REVEAL (اسکرول مداوم)
    ============================================================ */
 [data-reveal]{
   opacity:0;transform:translateY(40px);
-  transition:opacity .9s var(--ease),transform .9s var(--ease);
+  transition:opacity .85s var(--ease),transform .85s var(--ease);
   transition-delay:var(--d,0s);
+  will-change:opacity,transform;
 }
 [data-reveal="right"]{transform:translateY(55px)}
 [data-reveal="left"]{transform:translateY(45px)}
@@ -385,7 +386,6 @@ html.no-js [data-reveal]{
 }
 .btn:hover > span::after{transform:translateX(260%) skewX(-18deg)}
 
-/* دکمهٔ فرم: تمام‌عرض با span کشیده */
 .form-card > .btn{ width: 100%; }
 .form-card > .btn > span{ width: 100%; }
 
@@ -616,7 +616,6 @@ h1.hero-title em::after{
   transform:translateX(-100%);animation:barSweep 2.4s ease-in-out infinite;
 }
 
-/* کارت ویژه: نرم‌افزارهای دیگر — با حاشیهٔ نقطه‌چین */
 .skill.skill-more{
   border-style:dashed;
   border-color:rgba(217,194,0,.35);
@@ -633,7 +632,6 @@ h1.hero-title em::after{
   animation:none;
 }
 
-/* یادداشت زیر گرید مهارت‌ها */
 .skills-note-wrap{
   text-align:center;
   width:100%;
@@ -659,10 +657,6 @@ h1.hero-title em::after{
   font-size:.95rem;
   flex:none;
   animation:markGlow 3s ease-in-out infinite;
-}
-@media (max-width:640px){
-  .skills-note{font-size:.72rem;padding:.55rem 1rem;gap:.4rem}
-  .skills-note i{font-size:.85rem}
 }
 
 /* ============================================================
@@ -838,7 +832,71 @@ footer{
 .to-top:hover{background:var(--accent-soft);border-color:var(--gold);transform:translateY(-4px)}
 
 /* ============================================================
-   17. RESPONSIVE — TABLET (≤ 900px)
+   17. MUSIC BUTTON
+   ============================================================ */
+.music-btn{
+  position:fixed;
+  z-index:90;
+  bottom:max(1.2rem,env(safe-area-inset-bottom));
+  right:max(1.2rem,env(safe-area-inset-right));
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:var(--panel-2);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(18px) saturate(180%);
+  -webkit-backdrop-filter:blur(18px) saturate(180%);
+  color:var(--gold);
+  cursor:pointer;
+  transition:transform .4s var(--ease-2),
+             background .4s var(--ease),
+             border-color .4s var(--ease),
+             box-shadow .4s var(--ease),
+             color .4s var(--ease);
+  box-shadow:0 8px 26px rgba(0,0,0,.4);
+  overflow:visible;
+  -webkit-tap-highlight-color:transparent;
+}
+.music-btn:hover{
+  background:var(--accent-soft);
+  border-color:var(--gold);
+  transform:translateY(-3px);
+  box-shadow:var(--glow);
+}
+.music-btn:active{transform:translateY(-1px) scale(.96)}
+.music-btn i{
+  font-size:1.05rem;
+  transition:transform .35s var(--ease-2);
+  position:relative;
+  z-index:2;
+}
+.music-btn.playing i{
+  animation:musicPulse 2s ease-in-out infinite;
+}
+@keyframes musicPulse{
+  50%{transform:scale(1.18)}
+}
+.music-btn .music-ring{
+  position:absolute;
+  inset:-3px;
+  border-radius:inherit;
+  border:1px solid var(--gold);
+  opacity:0;
+  pointer-events:none;
+  z-index:1;
+}
+.music-btn.playing .music-ring{
+  animation:musicRing 2s ease-out infinite;
+}
+@keyframes musicRing{
+  0%{opacity:.65;transform:scale(1)}
+  100%{opacity:0;transform:scale(1.45)}
+}
+
+/* ============================================================
+   18. RESPONSIVE — TABLET (≤ 900px)
    ============================================================ */
 @media (max-width:900px){
   .hero{min-height:auto;padding-top:6rem;padding-bottom:3rem}
@@ -854,7 +912,7 @@ footer{
 }
 
 /* ============================================================
-   18. RESPONSIVE — MOBILE (≤ 640px)
+   19. RESPONSIVE — MOBILE (≤ 640px)
    ============================================================ */
 @media (max-width:640px){
   section{padding:2.6rem 1rem}
@@ -878,7 +936,6 @@ footer{
   h1.hero-title{font-size:clamp(1.3rem,6.5vw,1.9rem);margin-bottom:.9rem;line-height:1.28}
   .hero-sub{font-size:.82rem;margin-bottom:1.4rem}
 
-  /* دکمه‌های هیرو: همان الگوی دکمهٔ ارسال نظر — تمام‌عرض با span کشیده */
   .hero-cta{
     gap:.55rem;
     flex-direction:column;
@@ -927,6 +984,8 @@ footer{
   .skill-name{font-size:.82rem;gap:.4rem}
   .skill-num{font-size:.82rem}
   .skill-bar{height:5px}
+  .skills-note{font-size:.72rem;padding:.55rem 1rem;gap:.4rem}
+  .skills-note i{font-size:.85rem}
 
   .cta-box{padding:1.7rem 1.1rem;border-radius:20px}
   .cta-box h2{font-size:clamp(1.05rem,5vw,1.5rem)}
@@ -955,10 +1014,19 @@ footer{
   .foot-bottom{font-size:.66rem;line-height:1.9}
 
   .to-top{width:40px;height:40px;border-radius:12px;font-size:.9rem}
+
+  .music-btn{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    bottom:max(1rem,env(safe-area-inset-bottom));
+    right:max(1rem,env(safe-area-inset-right));
+  }
+  .music-btn i{font-size:.95rem}
 }
 
 /* ============================================================
-   19. RESPONSIVE — SMALL MOBILE (≤ 400px)
+   20. RESPONSIVE — SMALL MOBILE (≤ 400px)
    ============================================================ */
 @media (max-width:400px){
   section{padding:2.2rem .85rem}
@@ -998,6 +1066,11 @@ footer{
 <div class="grain"></div>
 <div class="cursor-glow" id="cursorGlow"></div>
 <div class="progress" id="progress"></div>
+
+<!-- ===== AUDIO (مخفی) ===== -->
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
+</audio>
 
 <!-- ===== HEADER ===== -->
 <header class="header" id="header">
@@ -1056,7 +1129,7 @@ footer{
       </p>
 
       <div class="hero-cta" data-reveal style="--d:.58s">
-        <a href="#portfolio" class="btn"><span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span></a>
+        <a href="portfolio.html" class="btn"><span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span></a>
         <a href="#contact" class="btn ghost"><span>تماس با من</span></a>
       </div>
     </div>
@@ -1286,7 +1359,7 @@ footer{
         گزیده‌ای از پروژه‌های وب، طراحی‌های گرافیکی، پوسترها، لوگوها و ویدیوهایی که ساخته‌ام.
         هرکدام یک داستان پشت خودشان دارند.
       </p>
-      <a href="portfolio.html" class="btn big" target="_blank" rel="noopener">
+      <a href="portfolio.html" class="btn big">
         <span>مشاهده نمونه‌کارها <i class="fa-solid fa-arrow-up-left"></i></span>
       </a>
     </div>
@@ -1394,6 +1467,12 @@ footer{
   </div>
 </footer>
 
+<!-- ===== MUSIC BUTTON ===== -->
+<button class="music-btn" id="musicBtn" aria-label="پخش یا توقف موسیقی" title="موسیقی پس‌زمینه">
+  <span class="music-ring"></span>
+  <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
+</button>
+
 <button class="to-top" id="toTop" aria-label="بازگشت به بالا"><i class="fa-solid fa-arrow-up"></i></button>
 
 <script>
@@ -1420,13 +1499,10 @@ const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 
   document.addEventListener('keydown', e => {
     const k = (e.key || '').toLowerCase();
-
     if (e.key === 'F12'){ e.preventDefault(); return; }
-
     if (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c')){
       e.preventDefault(); return;
     }
-
     if (e.ctrlKey && !e.shiftKey && k === 'u'){ e.preventDefault(); return; }
     if (e.ctrlKey && !e.shiftKey && k === 's'){ e.preventDefault(); return; }
     if (e.ctrlKey && !e.shiftKey && k === 'p'){ e.preventDefault(); return; }
@@ -1481,20 +1557,41 @@ if (toTop){
 }
 
 /* ============================================================
-   3. REVEAL
+   3. REVEAL — انیمیشن اسکرول مداوم
+   - بار اول با تأخیر پلکانی
+   - دفعات بعد بدون تأخیر برای تجربهٔ روان
    ============================================================ */
 try {
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const el = entry.target;
+
       if (entry.isIntersecting){
-        entry.target.classList.add('in');
-        revealObserver.unobserve(entry.target);
+        // عنصر وارد دید شد
+        if (el.dataset.once){
+          // بار قبل هم دیده شده — بدون تأخیر ظاهر شود
+          el.style.transitionDelay = '0s';
+        } else {
+          // اولین بار — با تأخیر پلکانی اصلی
+          el.dataset.once = '1';
+        }
+        el.classList.add('in');
+      } else {
+        // عنصر از دید خارج شد — فقط اگر قبلاً یک‌بار دیده شده محو شود
+        if (el.dataset.once){
+          el.style.transitionDelay = '0s';
+          el.classList.remove('in');
+        }
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -8% 0px'
+  });
 
   document.querySelectorAll('[data-reveal]').forEach(el => revealObserver.observe(el));
 } catch (err) {
+  // فالبک برای مرورگرهای قدیمی
   document.querySelectorAll('[data-reveal]').forEach(el => el.classList.add('in'));
 }
 
@@ -1601,7 +1698,7 @@ try {
 })();
 
 /* ============================================================
-   7. SPOTLIGHT
+   7. SPOTLIGHT روی کارت‌های مهارت
    ============================================================ */
 document.querySelectorAll('.skill').forEach(card => {
   card.addEventListener('mousemove', e => {
@@ -1678,7 +1775,6 @@ document.querySelectorAll('.skill').forEach(card => {
 
   const PAGE_SIZE = 4;
 
-  /* سه نظر نمونه با اسامی مردانه */
   const seed = [
     { name:'رضا محمدی',  text:'همکاری با آقای مجاهد تجربهٔ بسیار خوبی بود. پوسترهای مراسم را دقیقاً همان‌طور که در ذهن داشتم طراحی کرد و سرعت تحویل فوق‌العاده بود.', t: Date.now() - 86400000 * 5 },
     { name:'امیر کریمی', text:'تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود. حتماً دوباره همکاری می‌کنم.', t: Date.now() - 86400000 * 4 },
@@ -1777,7 +1873,194 @@ document.querySelectorAll('.skill').forEach(card => {
 })();
 
 /* ============================================================
-   10. YEAR
+   10. MUSIC PLAYER — پخش با اولین تعامل کاربر
+   ============================================================ */
+(function music(){
+  const audio = document.getElementById('bgMusic');
+  const btn   = document.getElementById('musicBtn');
+  const icon  = document.getElementById('musicIcon');
+  if (!audio || !btn || !icon) return;
+
+  const TARGET_VOLUME = 0.15;   // ولوم نهایی ۱۵٪
+  const FADE_DURATION = 2000;   // مدت فید ۲ ثانیه
+  const STORE_KEY     = 'portfolio_music_on';
+
+  let hasStarted = false;       // آیا موزیک اولین بار شروع شده؟
+  let userWantsOn = true;       // آیا کاربر می‌خواهد موزیک پخش شود؟
+  let fadeRAF = null;
+
+  // ---------- خواندن انتخاب قبلی کاربر ----------
+  try {
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved === 'off') userWantsOn = false;
+    else if (saved === 'on') userWantsOn = true;
+    else userWantsOn = true; // پیش‌فرض: روشن
+  } catch(e){
+    userWantsOn = true;
+  }
+
+  // ---------- به‌روزرسانی ظاهر دکمه ----------
+  function updateUI(){
+    const playing = !audio.paused && !audio.ended && hasStarted;
+    btn.classList.toggle('playing', playing);
+    btn.setAttribute('aria-label', playing ? 'توقف موسیقی' : 'پخش موسیقی');
+    btn.title = playing ? 'توقف موسیقی' : 'پخش موسیقی';
+    icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+  }
+  updateUI();
+
+  // ---------- فید نرم ولوم ----------
+  function fadeTo(targetVolume, duration, onDone){
+    if (fadeRAF) cancelAnimationFrame(fadeRAF);
+    const startVol = audio.volume;
+    const startTime = performance.now();
+
+    function step(now){
+      const t = Math.min((now - startTime) / duration, 1);
+      // easing نرم
+      const eased = t < 0.5
+        ? 2 * t * t
+        : 1 - Math.pow(-2 * t + 2, 2) / 2;
+      audio.volume = Math.max(0, Math.min(1,
+        startVol + (targetVolume - startVol) * eased
+      ));
+      if (t < 1){
+        fadeRAF = requestAnimationFrame(step);
+      } else {
+        fadeRAF = null;
+        if (typeof onDone === 'function') onDone();
+      }
+    }
+    fadeRAF = requestAnimationFrame(step);
+  }
+
+  // ---------- تلاش برای شروع پخش ----------
+  function tryStart(){
+    if (hasStarted) return;
+
+    const playPromise = audio.play();
+    if (playPromise && typeof playPromise.then === 'function'){
+      playPromise.then(() => {
+        hasStarted = true;
+        // شروع از صفر و فید به ولوم هدف
+        audio.volume = 0;
+        fadeTo(TARGET_VOLUME, FADE_DURATION);
+        updateUI();
+        removeStartListeners();
+      }).catch(() => {
+        // مرورگر اجازه نداد — تلاش بعدی در تعامل بعدی
+        updateUI();
+      });
+    } else {
+      // مرورگر قدیمی
+      try {
+        audio.volume = TARGET_VOLUME;
+        hasStarted = true;
+        updateUI();
+        removeStartListeners();
+      } catch(e){}
+    }
+  }
+
+  // ---------- توقف موزیک ----------
+  function stopMusic(fade){
+    if (!fade){
+      audio.pause();
+      audio.volume = 0;
+      updateUI();
+      return;
+    }
+    fadeTo(0, 700, () => {
+      audio.pause();
+      updateUI();
+    });
+  }
+
+  // ---------- دکمه ----------
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+
+    if (!hasStarted){
+      // اگر هنوز شروع نشده، فقط پرچم را ست کن و شروع کن
+      userWantsOn = true;
+      try { localStorage.setItem(STORE_KEY, 'on'); } catch(err){}
+      tryStart();
+      return;
+    }
+
+    if (audio.paused){
+      // پخش مجدد
+      userWantsOn = true;
+      try { localStorage.setItem(STORE_KEY, 'on'); } catch(err){}
+      audio.play().then(() => {
+        fadeTo(TARGET_VOLUME, 900);
+        updateUI();
+      }).catch(()=>{});
+    } else {
+      // توقف
+      userWantsOn = false;
+      try { localStorage.setItem(STORE_KEY, 'off'); } catch(err){}
+      stopMusic(true);
+    }
+  });
+
+  // ---------- لیسنرهای شروع خودکار ----------
+  const startEvents = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+
+  function onFirstInteraction(){
+    if (hasStarted) return;
+    if (!userWantsOn) return; // کاربر قبلاً خاموش کرده
+    tryStart();
+  }
+
+  function addStartListeners(){
+    startEvents.forEach(evt => {
+      window.addEventListener(evt, onFirstInteraction, { passive: true });
+    });
+  }
+  function removeStartListeners(){
+    startEvents.forEach(evt => {
+      window.removeEventListener(evt, onFirstInteraction);
+    });
+  }
+
+  if (userWantsOn){
+    addStartListeners();
+  } else {
+    // اگر کاربر قبلاً خاموش کرده، فقط دکمه را در حالت خاموش نشان بده
+    updateUI();
+  }
+
+  // ---------- توقف هنگام مخفی شدن تب ----------
+  let wasPlayingBeforeHide = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){
+      wasPlayingBeforeHide = !audio.paused && hasStarted;
+      if (wasPlayingBeforeHide){
+        audio.pause();
+        updateUI();
+      }
+    } else {
+      if (wasPlayingBeforeHide && userWantsOn && hasStarted){
+        audio.play().then(() => {
+          fadeTo(TARGET_VOLUME, 700);
+          updateUI();
+        }).catch(()=>{});
+      }
+    }
+  });
+
+  // ---------- خطای بارگذاری فایل ----------
+  audio.addEventListener('error', () => {
+    // فایل پیدا نشد یا فرمت پشتیبانی نمی‌شود — دکمه را بی‌اثر نشان بده
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+    btn.title = 'فایل موسیقی در دسترس نیست';
+  });
+})();
+
+/* ============================================================
+   11. YEAR
    ============================================================ */
 (function year(){
   const el = document.getElementById('year');
