@@ -71,7 +71,6 @@ body{
   line-height:1.85;
   -webkit-font-smoothing:antialiased;
 
-  /* محافظت از محتوا */
   -webkit-user-select:none;
   -moz-user-select:none;
   -ms-user-select:none;
@@ -84,7 +83,6 @@ body{
 }
 body.lock{overflow:hidden}
 
-/* اجازه انتخاب متن فقط در فرم‌ها */
 input, textarea, [contenteditable="true"]{
   -webkit-user-select:text;
   -moz-user-select:text;
@@ -616,6 +614,55 @@ h1.hero-title em::after{
   content:"";position:absolute;top:0;bottom:0;left:0;right:0;
   background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);
   transform:translateX(-100%);animation:barSweep 2.4s ease-in-out infinite;
+}
+
+/* کارت ویژه: نرم‌افزارهای دیگر — با حاشیهٔ نقطه‌چین */
+.skill.skill-more{
+  border-style:dashed;
+  border-color:rgba(217,194,0,.35);
+}
+.skill.skill-more .skill-bar i{
+  background:repeating-linear-gradient(
+    90deg,
+    var(--gold) 0,
+    var(--gold) 6px,
+    rgba(217,194,0,.25) 6px,
+    rgba(217,194,0,.25) 12px
+  );
+  background-size:auto;
+  animation:none;
+}
+
+/* یادداشت زیر گرید مهارت‌ها */
+.skills-note-wrap{
+  text-align:center;
+  width:100%;
+}
+.skills-note{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+  margin:1.6rem auto 0;
+  padding:.7rem 1.3rem;
+  border-radius:99px;
+  background:var(--accent-soft);
+  border:1px dashed rgba(217,194,0,.4);
+  color:var(--gold);
+  font-size:.8rem;
+  font-weight:600;
+  text-align:center;
+  max-width:100%;
+  line-height:1.7;
+}
+.skills-note i{
+  font-size:.95rem;
+  flex:none;
+  animation:markGlow 3s ease-in-out infinite;
+}
+@media (max-width:640px){
+  .skills-note{font-size:.72rem;padding:.55rem 1rem;gap:.4rem}
+  .skills-note i{font-size:.85rem}
 }
 
 /* ============================================================
@@ -1211,6 +1258,21 @@ footer{
         <div class="skill-bar"><i></i></div>
       </div>
 
+      <div class="skill skill-more" data-reveal style="--d:.45s" data-skill="50">
+        <div class="skill-top">
+          <span class="skill-name"><i class="fa-solid fa-infinity"></i> Other Software</span>
+          <span class="skill-num">0%</span>
+        </div>
+        <div class="skill-bar"><i></i></div>
+      </div>
+
+    </div>
+
+    <div class="skills-note-wrap">
+      <p class="skills-note" data-reveal style="--d:.5s">
+        <i class="fa-solid fa-circle-plus"></i>
+        <span>و خیلی نرم‌افزارها و مهارت‌های دیگر که اینجا جای همهٔ آن‌ها نیست...</span>
+      </p>
     </div>
   </div>
 </section>
@@ -1341,16 +1403,12 @@ footer{
 const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
 
 /* ============================================================
-   0. محافظت از محتوا (بازدارنده — نه جلوگیری قطعی)
+   0. محافظت از محتوا (بازدارنده)
    ============================================================ */
 (function protectContent(){
-  // غیرفعال کردن منوی کلیک راست
   document.addEventListener('contextmenu', e => e.preventDefault());
-
-  // غیرفعال کردن درگ کردن عناصر (تصاویر و ...)
   document.addEventListener('dragstart', e => e.preventDefault());
 
-  // غیرفعال کردن انتخاب متن (به‌جز فرم‌ها)
   document.addEventListener('selectstart', e => {
     const t = e.target;
     if (!t) return;
@@ -1360,25 +1418,17 @@ const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
     e.preventDefault();
   });
 
-  // جلوگیری از کلیدهای میان‌بر رایج (بازدارنده)
   document.addEventListener('keydown', e => {
     const k = (e.key || '').toLowerCase();
 
-    // F12
     if (e.key === 'F12'){ e.preventDefault(); return; }
 
-    // Ctrl+Shift+I / J / C  → ابزار توسعه‌دهنده
     if (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c')){
       e.preventDefault(); return;
     }
 
-    // Ctrl+U → نمایش سورس
     if (e.ctrlKey && !e.shiftKey && k === 'u'){ e.preventDefault(); return; }
-
-    // Ctrl+S → ذخیره صفحه
     if (e.ctrlKey && !e.shiftKey && k === 's'){ e.preventDefault(); return; }
-
-    // Ctrl+P → چاپ
     if (e.ctrlKey && !e.shiftKey && k === 'p'){ e.preventDefault(); return; }
   });
 })();
@@ -1617,7 +1667,7 @@ document.querySelectorAll('.skill').forEach(card => {
    9. COMMENTS
    ============================================================ */
 (function comments(){
-  const STORE = 'portfolio_comments_v3'; // نسخه جدید برای پاک شدن نظرات قدیمی
+  const STORE = 'portfolio_comments_v3';
   const form  = document.getElementById('commentForm');
   const list  = document.getElementById('commentsList');
   const msg   = document.getElementById('formMsg');
@@ -1628,7 +1678,7 @@ document.querySelectorAll('.skill').forEach(card => {
 
   const PAGE_SIZE = 4;
 
-  /* فقط سه نظر نمونه با اسامی مردانه */
+  /* سه نظر نمونه با اسامی مردانه */
   const seed = [
     { name:'رضا محمدی',  text:'همکاری با آقای مجاهد تجربهٔ بسیار خوبی بود. پوسترهای مراسم را دقیقاً همان‌طور که در ذهن داشتم طراحی کرد و سرعت تحویل فوق‌العاده بود.', t: Date.now() - 86400000 * 5 },
     { name:'امیر کریمی', text:'تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود. حتماً دوباره همکاری می‌کنم.', t: Date.now() - 86400000 * 4 },
