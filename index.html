@@ -223,6 +223,71 @@ body.lock .header.scrolled{
 .burger.open i:nth-child(2){opacity:0;transform:scaleX(0)}
 .burger.open i:nth-child(3){transform:rotate(-45deg)}
 
+
+  /* گروه دکمه‌های سمت چپ هدر */
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:.5rem;
+  flex:none;
+}
+
+/* دکمه‌ی مربعی مشترک — شبیه همبرگری */
+.icon-btn{
+  position:relative;
+  width:48px;
+  height:48px;
+  border-radius:15px;
+  display:grid;
+  place-items:center;
+  flex:none;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  color:var(--gold);
+  font-size:1.05rem;
+  text-decoration:none;
+  cursor:pointer;
+  transition:background .3s var(--ease),
+             border-color .3s var(--ease),
+             box-shadow .3s var(--ease),
+             transform .3s var(--ease);
+  -webkit-tap-highlight-color:transparent;
+  overflow:hidden;
+}
+.icon-btn i{
+  position:relative;
+  z-index:1;
+  transition:transform .4s var(--ease-2);
+}
+.icon-btn:hover{
+  background:var(--accent-soft);
+  border-color:var(--gold);
+  box-shadow:0 0 22px rgba(217,194,0,.35);
+}
+.icon-btn:hover i{
+  transform:rotate(-8deg) scale(1.12);
+}
+.icon-btn:active{transform:scale(.94)}
+
+/* ضربان ملایم طلایی روی دکمه‌ی جعبه‌ابزار */
+.icon-btn.tools-btn::after{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  border-radius:inherit;
+  border:1px solid var(--gold);
+  opacity:0;
+  pointer-events:none;
+  animation:toolPulse 3.5s ease-out infinite;
+}
+@keyframes toolPulse{
+  0%,55%,100%{opacity:0;transform:scale(1)}
+  15%{opacity:.55}
+  35%{opacity:0;transform:scale(1.18)}
+}
+
 /* ============================================================
    5. NAV
    ============================================================ */
@@ -1023,6 +1088,10 @@ footer{
     right:max(1rem,env(safe-area-inset-right));
   }
   .music-btn i{font-size:.95rem}
+
+  .header-actions{gap:.4rem}
+.icon-btn{
+  width:42px;height:42px;border-radius:13px;font-size:.95rem;}
 }
 
 /* ============================================================
@@ -1073,7 +1142,8 @@ footer{
 </audio>
 
 <!-- ===== HEADER ===== -->
-<header class="header" id="header">
+
+  <header class="header" id="header">
   <a href="#home" class="logo">
     <span class="logo-mark">
       <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
@@ -1084,9 +1154,15 @@ footer{
     </span>
   </a>
 
-  <button class="burger" id="burger" aria-label="منو" aria-expanded="false">
-    <i></i><i></i><i></i>
-  </button>
+  <div class="header-actions">
+    <a href="tools.html" class="icon-btn tools-btn" aria-label="جعبه ابزار" title="جعبه ابزار">
+      <i class="fa-solid fa-toolbox"></i>
+    </a>
+
+    <button class="burger" id="burger" aria-label="منو" aria-expanded="false">
+      <i></i><i></i><i></i>
+    </button>
+  </div>
 </header>
 
 <!-- ===== NAV ===== -->
