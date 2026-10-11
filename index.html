@@ -70,13 +70,30 @@ body{
   position:relative;
   line-height:1.85;
   -webkit-font-smoothing:antialiased;
+
+  /* محافظت از محتوا */
+  -webkit-user-select:none;
+  -moz-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-tap-highlight-color:transparent;
 }
 @supports not (overflow: clip){
   body{overflow-x:hidden}
 }
 body.lock{overflow:hidden}
 
+/* اجازه انتخاب متن فقط در فرم‌ها */
+input, textarea, [contenteditable="true"]{
+  -webkit-user-select:text;
+  -moz-user-select:text;
+  -ms-user-select:text;
+  user-select:text;
+}
+
 img,video,canvas,svg,iframe{max-width:100%;display:block}
+img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
 
 h1,h2,h3,h4,p,a,span,li,b,small,label,strong,em{
   overflow-wrap:anywhere;
@@ -88,6 +105,7 @@ h1,h2,h3,h4,p,a,span,li,b,small,label,strong,em{
 a{color:inherit;text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 ::selection{background:var(--gold);color:#001830}
+::-moz-selection{background:var(--gold);color:#001830}
 
 ::-webkit-scrollbar{width:9px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -343,7 +361,6 @@ html.no-js [data-reveal]{
 .btn:nth-child(even)::before{animation-duration:4.6s;animation-direction:reverse}
 @keyframes btnSpin{to{--btn-angle:360deg}}
 
-/* flex: 1 باعث می‌شود span دقیقاً هم‌اندازهٔ دکمه شود — کلید رفع مشکل */
 .btn > span{
   position:relative;z-index:1;
   flex:1 1 auto;
@@ -370,7 +387,7 @@ html.no-js [data-reveal]{
 }
 .btn:hover > span::after{transform:translateX(260%) skewX(-18deg)}
 
-/* دکمهٔ فرم ارسال نظر: تمام‌عرض با span کشیده */
+/* دکمهٔ فرم: تمام‌عرض با span کشیده */
 .form-card > .btn{ width: 100%; }
 .form-card > .btn > span{ width: 100%; }
 
@@ -418,7 +435,7 @@ h1.hero-title em::after{
 }
 
 .hero-sub{font-size:clamp(.82rem,1.3vw,.95rem);color:var(--muted);max-width:52ch;margin-bottom:1.8rem}
-.hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
+.hero-cta{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center;width:100%}
 .hero-cta > *{min-width:0}
 
 .type-line{
@@ -814,8 +831,23 @@ footer{
   h1.hero-title{font-size:clamp(1.3rem,6.5vw,1.9rem);margin-bottom:.9rem;line-height:1.28}
   .hero-sub{font-size:.82rem;margin-bottom:1.4rem}
 
-  .hero-cta{gap:.55rem;flex-direction:column;align-items:center}
-  .hero-cta .btn{width:auto;max-width:100%}
+  /* دکمه‌های هیرو: همان الگوی دکمهٔ ارسال نظر — تمام‌عرض با span کشیده */
+  .hero-cta{
+    gap:.55rem;
+    flex-direction:column;
+    align-items:stretch;
+    width:100%;
+  }
+  .hero-cta .btn{
+    width:100%;
+    max-width:100%;
+  }
+  .hero-cta .btn > span{
+    width:100%;
+    padding:.8rem 1.2rem;
+    font-size:.8rem;
+    gap:.4rem;
+  }
 
   .btn > span{padding:.75rem 1.4rem;font-size:.8rem;gap:.4rem}
   .btn.big > span{padding:.85rem 1.6rem;font-size:.84rem}
@@ -885,6 +917,7 @@ footer{
   section{padding:2.2rem .85rem}
   h1.hero-title{font-size:clamp(1.2rem,7vw,1.7rem)}
   .hero-sub{font-size:.78rem}
+  .hero-cta .btn > span{padding:.7rem 1rem;font-size:.76rem}
   .btn > span{padding:.7rem 1.15rem;font-size:.76rem}
   .btn.big > span{padding:.78rem 1.35rem;font-size:.8rem}
   .nav-list a{font-size:1.15rem}
@@ -1039,6 +1072,7 @@ footer{
           من <strong>مهدی مجاهد</strong> هستم؛ طراح گرافیک، تدوینگر و توسعه‌دهنده وب.
           مسیرم را از دبیرستان با رشتهٔ <strong>شبکه و نرم‌افزار</strong> شروع کردم و در دانشگاه
           مدرک کارشناسی <strong>مهندسی کامپیوتر — فناوری اطلاعات (IT)</strong> گرفتم.
+          علاوه بر نرم‌افزار کامپیوتر، به <strong>سخت‌افزار</strong> هم مسلط هستم.
         </p>
 
         <ul class="resume-items">
@@ -1051,32 +1085,37 @@ footer{
             <span>دیپلم <strong>شبکه و نرم‌افزار</strong> — فنی و حرفه‌ای</span>
           </li>
           <li data-reveal style="--d:.26s">
+            <i class="fa-solid fa-microchip"></i>
+            <span>تسلط بر <strong>سخت‌افزار کامپیوتر</strong> در کنار نرم‌افزار</span>
+          </li>
+          <li data-reveal style="--d:.3s">
             <i class="fa-solid fa-palette"></i>
             <span>بیش از <strong>۸ سال تجربه</strong> در طراحی پوستر و ادیت</span>
           </li>
-          <li data-reveal style="--d:.3s">
+          <li data-reveal style="--d:.34s">
             <i class="fa-solid fa-bullhorn"></i>
             <span><strong>سه سال مسئول متنای گردان سایبری شهرستان</strong></span>
           </li>
-          <li data-reveal style="--d:.34s">
+          <li data-reveal style="--d:.38s">
             <i class="fa-solid fa-chalkboard-user"></i>
             <span><strong>مدرس موبایل‌گرافی</strong> در شهرستان</span>
           </li>
-          <li data-reveal style="--d:.38s">
+          <li data-reveal style="--d:.42s">
             <i class="fa-solid fa-camera-retro"></i>
             <span>فیلم‌برداری و عکاسی حرفه‌ای از رویدادها</span>
           </li>
         </ul>
 
-        <p data-reveal style="--d:.42s">
+        <p data-reveal style="--d:.46s">
           پوسترهای <strong>مراسمات مذهبی، تبلیغاتی، اطلاع‌رسانی</strong> و غیره می‌سازم.
           طراح <strong>لوگو، پروفایل، تایپوگرافی و کوفی‌بنایی</strong> هستم و طراحی سنتی
           و مدرن را به‌صورت تلفیقی ارائه می‌دهم.
         </p>
 
-        <div class="chips" data-reveal style="--d:.48s">
+        <div class="chips" data-reveal style="--d:.5s">
           <span class="chip"><i class="fa-solid fa-graduation-cap"></i> مهندسی IT</span>
           <span class="chip"><i class="fa-solid fa-network-wired"></i> شبکه و نرم‌افزار</span>
+          <span class="chip"><i class="fa-solid fa-microchip"></i> سخت‌افزار</span>
           <span class="chip"><i class="fa-solid fa-palette"></i> طراحی گرافیک</span>
           <span class="chip"><i class="fa-solid fa-film"></i> تدوین فیلم</span>
           <span class="chip"><i class="fa-solid fa-camera"></i> عکاسی</span>
@@ -1300,6 +1339,49 @@ footer{
    helper
    ============================================================ */
 const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+
+/* ============================================================
+   0. محافظت از محتوا (بازدارنده — نه جلوگیری قطعی)
+   ============================================================ */
+(function protectContent(){
+  // غیرفعال کردن منوی کلیک راست
+  document.addEventListener('contextmenu', e => e.preventDefault());
+
+  // غیرفعال کردن درگ کردن عناصر (تصاویر و ...)
+  document.addEventListener('dragstart', e => e.preventDefault());
+
+  // غیرفعال کردن انتخاب متن (به‌جز فرم‌ها)
+  document.addEventListener('selectstart', e => {
+    const t = e.target;
+    if (!t) return;
+    const tag = t.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA') return;
+    if (t.isContentEditable) return;
+    e.preventDefault();
+  });
+
+  // جلوگیری از کلیدهای میان‌بر رایج (بازدارنده)
+  document.addEventListener('keydown', e => {
+    const k = (e.key || '').toLowerCase();
+
+    // F12
+    if (e.key === 'F12'){ e.preventDefault(); return; }
+
+    // Ctrl+Shift+I / J / C  → ابزار توسعه‌دهنده
+    if (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c')){
+      e.preventDefault(); return;
+    }
+
+    // Ctrl+U → نمایش سورس
+    if (e.ctrlKey && !e.shiftKey && k === 'u'){ e.preventDefault(); return; }
+
+    // Ctrl+S → ذخیره صفحه
+    if (e.ctrlKey && !e.shiftKey && k === 's'){ e.preventDefault(); return; }
+
+    // Ctrl+P → چاپ
+    if (e.ctrlKey && !e.shiftKey && k === 'p'){ e.preventDefault(); return; }
+  });
+})();
 
 /* ============================================================
    1. HAMBURGER
@@ -1535,7 +1617,7 @@ document.querySelectorAll('.skill').forEach(card => {
    9. COMMENTS
    ============================================================ */
 (function comments(){
-  const STORE = 'portfolio_comments_v2';
+  const STORE = 'portfolio_comments_v3'; // نسخه جدید برای پاک شدن نظرات قدیمی
   const form  = document.getElementById('commentForm');
   const list  = document.getElementById('commentsList');
   const msg   = document.getElementById('formMsg');
@@ -1546,18 +1628,19 @@ document.querySelectorAll('.skill').forEach(card => {
 
   const PAGE_SIZE = 4;
 
+  /* فقط سه نظر نمونه با اسامی مردانه */
   const seed = [
-  { name:'سارا محمدی',  text:'همکاری با آقای مجاهد تجربهٔ بسیار خوبی بود. پوسترهای مراسم را دقیقاً همان‌طور که در ذهن داشتم طراحی کرد و سرعت تحویل فوق‌العاده بود.', t: Date.now() - 86400000 * 5 },
-  { name:'علی رضایی',   text:'تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود. حتماً دوباره همکاری می‌کنم.', t: Date.now() - 86400000 * 4 },
-  { name:'فاطمه کریمی', text:'طراحی لوگو و هویت بصری برندم را به ایشان سپردم. ترکیب طراحی سنتی و مدرن که انجام دادند بی‌نظیر بود.', t: Date.now() - 86400000 * 3 }
-];
+    { name:'رضا محمدی',  text:'همکاری با آقای مجاهد تجربهٔ بسیار خوبی بود. پوسترهای مراسم را دقیقاً همان‌طور که در ذهن داشتم طراحی کرد و سرعت تحویل فوق‌العاده بود.', t: Date.now() - 86400000 * 5 },
+    { name:'امیر کریمی', text:'تدوین ویدیوی معرفی شرکت را سپردم؛ کیفیت کار و خلاقیت در انتخاب ریتم تصاویر واقعاً حرفه‌ای بود. حتماً دوباره همکاری می‌کنم.', t: Date.now() - 86400000 * 4 },
+    { name:'محمد نوری',  text:'طراحی لوگو و هویت بصری برندم را به ایشان سپردم. ترکیب طراحی سنتی و مدرن که انجام دادند بی‌نظیر بود. کاملاً راضی هستم.', t: Date.now() - 86400000 * 3 }
+  ];
 
   function load(){
     try {
       const raw = localStorage.getItem(STORE);
       if (!raw) return seed.slice();
       const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : seed.slice();
+      return Array.isArray(parsed) && parsed.length ? parsed : seed.slice();
     } catch { return seed.slice(); }
   }
   function save(data){
