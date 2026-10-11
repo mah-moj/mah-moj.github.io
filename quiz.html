@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>آزمون رنگ و سلیقه | مهدی مجاهد</title>
+<meta name="description" content="آزمون رنگ‌شناسی، سلیقه رنگی و انتخاب کنتراست متن — طراحی مهدی مجاهد">
+<meta name="robots" content="noindex">
+
+<link rel="icon" href="img/20261011_025918.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+/* ============================================================
+   TOKENS
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#D9C200;--navy:#001830;--bg:#000d18;
+  --panel:rgba(255,255,255,.045);--panel2:rgba(0,24,48,.55);
+  --stroke:rgba(255,255,255,.09);--text:#f1f5f7;--muted:#8b9ba6;
+  --soft:rgba(217,194,0,.13);--ease:cubic-bezier(.16,1,.3,1);
+}
+
+html{scroll-behavior:smooth;overflow-x:clip;max-width:100%}
+
+body{
+  font-family:"Vazirmatn",sans-serif;background:var(--bg);color:var(--text);
+  min-height:100vh;line-height:1.85;overflow-x:clip;max-width:100%;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
+}
+body.lock{overflow:hidden}
+
+img,canvas,svg{max-width:100%;display:block}
+button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--gold);color:#001830}
+
+/* پس‌زمینه */
+.bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.au{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
+.au.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
+.au.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-16vw;left:-16vw;animation:f2 27s ease-in-out infinite}
+@keyframes f1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
+
+/* هدر */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.85rem clamp(1rem,4vw,3rem);
+  background:rgba(0,13,24,.85);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--stroke);
+}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;min-width:0}
+.logo-mark{
+  width:38px;height:38px;border-radius:12px;
+  display:grid;place-items:center;flex:none;overflow:hidden;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  box-shadow:0 0 22px rgba(217,194,0,.4);
+}
+.logo-mark img{width:68%;height:68%;object-fit:contain;filter:invert(1) brightness(.1)}
+.back{
+  padding:.5rem 1rem;border-radius:99px;background:var(--panel);
+  border:1px solid var(--stroke);font-size:.78rem;font-weight:700;
+  display:inline-flex;gap:.4rem;align-items:center;transition:.4s var(--ease);
+}
+.back i{color:var(--gold)}
+.back:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
+
+/* لایه اصلی */
+main{padding-top:80px;overflow-x:clip}
+section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
+.wrap{max-width:900px;margin:0 auto;width:100%}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold)}
+h1{font-size:clamp(1.5rem,5vw,2.6rem);font-weight:900;letter-spacing:-.03em;line-height:1.2;margin-bottom:.8rem}
+h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));background-size:220% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 5s linear infinite}
+@keyframes sh{to{background-position:220% center}}
+.lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
+
+/* ============================================================
+   کارت‌های انتخاب آزمون
+   ============================================================ */
+.quiz-cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:1rem;
+  margin-top:1.5rem;
+}
+
+.quiz-card{
+  position:relative;
+  padding:1.8rem 1.4rem 1.4rem;
+  border-radius:20px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(16px);
+  cursor:pointer;
+  overflow:hidden;
+  text-align:center;
+  transition:transform .5s var(--ease),
+             border-color .5s var(--ease),
+             box-shadow .5s var(--ease),
+             background .5s var(--ease);
+}
+.quiz-card::before{
+  content:"";position:absolute;inset:0;opacity:0;
+  background:radial-gradient(400px circle at 50% 0%,rgba(217,194,0,.14),transparent 60%);
+  transition:.5s;pointer-events:none;
+}
+.quiz-card:hover::before{opacity:1}
+.quiz-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(217,194,0,.55);
+  box-shadow:0 0 50px rgba(217,194,0,.22);
+  background:rgba(255,255,255,.06);
+}
+.quiz-card-icon{
+  width:64px;height:64px;border-radius:20px;
+  display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  color:#001830;font-size:1.6rem;
+  margin:0 auto 1.1rem;
+  box-shadow:0 8px 24px rgba(217,194,0,.35);
+  transition:.5s cubic-bezier(.34,1.56,.64,1);
+}
+.quiz-card:hover .quiz-card-icon{transform:scale(1.1) rotate(-5deg)}
+.quiz-card h3{font-size:1.05rem;font-weight:900;letter-spacing:-.025em;margin-bottom:.5rem}
+.quiz-card p{font-size:.78rem;color:var(--muted);line-height:1.75;margin-bottom:1.1rem;min-height:3.3em}
+.quiz-card-meta{
+  display:flex;justify-content:center;gap:1.2rem;
+  padding-top:.9rem;border-top:1px dashed rgba(217,194,0,.25);
+  font-size:.72rem;color:var(--muted);
+}
+.quiz-card-meta span{display:inline-flex;align-items:center;gap:.35rem}
+.quiz-card-meta i{color:var(--gold);font-size:.7rem}
+
+/* ============================================================
+   صفحه آزمون
+   ============================================================ */
+.quiz-screen{display:none}
+.quiz-screen.on{display:block;animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.quiz-header{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;margin-bottom:1.4rem;
+  padding:1rem 1.2rem;
+  border-radius:16px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(14px);
+}
+.quiz-header-title{display:flex;align-items:center;gap:.6rem;min-width:0}
+.quiz-header-title i{color:var(--gold);font-size:1rem}
+.quiz-header-title b{font-size:.9rem;font-weight:800}
+.quiz-count{
+  font-family:ui-monospace,monospace;
+  font-size:.8rem;font-weight:800;
+  color:var(--gold);
+  padding:.3rem .8rem;
+  border-radius:99px;
+  background:var(--soft);
+  border:1px solid rgba(217,194,0,.3);
+  flex:none;
+}
+.quiz-progress{
+  height:5px;border-radius:99px;background:var(--stroke);
+  overflow:hidden;margin-bottom:1.4rem;
+}
+.quiz-progress i{
+  display:block;height:100%;width:0;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
+  background-size:200% auto;
+  box-shadow:0 0 18px rgba(217,194,0,.6);
+  transition:width .5s var(--ease);
+  animation:shine 3s linear infinite;
+}
+@keyframes shine{to{background-position:220% center}}
+
+.quiz-question{
+  padding:1.6rem 1.4rem;
+  border-radius:20px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(16px);
+  margin-bottom:1.2rem;
+  text-align:center;
+}
+.quiz-question h2{
+  font-size:.95rem;font-weight:800;
+  color:var(--muted);
+  margin-bottom:1.2rem;
+  letter-spacing:-.015em;
+}
+
+/* رنگ هدف */
+.target-color{
+  width:100%;
+  max-width:220px;
+  height:150px;
+  border-radius:18px;
+  margin:0 auto;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 10px 30px rgba(0,0,0,.35),
+             inset 0 0 0 1px rgba(255,255,255,.08);
+  transition:.5s var(--ease);
+}
+
+/* رنگ متن هدف */
+.target-pair{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.6rem;
+  max-width:320px;
+  margin:0 auto;
+}
+.target-pair > div{
+  height:110px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  font-size:.95rem;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+/* گزینه‌ها */
+.quiz-options{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:.7rem;
+  margin-bottom:1rem;
+}
+@media (max-width:520px){
+  .quiz-options{grid-template-columns:1fr}
+}
+
+.opt{
+  position:relative;
+  padding:1rem;
+  border-radius:14px;
+  background:var(--panel);
+  border:2px solid var(--stroke);
+  cursor:pointer;
+  transition:transform .3s var(--ease),
+             border-color .3s var(--ease),
+             background .3s var(--ease),
+             box-shadow .3s var(--ease);
+  display:flex;
+  align-items:center;
+  gap:.8rem;
+  text-align:right;
+  min-width:0;
+}
+.opt:hover:not(.disabled){
+  transform:translateY(-3px);
+  border-color:rgba(217,194,0,.5);
+  background:rgba(255,255,255,.06);
+}
+.opt.selected{
+  border-color:var(--gold);
+  background:var(--soft);
+  box-shadow:0 0 24px rgba(217,194,0,.25);
+}
+.opt.correct{
+  border-color:#4CAF50;
+  background:rgba(76,175,80,.14);
+  box-shadow:0 0 24px rgba(76,175,80,.3);
+}
+.opt.wrong{
+  border-color:#E57373;
+  background:rgba(229,115,115,.14);
+  box-shadow:0 0 24px rgba(229,115,115,.3);
+}
+.opt.disabled{cursor:default}
+
+.opt-swatch{
+  width:44px;height:44px;
+  border-radius:11px;
+  flex:none;
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.05);
+}
+.opt-text{
+  flex:1;min-width:0;
+}
+.opt-text b{
+  display:block;
+  font-size:.88rem;
+  font-weight:800;
+  font-family:ui-monospace,monospace;
+  color:var(--text);
+  direction:ltr;
+  text-align:left;
+}
+.opt-text small{
+  display:block;
+  font-size:.65rem;
+  color:var(--muted);
+  margin-top:.15rem;
+}
+
+/* پیش‌نمایش گزینه رنگ متن */
+.opt-preview{
+  width:44px;height:44px;
+  border-radius:11px;
+  flex:none;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+  font-size:.85rem;
+  border:1px solid rgba(255,255,255,.15);
+}
+
+/* دکمه‌های پایین */
+.quiz-actions{
+  display:flex;
+  gap:.6rem;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+.quiz-actions .btn{min-width:140px}
+
+/* ============================================================
+   نتیجه آزمون
+   ============================================================ */
+.result-screen{display:none;text-align:center;padding:1rem 0}
+.result-screen.on{display:block;animation:fadeIn .6s ease}
+
+.result-card{
+  padding:2rem 1.5rem;
+  border-radius:24px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(18px);
+  max-width:560px;
+  margin:0 auto;
+  position:relative;
+  overflow:hidden;
+}
+.result-card::before{
+  content:"";position:absolute;top:0;right:0;left:0;height:4px;
+  background:linear-gradient(90deg,var(--gold),#fff2a0,var(--gold));
+  background-size:200% auto;
+  animation:shine 3s linear infinite;
+}
+
+.result-circle{
+  position:relative;
+  width:150px;height:150px;
+  margin:0 auto 1.4rem;
+}
+.result-circle svg{
+  width:100%;height:100%;
+  transform:rotate(-90deg);
+}
+.result-circle .bg-ring{
+  fill:none;stroke:var(--stroke);stroke-width:10;
+}
+.result-circle .fg-ring{
+  fill:none;stroke:url(#gradRing);stroke-width:10;
+  stroke-linecap:round;
+  transition:stroke-dashoffset 1.5s var(--ease);
+}
+.result-score{
+  position:absolute;inset:0;
+  display:grid;place-items:center;
+}
+.result-score b{
+  font-size:2.4rem;font-weight:900;
+  color:var(--gold);
+  text-shadow:0 0 30px rgba(217,194,0,.5);
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+}
+.result-score span{
+  display:block;
+  font-size:.65rem;
+  color:var(--muted);
+  letter-spacing:.15em;
+  margin-top:.2rem;
+}
+
+.result-level{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.5rem 1.2rem;
+  border-radius:99px;
+  font-size:.85rem;
+  font-weight:800;
+  margin-bottom:1rem;
+  border:1px solid;
+}
+.level-master{background:rgba(217,194,0,.15);color:var(--gold);border-color:rgba(217,194,0,.4)}
+.level-pro{background:rgba(76,175,80,.15);color:#7ddba0;border-color:rgba(76,175,80,.4)}
+.level-good{background:rgba(90,150,255,.15);color:#8fbfff;border-color:rgba(90,150,255,.4)}
+.level-avg{background:rgba(255,165,0,.15);color:#ffc266;border-color:rgba(255,165,0,.4)}
+.level-beginner{background:rgba(229,115,115,.15);color:#ff9a9a;border-color:rgba(229,115,115,.4)}
+
+.result-message{
+  font-size:.9rem;
+  color:var(--muted);
+  line-height:1.9;
+  margin-bottom:1.6rem;
+  max-width:44ch;
+  margin-inline:auto;
+}
+.result-message b{color:var(--text)}
+
+.result-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:.6rem;
+  margin-bottom:1.6rem;
+}
+.result-stats > div{
+  padding:.8rem .5rem;
+  border-radius:12px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+}
+.result-stats b{
+  display:block;
+  font-size:1rem;
+  font-weight:900;
+  color:var(--gold);
+  margin-bottom:.15rem;
+  font-variant-numeric:tabular-nums;
+}
+.result-stats span{
+  font-size:.62rem;
+  color:var(--muted);
+}
+
+/* نوارهای دکمه */
+@property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
+.btn{position:relative;display:inline-flex;padding:2px;border-radius:99px;overflow:hidden;isolation:isolate;cursor:pointer;flex:none;max-width:100%}
+.btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),transparent 0 190deg,var(--gold) 265deg,#fff8c4 300deg,var(--gold) 330deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:bs 3.6s linear infinite;z-index:0;pointer-events:none}
+@keyframes bs{to{--ang:360deg}}
+.btn > span{position:relative;z-index:1;flex:1;display:inline-flex;align-items:center;justify-content:center;gap:.4rem;padding:.8rem 1.6rem;border-radius:99px;background:var(--panel2);border:1px solid transparent;font-weight:700;font-size:.82rem;white-space:nowrap;min-width:0;transition:.3s}
+.btn:hover > span{background:var(--soft);color:var(--gold)}
+.btn.ghost > span{background:transparent}
+.btn.primary > span{
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  color:#001830;
+}
+.btn.primary:hover > span{background:linear-gradient(140deg,#e6ce0a,#a39000);color:#001830;letter-spacing:.02em}
+.btn[disabled]{opacity:.5;cursor:not-allowed;pointer-events:none}
+
+.btnrow{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center}
+
+/* توست */
+.toast{
+  position:fixed;bottom:2rem;left:50%;
+  transform:translateX(-50%) translateY(40px);
+  padding:.65rem 1.2rem;border-radius:99px;
+  background:rgba(0,24,48,.9);
+  border:1px solid var(--gold);
+  color:var(--gold);font-size:.78rem;font-weight:700;
+  backdrop-filter:blur(16px);z-index:2000;
+  opacity:0;pointer-events:none;transition:.5s;
+  max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* دکمه موزیک */
+.mbtn{
+  position:fixed;bottom:1.2rem;right:1.2rem;
+  width:50px;height:50px;border-radius:15px;
+  display:grid;place-items:center;
+  background:rgba(0,24,48,.65);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(18px);
+  color:var(--gold);cursor:pointer;
+  transition:.3s;z-index:90;
+}
+.mbtn:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px)}
+.mbtn i{font-size:1rem}
+.mbtn.playing i{animation:mp 2s ease-in-out infinite}
+@keyframes mp{50%{transform:scale(1.18)}}
+
+footer{
+  padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;
+  border-top:1px solid var(--stroke);
+  background:rgba(0,13,24,.65);
+  backdrop-filter:blur(20px);
+  font-size:.7rem;color:var(--muted);
+}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem;max-width:900px;margin:0 auto}
+footer a{color:var(--gold);font-weight:700}
+
+@media (max-width:640px){
+  header{padding:.65rem .9rem}
+  .logo{font-size:.88rem}
+  .logo-mark{width:34px;height:34px}
+  .back{padding:.45rem .85rem;font-size:.72rem}
+  main{padding-top:70px}
+  section{padding:1.4rem 1rem}
+  h1{font-size:clamp(1.35rem,6.5vw,2rem)}
+  .quiz-card{padding:1.4rem 1.1rem 1.1rem;border-radius:17px}
+  .quiz-card-icon{width:54px;height:54px;border-radius:17px;font-size:1.35rem}
+  .quiz-card h3{font-size:.95rem}
+  .quiz-card p{font-size:.72rem;min-height:auto}
+  .quiz-header{padding:.8rem 1rem;border-radius:14px}
+  .quiz-header-title b{font-size:.82rem}
+  .quiz-count{font-size:.72rem}
+  .quiz-question{padding:1.3rem 1rem;border-radius:16px}
+  .target-color{height:120px;max-width:180px}
+  .target-pair > div{height:90px;font-size:.82rem}
+  .opt{padding:.85rem;border-radius:12px}
+  .opt-swatch,.opt-preview{width:38px;height:38px;border-radius:10px}
+  .opt-text b{font-size:.8rem}
+  .result-card{padding:1.5rem 1.1rem;border-radius:20px}
+  .result-circle{width:120px;height:120px}
+  .result-score b{font-size:1.9rem}
+  .result-stats{grid-template-columns:1fr 1fr}
+  .btn > span{padding:.7rem 1.2rem;font-size:.76rem}
+  .quiz-actions{flex-direction:column}
+  .quiz-actions .btn{width:100%}
+  footer .wrap{flex-direction:column;align-items:flex-start}
+}
+</style>
+</head>
+<body>
+
+<div class="bg">
+  <div class="au a"></div>
+  <div class="au b"></div>
+</div>
+<canvas id="stars"></canvas>
+
+<audio id="bgMusic" loop preload="auto" playsinline>
+  <source src="audio/f4b6ed86-c45b-4c96-aa29-50a0ae687ab1.mp3" type="audio/mpeg">
+</audio>
+
+<header>
+  <a href="index.html" class="logo">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
+    <span>مهدی مجاهد</span>
+  </a>
+  <a href="index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
+</header>
+
+<main>
+  <section>
+    <div class="wrap">
+      <span class="eyebrow">آزمون حرفه‌ای رنگ</span>
+      <h1>آزمون <em>رنگ‌شناسی</em> و سلیقه</h1>
+      <p class="lead">سه آزمون تخصصی برای سنجش دقت چشم، سلیقه رنگی و توانایی تشخیص کنتراست متن. هر آزمون ۱۵ سوال دارد و در پایان نمره و سطح شما نمایش داده می‌شود.</p>
+    </div>
+  </section>
+
+  <!-- انتخاب آزمون -->
+  <section id="quizSelector">
+    <div class="wrap">
+      <div class="quiz-cards">
+
+        <div class="quiz-card" data-quiz="vision">
+          <div class="quiz-card-icon"><i class="fa-solid fa-eye"></i></div>
+          <h3>آزمون رنگ‌شناسی</h3>
+          <p>یک رنگ به شما نشان داده می‌شود؛ باید کد رنگی صحیح آن را بین چهار گزینه تشخیص دهید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i> ۱۵ سوال</span>
+            <span><i class="fa-solid fa-clock"></i> ~۲ دقیقه</span>
+          </div>
+        </div>
+
+        <div class="quiz-card" data-quiz="taste">
+          <div class="quiz-card-icon"><i class="fa-solid fa-palette"></i></div>
+          <h3>آزمون سلیقه رنگی</h3>
+          <p>یک رنگ پایه می‌بینید و باید هماهنگ‌ترین رنگ مکمل را برای ساخت یک ترکیب حرفه‌ای انتخاب کنید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i> ۱۵ سوال</span>
+            <span><i class="fa-solid fa-clock"></i> ~۲ دقیقه</span>
+          </div>
+        </div>
+
+        <div class="quiz-card" data-quiz="contrast">
+          <div class="quiz-card-icon"><i class="fa-solid fa-text-height"></i></div>
+          <h3>آزمون کنتراست متن</h3>
+          <p>یک پس‌زمینه می‌بینید و باید بهترین رنگ متن را برای خوانایی و راحتی چشم انتخاب کنید.</p>
+          <div class="quiz-card-meta">
+            <span><i class="fa-solid fa-list-ol"></i> ۱۵ سوال</span>
+            <span><i class="fa-solid fa-clock"></i> ~۲ دقیقه</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- صفحه آزمون -->
+  <section id="quizRunner" class="quiz-screen">
+    <div class="wrap">
+
+      <div class="quiz-header">
+        <div class="quiz-header-title">
+          <i class="fa-solid fa-circle-question" id="qIcon"></i>
+          <b id="qTitle">آزمون</b>
+        </div>
+        <span class="quiz-count" id="qCount">۱ از ۱۵</span>
+      </div>
+
+      <div class="quiz-progress"><i id="qProgress"></i></div>
+
+      <div class="quiz-question" id="qBox"></div>
+
+      <div class="quiz-options" id="qOptions"></div>
+
+      <div class="quiz-actions">
+        <button class="btn ghost" id="qExit"><span>خروج از آزمون</span></button>
+        <button class="btn primary" id="qNext" disabled><span>سوال بعدی <i class="fa-solid fa-arrow-left"></i></span></button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- صفحه نتیجه -->
+  <section id="resultScreen" class="result-screen">
+    <div class="wrap">
+      <div class="result-card">
+
+        <div class="result-circle">
+          <svg viewBox="0 0 120 120">
+            <defs>
+              <linearGradient id="gradRing" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#D9C200"/>
+                <stop offset="100%" stop-color="#fff2a0"/>
+              </linearGradient>
+            </defs>
+            <circle class="bg-ring" cx="60" cy="60" r="52"/>
+            <circle class="fg-ring" id="rRing" cx="60" cy="60" r="52"
+                    stroke-dasharray="326.7"
+                    stroke-dashoffset="326.7"/>
+          </svg>
+          <div class="result-score">
+            <div>
+              <b id="rScore">۰</b>
+              <span>امتیاز از ۱۰۰</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-level" id="rLevel">—</div>
+
+        <p class="result-message" id="rMessage"></p>
+
+        <div class="result-stats">
+          <div><b id="rCorrect">۰</b><span>پاسخ درست</span></div>
+          <div><b id="rWrong">۰</b><span>پاسخ غلط</span></div>
+          <div><b id="rTime">۰</b><span>ثانیه</span></div>
+        </div>
+
+        <div class="btnrow">
+          <button class="btn primary" id="rRetry"><span>آزمون مجدد <i class="fa-solid fa-rotate"></i></span></button>
+          <button class="btn ghost" id="rHome"><span>انتخاب آزمون دیگر</span></button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> مهدی مجاهد</span>
+    <a href="index.html">بازگشت به صفحه‌ی اصلی</a>
+  </div>
+</footer>
+
+<button class="mbtn" id="musicBtn" aria-label="پخش موسیقی">
+  <i class="fa-solid fa-volume-xmark" id="musicIcon"></i>
+</button>
+
+<!-- ▓▓▓ پیام ۲ از این‌جا ادامه می‌یابد ▓▓▓ -->
+
+  <script>
+/* ══════════════════════════════════════════════
+   ابزارهای کمکی
+   ══════════════════════════════════════════════ */
+const $ = (s, ctx=document) => ctx.querySelector(s);
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function hexToRgb(h){
+  h = h.replace('#','');
+  return [parseInt(h.substr(0,2),16), parseInt(h.substr(2,2),16), parseInt(h.substr(4,2),16)];
+}
+function rgbToHex(r,g,b){
+  return '#' + [r,g,b].map(v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2,'0')).join('').toUpperCase();
+}
+function hslToRgb(h,s,l){
+  h/=360; s/=100; l/=100;
+  let r,g,b;
+  if (s === 0){ r=g=b=l; }
+  else {
+    const hue2rgb = (p,q,t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1/6) return p + (q-p)*6*t;
+      if (t < 1/2) return q;
+      if (t < 2/3) return p + (q-p)*(2/3-t)*6;
+      return p;
+    };
+    const q = l < 0.5 ? l*(1+s) : l+s-l*s;
+    const p = 2*l - q;
+    r = hue2rgb(p,q,h+1/3);
+    g = hue2rgb(p,q,h);
+    b = hue2rgb(p,q,h-1/3);
+  }
+  return [r*255, g*255, b*255];
+}
+function rgbToHsl(r,g,b){
+  r/=255; g/=255; b/=255;
+  const mx = Math.max(r,g,b), mn = Math.min(r,g,b);
+  let h=0, s=0, l=(mx+mn)/2;
+  if (mx !== mn){
+    const d = mx-mn;
+    s = l > .5 ? d/(2-mx-mn) : d/(mx+mn);
+    switch(mx){
+      case r: h = (g-b)/d + (g<b?6:0); break;
+      case g: h = (b-r)/d + 2; break;
+      case b: h = (r-g)/d + 4; break;
+    }
+    h /= 6;
+  }
+  return [h*360, s*100, l*100];
+}
+function hslToHex(h,s,l){
+  const [r,g,b] = hslToRgb(h,s,l);
+  return rgbToHex(r,g,b);
+}
+function luminance(hex){
+  const [r,g,b] = hexToRgb(hex).map(v => v/255).map(v => v <= .03928 ? v/12.92 : Math.pow((v+.055)/1.055, 2.4));
+  return .2126*r + .7152*g + .0722*b;
+}
+function contrastRatio(hex1, hex2){
+  const l1 = luminance(hex1), l2 = luminance(hex2);
+  const mx = Math.max(l1,l2), mn = Math.min(l1,l2);
+  return (mx+.05)/(mn+.05);
+}
+function shuffle(arr){
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+function randInt(min, max){
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+function pick(arr){
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+let toastT = null;
+function toast(msg){
+  const t = $('#toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastT);
+  toastT = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* ══════════════════════════════════════════════
+   تولیدکننده‌های سوال
+   ══════════════════════════════════════════════ */
+
+/* ─── ۱. آزمون رنگ‌شناسی ─── */
+function generateVisionQuestion(){
+  /* رنگ تصادفی در محدوده‌ای که قابل تشخیص باشد */
+  const h = randInt(0, 359);
+  const s = randInt(35, 90);
+  const l = randInt(30, 70);
+  const correct = hslToHex(h, s, l);
+  const correctUpper = correct.toUpperCase();
+
+  /* ساخت ۳ گزینه غلط که به رنگ اصلی نزدیک باشند ولی متفاوت */
+  const wrongs = [];
+  const used = new Set([correctUpper]);
+
+  while (wrongs.length < 3){
+    /* تغییر در یکی از مؤلفه‌ها */
+    let wh = h, ws = s, wl = l;
+    const which = randInt(1, 3);
+    if (which === 1) wh = (h + randInt(8, 35) * (Math.random() < .5 ? 1 : -1) + 360) % 360;
+    else if (which === 2) ws = Math.max(20, Math.min(100, s + randInt(10, 25) * (Math.random() < .5 ? 1 : -1)));
+    else wl = Math.max(15, Math.min(85, l + randInt(8, 20) * (Math.random() < .5 ? 1 : -1)));
+
+    const w = hslToHex(wh, ws, wl).toUpperCase();
+    if (!used.has(w) && contrastRatio(w, correctUpper) < 1.6){
+      used.add(w);
+      wrongs.push(w);
+    }
+  }
+
+  const options = shuffle([correctUpper, ...wrongs]);
+
+  return {
+    type: 'vision',
+    target: correctUpper,
+    question: 'کدام گزینه کد رنگ مربع بالا است؟',
+    options: options,
+    correctIndex: options.indexOf(correctUpper),
+    explanation: 'کد صحیح: ' + correctUpper
+  };
+}
+
+/* ─── ۲. آزمون سلیقه رنگی ─── */
+function generateTasteQuestion(){
+  /* رنگ پایه */
+  const baseH = randInt(0, 359);
+  const baseS = randInt(45, 85);
+  const baseL = randInt(35, 65);
+  const baseHex = hslToHex(baseH, baseS, baseL);
+
+  /* نوع هارمونی که می‌خواهیم: مکمل، آنالوگ نزدیک، سه‌گانه */
+  const type = pick(['complementary', 'analogous', 'triadic']);
+  let bestH;
+  if (type === 'complementary') bestH = (baseH + 180) % 360;
+  else if (type === 'analogous') bestH = (baseH + 30) % 360;
+  else bestH = (baseH + 120) % 360;
+
+  /* گزینه درست: هماهنگ با قاعده هارمونی */
+  const bestS = baseS;
+  const bestL = Math.max(20, Math.min(80, baseL + randInt(-10, 10)));
+  const correctHex = hslToHex(bestH, bestS, bestL).toUpperCase();
+
+  /* گزینه‌های غلط: رنگ‌هایی که هارمونی خوبی با رنگ پایه نمی‌سازند */
+  const wrongs = [];
+  const used = new Set([correctHex]);
+
+  while (wrongs.length < 3){
+    let wh;
+    /* رنگ‌هایی که فاصله رنگی بدی با رنگ پایه دارند */
+    const offset = randInt(60, 140) * (Math.random() < .5 ? 1 : -1);
+    wh = (baseH + offset + 360) % 360;
+    /* اگر با bestH خیلی نزدیک بود، رد کن */
+    const diff = Math.abs(wh - bestH);
+    if (Math.min(diff, 360 - diff) < 30) continue;
+
+    const ws = Math.max(30, Math.min(95, baseS + randInt(-15, 15)));
+    const wl = Math.max(20, Math.min(80, baseL + randInt(-15, 15)));
+    const w = hslToHex(wh, ws, wl).toUpperCase();
+    if (!used.has(w)){
+      used.add(w);
+      wrongs.push(w);
+    }
+  }
+
+  const options = shuffle([correctHex, ...wrongs]);
+
+  const typeLabel = {
+    complementary: 'مکمل',
+    analogous: 'آنالوگ',
+    triadic: 'سه‌گانه'
+  }[type];
+
+  return {
+    type: 'taste',
+    target: baseHex,
+    question: 'کدام رنگ بهترین ترکیب را با رنگ بالا می‌سازد؟',
+    options: options,
+    correctIndex: options.indexOf(correctHex),
+    explanation: 'ترکیب ' + typeLabel + ': ' + correctHex
+  };
+}
+
+/* ─── ۳. آزمون کنتراست متن ─── */
+function generateContrastQuestion(){
+  /* پس‌زمینه */
+  const bgH = randInt(0, 359);
+  const bgS = randInt(15, 70);
+  const bgL = Math.random() < .5 ? randInt(15, 35) : randInt(65, 90);
+  const bgHex = hslToHex(bgH, bgS, bgL).toUpperCase();
+
+  /* تعیین جهت متن (برعکس روشنایی پس‌زمینه) */
+  const wantLightText = bgL < 50;
+
+  /* بهترین گزینه: رنگ متن با کنتراست بالا */
+  let correctHex;
+  if (wantLightText){
+    /* متن روشن */
+    correctHex = rgbToHex(245, 248, 250);
+  } else {
+    /* متن تیره */
+    correctHex = rgbToHex(15, 22, 30);
+  }
+
+  /* گزینه‌های غلط: رنگ‌هایی با کنتراست پایین‌تر */
+  const wrongs = [];
+  const used = new Set([correctHex]);
+
+  while (wrongs.length < 3){
+    const wl = wantLightText ? randInt(100, 190) : randInt(60, 140);
+    const ws = randInt(0, 40);
+    const wh = randInt(0, 359);
+    const w = hslToHex(wh, ws, wl).toUpperCase();
+    if (!used.has(w)){
+      const ratio = contrastRatio(w, bgHex);
+      /* کنتراست باید کمتر از رنگ درست باشد */
+      if (ratio < contrastRatio(correctHex, bgHex) * 0.85){
+        used.add(w);
+        wrongs.push(w);
+      }
+    }
+  }
+
+  const options = shuffle([correctHex, ...wrongs]);
+
+  return {
+    type: 'contrast',
+    target: bgHex,
+    question: 'کدام رنگ متن برای خوانایی روی این پس‌زمینه بهترین است؟',
+    options: options,
+    correctIndex: options.indexOf(correctHex),
+    explanation: 'کنتراست این ترکیب: ' + contrastRatio(correctHex, bgHex).toFixed(1) + ':1'
+  };
+}
+
+/* ══════════════════════════════════════════════
+   تنظیمات آزمون‌ها
+   ══════════════════════════════════════════════ */
+const QUIZ_CONFIG = {
+  vision: {
+    title: 'آزمون رنگ‌شناسی',
+    icon: 'fa-solid fa-eye',
+    total: 15,
+    generator: generateVisionQuestion
+  },
+  taste: {
+    title: 'آزمون سلیقه رنگی',
+    icon: 'fa-solid fa-palette',
+    total: 15,
+    generator: generateTasteQuestion
+  },
+  contrast: {
+    title: 'آزمون کنتراست متن',
+    icon: 'fa-solid fa-text-height',
+    total: 15,
+    generator: generateContrastQuestion
+  }
+};
+
+/* ══════════════════════════════════════════════
+   وضعیت آزمون
+   ══════════════════════════════════════════════ */
+let state = {
+  quizKey: null,
+  questions: [],
+  current: 0,
+  selected: null,
+  answered: false,
+  correctCount: 0,
+  wrongCount: 0,
+  startTime: 0,
+  totalTime: 0
+};
+
+/* ══════════════════════════════════════════════
+   شروع آزمون
+   ══════════════════════════════════════════════ */
+function startQuiz(key){
+  const cfg = QUIZ_CONFIG[key];
+  if (!cfg) return;
+
+  /* ساخت سوالات */
+  const questions = [];
+  const seen = new Set();
+  let attempts = 0;
+  while (questions.length < cfg.total && attempts < 500){
+    attempts++;
+    const q = cfg.generator();
+    const sig = q.target + '|' + q.options.join(',');
+    if (!seen.has(sig)){
+      seen.add(sig);
+      questions.push(q);
+    }
+  }
+
+  state = {
+    quizKey: key,
+    questions: questions,
+    current: 0,
+    selected: null,
+    answered: false,
+    correctCount: 0,
+    wrongCount: 0,
+    startTime: Date.now(),
+    totalTime: 0
+  };
+
+  $('#quizSelector').style.display = 'none';
+  $('#resultScreen').classList.remove('on');
+  $('#quizRunner').classList.add('on');
+  $('#qTitle').textContent = cfg.title;
+  $('#qIcon').className = cfg.icon;
+
+  renderQuestion();
+}
+
+/* ══════════════════════════════════════════════
+   نمایش سوال
+   ══════════════════════════════════════════════ */
+function renderQuestion(){
+  const q = state.questions[state.current];
+  const cfg = QUIZ_CONFIG[state.quizKey];
+  const total = state.questions.length;
+
+  state.selected = null;
+  state.answered = false;
+
+  /* هدر */
+  $('#qCount').textContent = toFa(state.current + 1) + ' از ' + toFa(total);
+
+  /* نوار پیشرفت */
+  const pct = ((state.current) / total) * 100;
+  $('#qProgress').style.width = pct + '%';
+
+  /* جعبه سوال */
+  let targetHTML = '';
+  if (q.type === 'vision'){
+    targetHTML = '<div class="target-color" style="background:' + q.target + '"></div>';
+  } else if (q.type === 'taste'){
+    targetHTML = '<div class="target-color" style="background:' + q.target + ';max-width:180px;height:130px"></div>';
+  } else if (q.type === 'contrast'){
+    targetHTML =
+      '<div class="target-pair">' +
+        '<div style="background:' + q.target + ';color:#fff">نمونه</div>' +
+        '<div style="background:' + q.target + ';color:#000">نمونه</div>' +
+      '</div>' +
+      '<p class="hint" style="margin-top:.8rem;font-size:.7rem">پس‌زمینه: <b style="font-family:monospace;color:var(--gold)">' + q.target + '</b></p>';
+  }
+
+  $('#qBox').innerHTML =
+    '<h2>' + esc(q.question) + '</h2>' +
+    targetHTML;
+
+  /* گزینه‌ها */
+  const optBox = $('#qOptions');
+  optBox.innerHTML = '';
+
+  q.options.forEach((hex, i) => {
+    const opt = document.createElement('button');
+    opt.className = 'opt';
+    opt.dataset.index = i;
+    opt.type = 'button';
+
+    if (q.type === 'contrast'){
+      /* برای کنتراست، پیش‌نمایش متن با آن رنگ روی پس‌زمینه */
+      opt.innerHTML =
+        '<div class="opt-preview" style="background:' + q.target + ';color:' + hex + '">Aa</div>' +
+        '<div class="opt-text">' +
+          '<b>' + hex + '</b>' +
+          '<small>کنتراست: ' + contrastRatio(hex, q.target).toFixed(1) + ':1</small>' +
+        '</div>';
+    } else {
+      /* برای رنگ‌شناسی و سلیقه، نمایش رنگ + کد */
+      opt.innerHTML =
+        '<div class="opt-swatch" style="background:' + hex + '"></div>' +
+        '<div class="opt-text">' +
+          '<b>' + hex + '</b>' +
+          '<small>گزینه ' + toFa(i + 1) + '</small>' +
+        '</div>';
+    }
+
+    opt.addEventListener('click', () => selectOption(i));
+    optBox.appendChild(opt);
+  });
+
+  $('#qNext').disabled = true;
+  $('#qNext').querySelector('span').innerHTML =
+    state.current === total - 1
+      ? 'پایان و مشاهده نتیجه <i class="fa-solid fa-flag-checkered"></i>'
+      : 'سوال بعدی <i class="fa-solid fa-arrow-left"></i>';
+}
+
+/* ══════════════════════════════════════════════
+   انتخاب گزینه
+   ══════════════════════════════════════════════ */
+function selectOption(index){
+  if (state.answered) return;
+
+  const q = state.questions[state.current];
+  state.selected = index;
+  state.answered = true;
+
+  const opts = document.querySelectorAll('#qOptions .opt');
+  opts.forEach((el, i) => {
+    el.classList.add('disabled');
+    if (i === q.correctIndex) el.classList.add('correct');
+    else if (i === index) el.classList.add('wrong');
+    else el.classList.add('disabled');
+  });
+
+  if (index === q.correctIndex){
+    state.correctCount++;
+  } else {
+    state.wrongCount++;
+  }
+
+  $('#qNext').disabled = false;
+}
+
+/* ══════════════════════════════════════════════
+   سوال بعدی / پایان
+   ══════════════════════════════════════════════ */
+$('#qNext').addEventListener('click', () => {
+  if (!state.answered) return;
+
+  const total = state.questions.length;
+  if (state.current < total - 1){
+    state.current++;
+    renderQuestion();
+    /* اسکرول به بالا */
+    window.scrollTo({ top: 100, behavior: 'smooth' });
+  } else {
+    endQuiz();
+  }
+});
+
+/* ══════════════════════════════════════════════
+   خروج از آزمون
+   ══════════════════════════════════════════════ */
+$('#qExit').addEventListener('click', () => {
+  if (confirm('آیا از آزمون خارج می‌شوید؟ پیشرفت فعلی از دست می‌رود.')){
+    backToSelector();
+  }
+});
+
+function backToSelector(){
+  $('#quizRunner').classList.remove('on');
+  $('#resultScreen').classList.remove('on');
+  $('#quizSelector').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* ══════════════════════════════════════════════
+   پایان آزمون و نمایش نتیجه
+   ══════════════════════════════════════════════ */
+function endQuiz(){
+  state.totalTime = Math.round((Date.now() - state.startTime) / 1000);
+
+  const total = state.questions.length;
+  const correct = state.correctCount;
+  const wrong = state.wrongCount;
+  const score = Math.round((correct / total) * 100);
+
+  /* محاسبه سطح */
+  let level, levelClass, message;
+  if (score >= 90){
+    level = 'استاد رنگ 🏆';
+    levelClass = 'level-master';
+    message = 'چشم شما در تشخیص رنگ‌ها فوق‌العاده است. سلیقه‌ی حرفه‌ای و دقیقی دارید که در سطح طراحان ارشد قرار می‌گیرد.';
+  } else if (score >= 75){
+    level = 'حرفه‌ای 🎨';
+    levelClass = 'level-pro';
+    message = 'توانایی بسیار خوبی در تشخیص رنگ و انتخاب ترکیب‌های هماهنگ دارید. با کمی تمرین به سطح استاد می‌رسید.';
+  } else if (score >= 55){
+    level = 'خوب 👌';
+    levelClass = 'level-good';
+    message = 'سلیقه‌ی رنگی خوبی دارید. با تمرین بیشتر و مطالعه‌ی تئوری رنگ، می‌توانید دقت چشم خود را بالاتر ببرید.';
+  } else if (score >= 35){
+    level = 'متوسط 📚';
+    levelClass = 'level-avg';
+    message = 'پایه‌ی خوبی دارید، اما هنوز جا برای پیشرفت زیاد است. تمرین روزانه با پالت‌های رنگی می‌تواند کمک کند.';
+  } else {
+    level = 'تازه‌کار 🌱';
+    levelClass = 'level-beginner';
+    message = 'این تازه شروع راه است! با نگاه کردن به طرح‌های حرفه‌ای و مطالعه‌ی اصول تئوری رنگ، به سرعت پیشرفت خواهید کرد.';
+  }
+
+  /* نمایش صفحه نتیجه */
+  $('#quizRunner').classList.remove('on');
+  $('#resultScreen').classList.add('on');
+
+  $('#rLevel').textContent = level;
+  $('#rLevel').className = 'result-level ' + levelClass;
+  $('#rMessage').innerHTML = message;
+
+  $('#rCorrect').textContent = toFa(correct);
+  $('#rWrong').textContent = toFa(wrong);
+  $('#rTime').textContent = toFa(state.totalTime);
+
+  /* انیمیشن شمارنده نمره */
+  animateScore(score);
+
+  /* انیمیشن حلقه */
+  const circumference = 2 * Math.PI * 52;
+  const offset = circumference * (1 - score / 100);
+  setTimeout(() => {
+    $('#rRing').style.strokeDashoffset = offset;
+  }, 100);
+
+  window.scrollTo({ top: 100, behavior: 'smooth' });
+}
+
+function animateScore(target){
+  const el = $('#rScore');
+  const start = performance.now();
+  const duration = 1400;
+  function frame(now){
+    const p = Math.min((now - start) / duration, 1);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = toFa(Math.round(eased * target));
+    if (p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* ══════════════════════════════════════════════
+   دکمه‌های نتیجه
+   ══════════════════════════════════════════════ */
+$('#rRetry').addEventListener('click', () => {
+  if (state.quizKey) startQuiz(state.quizKey);
+});
+
+$('#rHome').addEventListener('click', backToSelector);
+
+/* ══════════════════════════════════════════════
+   انتخاب آزمون از کارت‌ها
+   ══════════════════════════════════════════════ */
+document.querySelectorAll('.quiz-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const key = card.dataset.quiz;
+    if (key) startQuiz(key);
+  });
+});
+
+/* ══════════════════════════════════════════════
+   ستاره‌های پس‌زمینه
+   ══════════════════════════════════════════════ */
+(function starfield(){
+  const canvas = document.getElementById('stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, list = [];
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+    const n = Math.min(70, Math.floor(innerWidth / 20));
+    list = Array.from({ length: n }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: (Math.random() * 1.2 + 0.3) * dpr,
+      vx: (Math.random() - 0.5) * 0.18 * dpr,
+      vy: (Math.random() - 0.5) * 0.18 * dpr,
+      a: Math.random() * 0.6 + 0.2
+    }));
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, w, h);
+    list.forEach(s => {
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = '#D9C200';
+      ctx.globalAlpha = s.a;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+/* ══════════════════════════════════════════════
+   موزیک پس‌زمینه
+   ══════════════════════════════════════════════ */
+(function music(){
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  const icon = document.getElementById('musicIcon');
+  if (!audio || !btn || !icon) return;
+
+  const VOL = 0.15;
+  const FADE = 2000;
+  const KEY = 'portfolio_music_on';
+  let started = false;
+  let wantOn = true;
+  let raf = null;
+
+  try {
+    const s = localStorage.getItem(KEY);
+    if (s === 'off') wantOn = false;
+  } catch(e){}
+
+  function updateUI(){
+    const playing = !audio.paused && !audio.ended && started;
+    btn.classList.toggle('playing', playing);
+    icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+  }
+  updateUI();
+
+  function fadeTo(target, dur, done){
+    if (raf) cancelAnimationFrame(raf);
+    const start = audio.volume;
+    const t0 = performance.now();
+    function step(now){
+      const p = Math.min((now - t0) / dur, 1);
+      const e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2) / 2;
+      audio.volume = Math.max(0, Math.min(1, start + (target - start) * e));
+      if (p < 1) raf = requestAnimationFrame(step);
+      else { raf = null; if (typeof done === 'function') done(); }
+    }
+    raf = requestAnimationFrame(step);
+  }
+
+  function start(){
+    if (started) return;
+    const p = audio.play();
+    if (p && typeof p.then === 'function'){
+      p.then(() => {
+        started = true;
+        audio.volume = 0;
+        fadeTo(VOL, FADE);
+        updateUI();
+        removeListeners();
+      }).catch(() => updateUI());
+    } else {
+      audio.volume = VOL;
+      started = true;
+      updateUI();
+      removeListeners();
+    }
+  }
+
+  function stop(fade){
+    if (!fade){
+      audio.pause();
+      audio.volume = 0;
+      updateUI();
+      return;
+    }
+    fadeTo(0, 700, () => { audio.pause(); updateUI(); });
+  }
+
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (!started){
+      wantOn = true;
+      try { localStorage.setItem(KEY, 'on'); } catch(err){}
+      start();
+      return;
+    }
+    if (audio.paused){
+      wantOn = true;
+      try { localStorage.setItem(KEY, 'on'); } catch(err){}
+      audio.play().then(() => {
+        fadeTo(VOL, 900);
+        updateUI();
+      }).catch(() => {});
+    } else {
+      wantOn = false;
+      try { localStorage.setItem(KEY, 'off'); } catch(err){}
+      stop(true);
+    }
+  });
+
+  const events = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+
+  function onFirstInteraction(){
+    if (started) return;
+    if (!wantOn) return;
+    start();
+  }
+
+  function addListeners(){
+    events.forEach(evt => window.addEventListener(evt, onFirstInteraction, { passive: true }));
+  }
+  function removeListeners(){
+    events.forEach(evt => window.removeEventListener(evt, onFirstInteraction));
+  }
+
+  if (wantOn) addListeners();
+
+  let wasPlaying = false;
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden){
+      wasPlaying = !audio.paused && started;
+      if (wasPlaying){ audio.pause(); updateUI(); }
+    } else if (wasPlaying && wantOn && started){
+      audio.play().then(() => {
+        fadeTo(VOL, 700);
+        updateUI();
+      }).catch(() => {});
+    }
+  });
+
+  audio.addEventListener('error', () => {
+    btn.style.opacity = '.4';
+    btn.style.cursor = 'not-allowed';
+    btn.title = 'فایل موسیقی در دسترس نیست';
+  });
+})();
+
+/* ══════════════════════════════════════════════
+   محافظت از محتوا
+   ══════════════════════════════════════════════ */
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea, [contenteditable]')) return;
+  e.preventDefault();
+});
+document.addEventListener('dragstart', e => e.preventDefault());
+
+/* ══════════════════════════════════════════════
+   سال
+   ══════════════════════════════════════════════ */
+(function year(){
+  const el = document.getElementById('year');
+  if (el) el.textContent = toFa(new Date().getFullYear());
+})();
+</script>
+
+</body>
+</html>
