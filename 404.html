@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>۴۰۴ — صفحه پیدا نشد | مهدی مجاهد</title>
+<meta name="robots" content="noindex">
+
+<link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#D9C200;
+  --navy:#001830;
+  --bg:#000d18;
+  --bg-2:#001830;
+  --panel:rgba(255,255,255,.045);
+  --stroke:rgba(255,255,255,.09);
+  --text:#f1f5f7;
+  --muted:#8b9ba6;
+  --accent-soft:rgba(217,194,0,.13);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+
+html,body{
+  height:100%;
+  overflow-x:clip;
+}
+
+body{
+  font-family:"Vazirmatn",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  display:grid;
+  place-items:center;
+  min-height:100vh;
+  padding:2rem 1rem;
+  line-height:1.85;
+  position:relative;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;
+  user-select:none;
+}
+
+/* Aurora */
+.bg-layer{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.aurora{position:absolute;border-radius:50%;filter:blur(120px);opacity:.5}
+.aurora.a{width:min(60vw,520px);height:min(60vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
+.aurora.b{width:min(50vw,460px);height:min(50vw,460px);background:#003a63;bottom:-16vw;left:-12vw;animation:f2 27s ease-in-out infinite}
+@keyframes f1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
+
+/* Grain */
+.grain{
+  position:fixed;inset:-200%;z-index:9;pointer-events:none;opacity:.03;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-4%)}20%{transform:translate(-8%,3%)}
+  30%{transform:translate(3%,-7%)}40%{transform:translate(-3%,7%)}50%{transform:translate(-8%,5%)}
+  60%{transform:translate(6%,0)}70%{transform:translate(0,6%)}80%{transform:translate(4%,-4%)}90%{transform:translate(-4%,4%)}
+}
+
+/* Card */
+.card{
+  position:relative;
+  max-width:640px;
+  width:100%;
+  border-radius:32px;
+  padding:clamp(2rem,6vw,3.5rem);
+  background:rgba(0,24,48,.55);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(24px) saturate(180%);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);
+  box-shadow:0 40px 90px rgba(0,0,0,.6);
+  text-align:center;
+  animation:cardIn 1s var(--ease) both;
+  overflow:hidden;
+}
+@keyframes cardIn{
+  from{opacity:0;transform:translateY(40px) scale(.95)}
+  to{opacity:1;transform:none}
+}
+
+.card::before{
+  content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;
+  background:linear-gradient(140deg,rgba(217,194,0,.6),transparent 40%,transparent 60%,rgba(217,194,0,.35));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  pointer-events:none;
+}
+
+.logo-mark{
+  width:64px;height:64px;border-radius:20px;margin:0 auto 1.2rem;
+  display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  box-shadow:0 0 40px rgba(217,194,0,.45);
+  animation:pulse 4s ease-in-out infinite;
+  overflow:hidden;
+}
+@keyframes pulse{50%{box-shadow:0 0 70px rgba(217,194,0,.85)}}
+.logo-mark img{width:66%;height:66%;object-fit:contain;filter:invert(1) brightness(.1)}
+
+.code{
+  font-size:clamp(4.5rem,16vw,8rem);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.05em;
+  background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));
+  background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 4s linear infinite;
+  margin-bottom:.5rem;
+}
+@keyframes shine{to{background-position:220% center}}
+
+.title{
+  font-size:clamp(1.1rem,3.5vw,1.7rem);
+  font-weight:900;
+  letter-spacing:-.02em;
+  margin-bottom:.9rem;
+}
+.title em{
+  font-style:normal;
+  color:var(--gold);
+  text-shadow:0 0 30px rgba(217,194,0,.5);
+}
+
+.sub{
+  color:var(--muted);
+  font-size:clamp(.85rem,1.4vw,1rem);
+  max-width:44ch;
+  margin:0 auto 2rem;
+}
+
+.actions{
+  display:flex;
+  gap:.7rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  width:100%;
+}
+
+.btn{
+  position:relative;
+  display:inline-flex;
+  padding:2px;
+  border-radius:999px;
+  overflow:hidden;
+  isolation:isolate;
+  cursor:pointer;
+  flex:none;
+  max-width:100%;
+  text-decoration:none;
+  color:inherit;
+}
+.btn::before{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;
+  background:conic-gradient(from 0deg,
+    transparent 0deg,transparent 190deg,
+    var(--gold) 265deg,#fff8c4 300deg,var(--gold) 330deg,
+    transparent 360deg);
+  animation:spin 3.6s linear infinite;
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  z-index:0;
+  pointer-events:none;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.btn > span{
+  position:relative;z-index:1;
+  flex:1 1 auto;
+  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
+  padding:.9rem 1.9rem;
+  border-radius:999px;
+  background:rgba(0,24,48,.6);
+  border:1px solid transparent;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  font-weight:700;
+  font-size:.88rem;
+  white-space:nowrap;
+  color:var(--text);
+  transition:background .4s var(--ease),color .4s,letter-spacing .4s;
+}
+.btn:hover > span{background:var(--accent-soft);color:var(--gold);letter-spacing:.02em}
+.btn.ghost > span{background:transparent}
+.btn:active{transform:scale(.97)}
+
+.foot-note{
+  margin-top:2rem;
+  font-size:.72rem;
+  color:var(--muted);
+}
+
+@media (max-width:520px){
+  .actions{flex-direction:column;align-items:stretch}
+  .btn{width:100%}
+  .btn > span{width:100%;padding:.8rem 1.2rem;font-size:.82rem}
+  .card{padding:1.8rem 1.2rem;border-radius:24px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+}
+</style>
+</head>
+
+<body>
+
+<div class="bg-layer">
+  <div class="aurora a"></div>
+  <div class="aurora b"></div>
+</div>
+<div class="grain"></div>
+
+<main class="card">
+  <div class="logo-mark">
+    <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+  </div>
+
+  <h1 class="code">404</h1>
+  <h2 class="title">این صفحه <em>پیدا نشد</em></h2>
+  <p class="sub">
+    آدرسی که وارد کرده‌اید وجود ندارد یا جابه‌جا شده است.
+    می‌توانید از دکمه‌ی زیر به صفحه‌ی اصلی برگردید یا از بخش تماس با من ارتباط بگیرید.
+  </p>
+
+  <div class="actions">
+    <a href="/" class="btn"><span><i class="fa-solid fa-house"></i> بازگشت به خانه</span></a>
+    <a href="/#contact" class="btn ghost"><span><i class="fa-solid fa-comment-dots"></i> تماس با من</span></a>
+  </div>
+
+  <p class="foot-note">مهدی مجاهد — WEB &amp; VISUAL</p>
+</main>
+
+</body>
+</html>
