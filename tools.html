@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>جعبه ابزار | مهدی مجاهد</title>
+<meta name="description" content="مجموعه‌ای از ابزارهای رایگان، سریع و کاربردی — طراحی، متن، تصویر، عمومی و توسعه‌دهنده">
+
+<link rel="icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="shortcut icon" href="img/20261011_025918.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="img/20261011_025918.ico">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Kufi+Arabic:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+/* ============================================================
+   1. TOKENS
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --gold:#D9C200;
+  --navy:#001830;
+  --bg:#000d18;
+  --bg-2:#001830;
+  --panel:rgba(255,255,255,.045);
+  --panel-2:rgba(0,24,48,.55);
+  --stroke:rgba(255,255,255,.09);
+  --text:#f1f5f7;
+  --muted:#8b9ba6;
+  --accent-soft:rgba(217,194,0,.13);
+  --shadow:0 30px 70px rgba(0,0,0,.6);
+  --glow:0 0 60px rgba(217,194,0,.28);
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-2:cubic-bezier(.34,1.56,.64,1);
+}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:80px;
+  overflow-x:clip;
+  max-width:100%;
+  -webkit-text-size-adjust:100%;
+}
+@supports not (overflow: clip){
+  html{overflow-x:hidden}
+}
+
+body{
+  font-family:"Vazirmatn",system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:clip;
+  max-width:100%;
+  line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;
+  user-select:none;
+}
+@supports not (overflow: clip){
+  body{overflow-x:hidden}
+}
+body.lock{overflow:hidden}
+
+input,textarea,select,[contenteditable="true"]{
+  -webkit-user-select:text;
+  user-select:text;
+}
+
+img,video,canvas,svg,iframe{max-width:100%;display:block}
+img{-webkit-user-drag:none;user-drag:none}
+
+h1,h2,h3,h4,p,a,span,li,b,small,label,strong,em{
+  overflow-wrap:anywhere;
+  word-wrap:break-word;
+  min-width:0;
+  max-width:100%;
+}
+
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--gold);color:#001830}
+
+::-webkit-scrollbar{width:9px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--gold),var(--navy));border-radius:99px}
+
+/* ============================================================
+   2. BACKGROUND
+   ============================================================ */
+.bg-layer{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
+.aurora{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5;will-change:transform}
+.aurora.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
+.aurora.b{width:min(52vw,480px);height:min(52vw,480px);background:#003a63;bottom:-16vw;left:-16vw;animation:f2 27s ease-in-out infinite}
+.aurora.c{width:min(42vw,380px);height:min(42vw,380px);background:#1D241D;top:42%;left:38%;animation:f3 32s ease-in-out infinite}
+@keyframes f1{50%{transform:translateY(8vh) scale(1.12)}}
+@keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
+@keyframes f3{50%{transform:translateY(-6vh) scale(.88)}}
+
+#stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.55}
+
+.grain{
+  position:fixed;inset:-200%;z-index:9998;pointer-events:none;opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grain 8s steps(6) infinite;
+}
+@keyframes grain{
+  0%,100%{transform:translate(0,0)}10%{transform:translate(-4%,-4%)}20%{transform:translate(-8%,3%)}
+  30%{transform:translate(3%,-7%)}40%{transform:translate(-3%,7%)}50%{transform:translate(-8%,5%)}
+  60%{transform:translate(6%,0)}70%{transform:translate(0,6%)}80%{transform:translate(4%,-4%)}90%{transform:translate(-4%,4%)}
+}
+
+/* ============================================================
+   3. HEADER
+   ============================================================ */
+.header{
+  position:fixed;top:0;right:0;left:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.9rem clamp(1rem,4vw,3rem);
+  background:rgba(0,13,24,.82);
+  backdrop-filter:blur(20px) saturate(180%);
+  -webkit-backdrop-filter:blur(20px) saturate(180%);
+  border-bottom:1px solid var(--stroke);
+}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;letter-spacing:-.02em;min-width:0}
+.logo-mark{
+  width:38px;height:38px;border-radius:12px;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  flex:none;overflow:hidden;
+  box-shadow:0 0 26px rgba(217,194,0,.45);
+}
+.logo-mark img{width:68%;height:68%;object-fit:contain;filter:invert(1) brightness(.1)}
+.logo small{display:block;font-size:.52rem;font-weight:500;color:var(--muted);letter-spacing:.14em;line-height:1.2}
+
+.back-btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  padding:.55rem 1.1rem;border-radius:999px;
+  background:var(--panel);border:1px solid var(--stroke);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  font-size:.8rem;font-weight:700;
+  transition:.4s var(--ease);
+}
+.back-btn i{color:var(--gold);font-size:.85rem;transition:.4s var(--ease-2)}
+.back-btn:hover{background:var(--accent-soft);border-color:var(--gold);color:var(--gold)}
+.back-btn:hover i{transform:translateX(-4px)}
+
+/* ============================================================
+   4. LAYOUT
+   ============================================================ */
+main{position:relative;z-index:1;padding-top:80px;overflow-x:clip}
+section{padding:clamp(2rem,6vh,4rem) clamp(1rem,3.5vw,3rem);position:relative;overflow-x:clip}
+.wrap{max-width:1200px;margin:0 auto;width:100%}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.68rem;font-weight:700;letter-spacing:.2em;
+  color:var(--gold);text-transform:uppercase;margin-bottom:.85rem;
+}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--gold);border-radius:9px;flex:none}
+
+h1.page-title{
+  font-size:clamp(1.7rem,6vw,3.4rem);font-weight:900;
+  line-height:1.2;letter-spacing:-.035em;margin-bottom:1rem;
+}
+h1.page-title em{
+  font-style:normal;
+  background:linear-gradient(105deg,var(--gold),#fff6b0,var(--gold));
+  background-size:220% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:shine 5s linear infinite;
+}
+@keyframes shine{to{background-position:220% center}}
+
+.lead{color:var(--muted);font-size:clamp(.85rem,1.3vw,.98rem);max-width:62ch}
+
+.hero-tools{padding-top:clamp(3rem,8vh,5rem);padding-bottom:1.5rem}
+
+/* ============================================================
+   5. FILTERS
+   ============================================================ */
+.filters-section{padding-top:.5rem;padding-bottom:.5rem}
+.filters{
+  display:flex;
+  gap:.5rem;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.filter{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.55rem 1.15rem;
+  border-radius:99px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  font-size:.78rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.4s var(--ease);
+  color:var(--text);
+}
+.filter i{font-size:.75rem;color:var(--gold)}
+.filter:hover{background:var(--accent-soft);border-color:var(--gold);color:var(--gold);transform:translateY(-2px)}
+.filter.active{
+  background:var(--accent-soft);
+  border-color:var(--gold);
+  color:var(--gold);
+  box-shadow:0 0 24px rgba(217,194,0,.25);
+}
+
+/* ============================================================
+   6. TOOLS GRID
+   ============================================================ */
+.tools-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));
+  gap:1rem;
+  margin-top:1rem;
+}
+
+.tool-card{
+  position:relative;
+  padding:1.6rem 1.4rem 1.4rem;
+  border-radius:22px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(16px) saturate(160%);
+  -webkit-backdrop-filter:blur(16px) saturate(160%);
+  cursor:pointer;
+  overflow:hidden;
+  text-align:right;
+  transition:transform .5s var(--ease),
+             border-color .5s var(--ease),
+             box-shadow .5s var(--ease),
+             background .5s var(--ease);
+  min-width:0;
+  opacity:0;
+  transform:translateY(30px);
+  animation:cardIn .7s var(--ease) forwards;
+}
+@keyframes cardIn{
+  to{opacity:1;transform:translateY(0)}
+}
+
+.tool-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  opacity:0;
+  background:radial-gradient(400px circle at 50% 0%,rgba(217,194,0,.14),transparent 60%);
+  transition:.5s;
+  pointer-events:none;
+}
+.tool-card:hover::before{opacity:1}
+.tool-card:hover{
+  transform:translateY(-8px);
+  border-color:rgba(217,194,0,.55);
+  box-shadow:var(--glow);
+  background:rgba(255,255,255,.06);
+}
+
+.tool-icon{
+  width:52px;
+  height:52px;
+  border-radius:16px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  color:#001830;
+  font-size:1.3rem;
+  margin-bottom:1rem;
+  box-shadow:0 8px 24px rgba(217,194,0,.35);
+  transition:.5s var(--ease-2);
+}
+.tool-card:hover .tool-icon{transform:scale(1.1) rotate(-5deg)}
+
+.tool-card h3{
+  font-size:1rem;
+  font-weight:800;
+  letter-spacing:-.02em;
+  margin-bottom:.4rem;
+  color:var(--text);
+}
+.tool-card p{
+  font-size:.8rem;
+  color:var(--muted);
+  line-height:1.75;
+  margin-bottom:.9rem;
+  min-height:3.4em;
+}
+
+.tool-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  padding:.3rem .7rem;
+  border-radius:99px;
+  font-size:.65rem;
+  font-weight:700;
+  background:var(--accent-soft);
+  color:var(--gold);
+  border:1px solid rgba(217,194,0,.25);
+}
+.tool-tag i{font-size:.6rem}
+
+.tool-card .arrow{
+  position:absolute;
+  top:1.2rem;
+  left:1.2rem;
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  color:var(--muted);
+  font-size:.75rem;
+  transition:.5s var(--ease);
+}
+.tool-card:hover .arrow{
+  background:var(--gold);
+  color:#001830;
+  border-color:var(--gold);
+  transform:rotate(-45deg);
+}
+
+/* ============================================================
+   7. MODAL
+   ============================================================ */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:grid;
+  place-items:center;
+  padding:1rem;
+  opacity:0;
+  visibility:hidden;
+  transition:opacity .4s var(--ease),visibility .4s var(--ease);
+}
+.modal.open{opacity:1;visibility:visible}
+
+.modal-backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(0,6,12,.82);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  cursor:pointer;
+}
+
+.modal-content{
+  position:relative;
+  width:100%;
+  max-width:min(680px,100%);
+  max-height:min(92vh,900px);
+  border-radius:26px;
+  background:rgba(0,24,48,.75);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(28px) saturate(180%);
+  -webkit-backdrop-filter:blur(28px) saturate(180%);
+  box-shadow:0 40px 90px rgba(0,0,0,.75);
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transform:scale(.94) translateY(20px);
+  transition:transform .5s var(--ease-2);
+}
+.modal.open .modal-content{transform:scale(1) translateY(0)}
+
+.modal-content::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(140deg,rgba(217,194,0,.55),transparent 40%,transparent 60%,rgba(217,194,0,.3));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  pointer-events:none;
+  z-index:2;
+}
+
+.modal-close{
+  position:absolute;
+  top:1rem;
+  left:1rem;
+  z-index:5;
+  width:40px;
+  height:40px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:var(--panel-2);
+  border:1px solid var(--stroke);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  color:var(--text);
+  font-size:1.1rem;
+  cursor:pointer;
+  transition:.4s var(--ease);
+}
+.modal-close:hover{
+  background:rgba(217,194,0,.2);
+  border-color:var(--gold);
+  color:var(--gold);
+  transform:rotate(90deg);
+}
+
+.modal-body{
+  padding:2rem clamp(1.2rem,4vw,2rem) 2rem;
+  overflow-y:auto;
+  overflow-x:clip;
+  flex:1;
+  min-width:0;
+}
+
+.tool-title{
+  display:flex;
+  align-items:center;
+  gap:.85rem;
+  margin-bottom:1.4rem;
+  padding-left:3rem;
+}
+.tool-title-icon{
+  width:44px;
+  height:44px;
+  border-radius:14px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  color:#001830;
+  font-size:1.15rem;
+  flex:none;
+}
+.tool-title h2{
+  font-size:1.15rem;
+  font-weight:900;
+  letter-spacing:-.025em;
+}
+.tool-title p{
+  font-size:.75rem;
+  color:var(--muted);
+  margin-top:.15rem;
+}
+
+/* ============================================================
+   8. FORM ELEMENTS
+   ============================================================ */
+.field{
+  margin-bottom:1rem;
+  position:relative;
+  text-align:right;
+}
+.field label{
+  display:block;
+  font-size:.75rem;
+  font-weight:700;
+  color:var(--muted);
+  margin-bottom:.45rem;
+}
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  padding:.85rem 1rem;
+  border-radius:14px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  color:var(--text);
+  font:inherit;
+  font-size:.88rem;
+  transition:.35s var(--ease);
+  resize:vertical;
+  -webkit-user-select:text;
+  user-select:text;
+}
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 0 4px var(--accent-soft);
+  background:var(--panel-2);
+}
+.field textarea{min-height:110px;line-height:1.85}
+.field-row{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:.7rem;
+}
+.field-row > .field{margin-bottom:1rem}
+.field input[type="color"]{
+  padding:.3rem;
+  height:52px;
+  cursor:pointer;
+}
+.field input[type="range"]{
+  padding:.5rem 0;
+  height:auto;
+  background:transparent;
+  cursor:pointer;
+}
+.field input[type="range"]::-webkit-slider-runnable-track{
+  height:6px;
+  border-radius:99px;
+  background:linear-gradient(90deg,var(--gold),rgba(217,194,0,.3));
+}
+.field input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background:var(--gold);
+  border:2px solid #001830;
+  box-shadow:0 0 12px rgba(217,194,0,.7);
+  margin-top:-7px;
+  cursor:pointer;
+}
+.field input[type="range"]::-moz-range-track{
+  height:6px;
+  border-radius:99px;
+  background:rgba(217,194,0,.4);
+}
+.field input[type="range"]::-moz-range-thumb{
+  width:18px;height:18px;border-radius:50%;
+  background:var(--gold);border:2px solid #001830;cursor:pointer;
+}
+
+/* ============================================================
+   9. BUTTONS
+   ============================================================ */
+@property --btn-angle {syntax:"<angle>";initial-value:0deg;inherits:false;}
+
+.btn{
+  position:relative;
+  display:inline-flex;
+  padding:2px;
+  border-radius:999px;
+  overflow:hidden;
+  isolation:isolate;
+  cursor:pointer;
+  flex:none;
+  max-width:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+.btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:2px;
+  background:conic-gradient(
+    from var(--btn-angle),
+    transparent 0deg, transparent 190deg,
+    var(--gold) 265deg, #fff8c4 300deg, var(--gold) 330deg,
+    transparent 360deg
+  );
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  mask-composite:exclude;
+  animation:btnSpin 3.6s linear infinite;
+  z-index:0;
+  pointer-events:none;
+}
+@keyframes btnSpin{to{--btn-angle:360deg}}
+
+.btn > span{
+  position:relative;
+  z-index:1;
+  flex:1 1 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  padding:.85rem 1.7rem;
+  border-radius:999px;
+  background:var(--panel-2);
+  border:1px solid transparent;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  font-weight:700;
+  font-size:.83rem;
+  white-space:nowrap;
+  text-align:center;
+  min-width:0;
+  transition:background .4s var(--ease),color .4s,letter-spacing .4s;
+}
+.btn:hover > span{background:var(--accent-soft);color:var(--gold);letter-spacing:.02em}
+.btn:active{transform:scale(.97)}
+.btn.ghost > span{background:transparent}
+
+.btn-sm > span{padding:.6rem 1.1rem;font-size:.76rem}
+
+.btn-row{
+  display:flex;
+  gap:.6rem;
+  flex-wrap:wrap;
+  margin-top:.4rem;
+}
+.btn-row .btn{flex:1 1 auto;min-width:120px}
+
+/* ============================================================
+   10. OUTPUTS / MISC
+   ============================================================ */
+.output{
+  padding:1rem 1.1rem;
+  border-radius:14px;
+  background:var(--panel);
+  border:1px dashed rgba(217,194,0,.3);
+  font-family:ui-monospace,SFMono-Regular,monospace;
+  font-size:.82rem;
+  color:var(--gold);
+  word-break:break-all;
+  line-height:1.8;
+  min-height:60px;
+  -webkit-user-select:text;
+  user-select:text;
+}
+.output:empty{display:none}
+
+.hint{
+  font-size:.72rem;
+  color:var(--muted);
+  margin-top:.5rem;
+}
+
+.result-info{
+  display:flex;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-top:.8rem;
+  padding:.7rem 1rem;
+  border-radius:12px;
+  background:var(--accent-soft);
+  border:1px solid rgba(217,194,0,.25);
+  font-size:.78rem;
+  color:var(--gold);
+}
+.result-info b{font-weight:800}
+
+/* palette */
+.palette-output{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:.5rem;
+  margin-top:1rem;
+}
+.palette-swatch{
+  position:relative;
+  aspect-ratio:1/1.4;
+  border-radius:14px;
+  cursor:pointer;
+  overflow:hidden;
+  transition:.4s var(--ease);
+  border:1px solid var(--stroke);
+}
+.palette-swatch:hover{transform:translateY(-6px) scale(1.03)}
+.palette-swatch .code{
+  position:absolute;
+  bottom:0;
+  left:0;
+  right:0;
+  padding:.5rem .3rem;
+  text-align:center;
+  font-family:ui-monospace,monospace;
+  font-size:.68rem;
+  font-weight:800;
+  background:rgba(0,0,0,.5);
+  color:#fff;
+  backdrop-filter:blur(6px);
+}
+
+/* gradient preview */
+.gradient-preview{
+  width:100%;
+  height:140px;
+  border-radius:16px;
+  border:1px solid var(--stroke);
+  margin-top:1rem;
+  transition:background .5s var(--ease);
+}
+
+/* contrast */
+.contrast-preview{
+  padding:2rem 1.5rem;
+  border-radius:16px;
+  text-align:center;
+  margin-top:1rem;
+  border:1px solid var(--stroke);
+  transition:.4s var(--ease);
+}
+.contrast-preview .sample-lg{font-size:1.7rem;font-weight:900;margin-bottom:.6rem}
+.contrast-preview .sample-md{font-size:1rem;font-weight:600;margin-bottom:.5rem}
+.contrast-preview .sample-sm{font-size:.8rem;opacity:.85}
+
+.contrast-score{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.4rem 1rem;
+  border-radius:99px;
+  font-size:.78rem;
+  font-weight:800;
+  margin-top:1rem;
+}
+.score-pass{background:rgba(80,200,120,.15);color:#7ddba0;border:1px solid rgba(80,200,120,.35)}
+.score-fail{background:rgba(230,80,80,.15);color:#ff9a9a;border:1px solid rgba(230,80,80,.35)}
+
+/* password strength */
+.strength-bar{
+  height:6px;
+  border-radius:99px;
+  background:var(--stroke);
+  overflow:hidden;
+  margin-top:.6rem;
+}
+.strength-bar i{
+  display:block;
+  height:100%;
+  width:0;
+  border-radius:99px;
+  transition:width .5s var(--ease),background .5s;
+}
+
+/* pomodoro */
+.pomodoro-timer{
+  font-size:clamp(3rem,14vw,5rem);
+  font-weight:900;
+  text-align:center;
+  letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums;
+  color:var(--gold);
+  text-shadow:0 0 40px rgba(217,194,0,.45);
+  margin:1rem 0;
+}
+.pomodoro-modes{
+  display:flex;
+  gap:.5rem;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:1rem;
+}
+.pomodoro-modes button{
+  padding:.5rem 1rem;
+  border-radius:99px;
+  border:1px solid var(--stroke);
+  background:var(--panel);
+  font-size:.75rem;
+  font-weight:700;
+  cursor:pointer;
+  transition:.4s var(--ease);
+  color:var(--text);
+}
+.pomodoro-modes button.active{
+  background:var(--accent-soft);
+  color:var(--gold);
+  border-color:var(--gold);
+}
+
+/* pattern */
+.pattern-preview{
+  aspect-ratio:1;
+  width:100%;
+  max-width:420px;
+  margin:1rem auto;
+  border-radius:18px;
+  border:1px solid var(--stroke);
+  overflow:hidden;
+  background:var(--panel);
+  display:grid;
+  place-items:center;
+}
+.pattern-preview svg{width:100%;height:100%}
+
+/* font preview */
+.font-preview{
+  padding:1.5rem 1.2rem;
+  border-radius:16px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  margin-top:1rem;
+  font-size:1.6rem;
+  line-height:1.9;
+  text-align:center;
+  min-height:110px;
+  display:grid;
+  place-items:center;
+}
+
+/* image preview */
+.img-preview{
+  max-width:100%;
+  max-height:260px;
+  border-radius:14px;
+  margin:1rem auto 0;
+  border:1px solid var(--stroke);
+  object-fit:contain;
+}
+
+.file-drop{
+  display:grid;
+  place-items:center;
+  padding:1.8rem 1rem;
+  border-radius:16px;
+  border:2px dashed rgba(217,194,0,.4);
+  background:var(--panel);
+  text-align:center;
+  cursor:pointer;
+  transition:.4s var(--ease);
+}
+.file-drop:hover{
+  border-color:var(--gold);
+  background:var(--accent-soft);
+}
+.file-drop i{font-size:1.8rem;color:var(--gold);margin-bottom:.6rem;display:block}
+.file-drop b{font-size:.88rem;font-weight:800;display:block;margin-bottom:.25rem}
+.file-drop span{font-size:.72rem;color:var(--muted)}
+.file-drop input{display:none}
+
+/* qr */
+.qr-output{
+  display:grid;
+  place-items:center;
+  padding:1.4rem;
+  background:#fff;
+  border-radius:16px;
+  margin-top:1rem;
+  min-height:220px;
+}
+.qr-output img, .qr-output svg{
+  max-width:100%;
+  height:auto;
+}
+
+/* date result */
+.date-result{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+  gap:.7rem;
+  margin-top:1rem;
+}
+.date-result div{
+  padding:.9rem 1rem;
+  border-radius:14px;
+  background:var(--panel);
+  border:1px solid var(--stroke);
+  text-align:center;
+}
+.date-result b{
+  display:block;
+  font-size:1.05rem;
+  font-weight:900;
+  color:var(--gold);
+  margin-bottom:.2rem;
+}
+.date-result span{font-size:.7rem;color:var(--muted)}
+
+/* toast */
+.toast{
+  position:fixed;
+  bottom:2rem;
+  left:50%;
+  transform:translateX(-50%) translateY(40px);
+  padding:.7rem 1.3rem;
+  border-radius:99px;
+  background:var(--panel-2);
+  border:1px solid var(--gold);
+  color:var(--gold);
+  font-size:.8rem;
+  font-weight:700;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  z-index:2000;
+  opacity:0;
+  pointer-events:none;
+  transition:.5s var(--ease);
+  box-shadow:var(--glow);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ============================================================
+   11. FOOTER
+   ============================================================ */
+footer{
+  position:relative;z-index:1;
+  padding:clamp(2rem,5vw,3rem) clamp(1rem,3.5vw,3rem) 1.5rem;
+  border-top:1px solid var(--stroke);
+  background:rgba(0,13,24,.65);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+footer .wrap{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  flex-wrap:wrap;
+  font-size:.72rem;
+  color:var(--muted);
+}
+footer a{color:var(--gold);font-weight:700;transition:.3s}
+footer a:hover{text-shadow:0 0 18px var(--gold)}
+
+/* ============================================================
+   12. RESPONSIVE
+   ============================================================ */
+@media (max-width:640px){
+  .header{padding:.65rem .9rem}
+  .logo{font-size:.9rem;gap:.45rem}
+  .logo-mark{width:34px;height:34px;border-radius:11px}
+  .logo small{font-size:.5rem;letter-spacing:.1em}
+  .back-btn{padding:.5rem .9rem;font-size:.74rem}
+
+  main{padding-top:70px}
+  section{padding:1.6rem 1rem}
+
+  h1.page-title{font-size:clamp(1.5rem,7vw,2.2rem)}
+
+  .filter{padding:.45rem .9rem;font-size:.72rem}
+  .filters{gap:.4rem}
+
+  .tools-grid{grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:.7rem}
+  .tool-card{padding:1.2rem 1rem 1rem;border-radius:18px}
+  .tool-icon{width:42px;height:42px;border-radius:13px;font-size:1.1rem;margin-bottom:.75rem}
+  .tool-card h3{font-size:.88rem}
+  .tool-card p{font-size:.72rem;min-height:4.2em;margin-bottom:.7rem}
+  .tool-tag{font-size:.6rem;padding:.25rem .6rem}
+  .tool-card .arrow{width:24px;height:24px;font-size:.65rem;top:.9rem;left:.9rem}
+
+  .modal{padding:.5rem}
+  .modal-content{border-radius:22px;max-height:94vh}
+  .modal-body{padding:1.6rem 1rem 1.4rem}
+  .tool-title{padding-left:2.5rem;gap:.7rem;margin-bottom:1.1rem}
+  .tool-title-icon{width:38px;height:38px;border-radius:12px;font-size:1rem}
+  .tool-title h2{font-size:1rem}
+  .tool-title p{font-size:.68rem}
+  .modal-close{width:36px;height:36px;border-radius:12px;font-size:1rem;top:.8rem;left:.8rem}
+
+  .field input,.field textarea,.field select{padding:.75rem .9rem;font-size:.82rem}
+  .field textarea{min-height:90px}
+
+  .btn > span{padding:.75rem 1.3rem;font-size:.78rem}
+  .btn-sm > span{padding:.55rem 1rem;font-size:.72rem}
+  .btn-row{flex-direction:column;gap:.5rem}
+  .btn-row .btn{width:100%}
+
+  .palette-output{grid-template-columns:repeat(5,1fr);gap:.35rem}
+  .palette-swatch .code{font-size:.55rem;padding:.35rem .2rem}
+
+  .output{font-size:.75rem;padding:.8rem .9rem}
+
+  .pomodoro-timer{font-size:clamp(2.6rem,16vw,4rem)}
+  .date-result{grid-template-columns:1fr 1fr}
+
+  footer .wrap{flex-direction:column;align-items:flex-start;text-align:start}
+}
+
+@media (max-width:400px){
+  .tools-grid{grid-template-columns:1fr}
+  .tool-card p{min-height:auto}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .tool-card{opacity:1;transform:none}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== BACKGROUND ===== -->
+<div class="bg-layer">
+  <div class="aurora a"></div>
+  <div class="aurora b"></div>
+  <div class="aurora c"></div>
+</div>
+<canvas id="stars"></canvas>
+<div class="grain"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="header">
+  <a href="index.html" class="logo">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
+    <span>
+      مهدی مجاهد
+      <small>WEB &amp; VISUAL</small>
+    </span>
+  </a>
+
+  <a href="index.html" class="back-btn">
+    <i class="fa-solid fa-arrow-right"></i>
+    بازگشت
+  </a>
+</header>
+
+<main>
+
+<!-- ===== HERO ===== -->
+<section class="hero-tools">
+  <div class="wrap">
+    <span class="eyebrow">جعبه ابزار</span>
+    <h1 class="page-title">ابزارهای <em>کاربردی</em></h1>
+    <p class="lead">
+      مجموعه‌ای از ابزارهای رایگان و سبک برای طراحان، برنامه‌نویس‌ها و کاربران عادی.
+      همه چیز کاملاً در مرورگر شما اجرا می‌شود — هیچ داده‌ای به هیچ سروری فرستاده نمی‌شود.
+    </p>
+  </div>
+</section>
+
+<!-- ===== FILTERS ===== -->
+<section class="filters-section">
+  <div class="wrap">
+    <div class="filters" id="filters">
+      <button class="filter active" data-filter="all"><i class="fa-solid fa-grip"></i> همه</button>
+      <button class="filter" data-filter="color"><i class="fa-solid fa-palette"></i> رنگ و طراحی</button>
+      <button class="filter" data-filter="text"><i class="fa-solid fa-font"></i> متن</button>
+      <button class="filter" data-filter="image"><i class="fa-solid fa-image"></i> تصویر</button>
+      <button class="filter" data-filter="general"><i class="fa-solid fa-bolt"></i> عمومی</button>
+      <button class="filter" data-filter="dev"><i class="fa-solid fa-code"></i> توسعه‌دهنده</button>
+      <button class="filter" data-filter="special"><i class="fa-solid fa-star"></i> خاص</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TOOLS GRID ===== -->
+<section class="tools-section">
+  <div class="wrap">
+    <div class="tools-grid" id="toolsGrid"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===== MODAL ===== -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-backdrop" id="modalBackdrop"></div>
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose" aria-label="بستن">✕</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="wrap">
+    <span>© <span id="year"></span> مهدی مجاهد — تمامی حقوق محفوظ است.</span>
+    <span><a href="index.html">بازگشت به صفحه‌ی اصلی</a></span>
+  </div>
+</footer>
+
+<!-- ===== QR Code Library ===== -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+
+<script>
+/* ============================================================
+   HELPER
+   ============================================================ */
+const toFa = n => String(n).replace(/\d/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+const $ = (s, ctx=document) => ctx.querySelector(s);
+const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
+
+/* Toast */
+let toastTimer = null;
+function showToast(msg){
+  const t = $('#toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+/* Copy to clipboard */
+function copyText(text, okMsg = 'کپی شد ✦'){
+  if (!text) return;
+  navigator.clipboard.writeText(text)
+    .then(() => showToast(okMsg))
+    .catch(() => {
+      // fallback
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); showToast(okMsg); } catch(e){}
+      document.body.removeChild(ta);
+    });
+}
+
+/* Escape HTML */
+function esc(s){
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+/* ============================================================
+   TOOLS REGISTRY
+   ============================================================ */
+const TOOLS = [
+
+  /* ===== 1. PALETTE ===== */
+  {
+    id: 'palette',
+    category: 'color',
+    icon: 'fa-solid fa-palette',
+    title: 'سازندهٔ پالت رنگ',
+    tag: 'رنگ و طراحی',
+    desc: 'یک رنگ پایه انتخاب کنید و پالت هماهنگ ۵ رنگی دریافت کنید.',
+    content: `
+      <div class="field">
+        <label for="paletteBase">رنگ پایه</label>
+        <input type="color" id="paletteBase" value="#D9C200">
+      </div>
+      <div class="field">
+        <label for="paletteType">نوع هارمونی</label>
+        <select id="paletteType">
+          <option value="complementary">مکمل</option>
+          <option value="analogous">آنالوگ</option>
+          <option value="triadic">سه‌گانه</option>
+          <option value="tetradic">چهارگانه</option>
+          <option value="monochromatic">تک‌رنگ</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="paletteGen"><span>ساخت پالت <i class="fa-solid fa-wand-magic-sparkles"></i></span></button>
+        <button class="btn ghost" id="paletteCopyAll"><span>کپی همه</span></button>
+      </div>
+      <div class="palette-output" id="paletteOut"></div>
+      <p class="hint">روی هر رنگ کلیک کنید تا کد HEX کپی شود.</p>
+    `,
+    init(){
+      const baseEl = $('#paletteBase');
+      const typeEl = $('#paletteType');
+      const outEl  = $('#paletteOut');
+
+      function hexToHsl(hex){
+        hex = hex.replace('#','');
+        const r = parseInt(hex.substr(0,2),16)/255;
+        const g = parseInt(hex.substr(2,2),16)/255;
+        const b = parseInt(hex.substr(4,2),16)/255;
+        const max = Math.max(r,g,b), min = Math.min(r,g,b);
+        let h=0,s=0,l=(max+min)/2;
+        if (max !== min){
+          const d = max - min;
+          s = l > .5 ? d/(2-max-min) : d/(max+min);
+          switch(max){
+            case r: h = (g-b)/d + (g<b?6:0); break;
+            case g: h = (b-r)/d + 2; break;
+            case b: h = (r-g)/d + 4; break;
+          }
+          h /= 6;
+        }
+        return {h:h*360, s:s*100, l:l*100};
+      }
+      function hslToHex(h,s,l){
+        s/=100; l/=100;
+        const k = n => (n + h/30) % 12;
+        const a = s * Math.min(l, 1-l);
+        const f = n => l - a * Math.max(-1, Math.min(k(n)-3, Math.min(9-k(n), 1)));
+        const toHex = x => {
+          const v = Math.round(255*x);
+          return v.toString(16).padStart(2,'0');
+        };
+        return '#' + toHex(f(0)) + toHex(f(8)) + toHex(f(4));
+      }
+
+      function generate(){
+        const base = baseEl.value;
+        const {h,s,l} = hexToHsl(base);
+        const type = typeEl.value;
+        let colors = [];
+
+        if (type === 'complementary'){
+          colors = [h, h+180, h+180, h, h+180];
+        } else if (type === 'analogous'){
+          colors = [h-40, h-20, h, h+20, h+40];
+        } else if (type === 'triadic'){
+          colors = [h, h+120, h+240, h+120, h+240];
+        } else if (type === 'tetradic'){
+          colors = [h, h+90, h+180, h+270, h+45];
+        } else {
+          colors = [h, h, h, h, h];
+        }
+
+        outEl.innerHTML = '';
+        colors.forEach((hh, i) => {
+          let ll = l;
+          let ss = s;
+          if (type === 'monochromatic'){
+            ll = Math.max(15, Math.min(85, 20 + i*17));
+          } else {
+            ll = Math.max(25, Math.min(75, l + (i - 2) * 8));
+          }
+          const hex = hslToHex((hh+360)%360, ss, ll);
+          const sw = document.createElement('div');
+          sw.className = 'palette-swatch';
+          sw.style.background = hex;
+          sw.innerHTML = '<span class="code">' + hex.toUpperCase() + '</span>';
+          sw.addEventListener('click', () => copyText(hex.toUpperCase(), 'کپی شد: ' + hex.toUpperCase()));
+          outEl.appendChild(sw);
+        });
+      }
+
+      baseEl.addEventListener('input', generate);
+      typeEl.addEventListener('change', generate);
+      $('#paletteGen').addEventListener('click', generate);
+      $('#paletteCopyAll').addEventListener('click', () => {
+        const codes = $$('.palette-swatch .code', outEl).map(e => e.textContent).join(', ');
+        if (codes) copyText(codes, 'پالت کپی شد ✦');
+      });
+
+      generate();
+    }
+  },
+
+  /* ===== 2. CONTRAST ===== */
+  {
+    id: 'contrast',
+    category: 'color',
+    icon: 'fa-solid fa-circle-half-stroke',
+    title: 'بررسی کنتراست WCAG',
+    tag: 'رنگ و طراحی',
+    desc: 'کنتراست متن و پس‌زمینه را با استانداردهای AA و AAA بسنجید.',
+    content: `
+      <div class="field-row">
+        <div class="field">
+          <label for="cFg">رنگ متن</label>
+          <input type="color" id="cFg" value="#f1f5f7">
+        </div>
+        <div class="field">
+          <label for="cBg">رنگ پس‌زمینه</label>
+          <input type="color" id="cBg" value="#000d18">
+        </div>
+      </div>
+      <div class="contrast-preview" id="cPreview">
+        <div class="sample-lg">نمونهٔ متن بزرگ</div>
+        <div class="sample-md">متن معمولی برای خواندن</div>
+        <div class="sample-sm">متن ریزتر با جزئیات بیشتر</div>
+      </div>
+      <div id="cScore"></div>
+    `,
+    init(){
+      const fg = $('#cFg'), bg = $('#cBg');
+      const preview = $('#cPreview');
+      const score = $('#cScore');
+
+      function luminance(hex){
+        hex = hex.replace('#','');
+        const rgb = [0,2,4].map(i => parseInt(hex.substr(i,2),16)/255);
+        const [r,g,b] = rgb.map(v => v <= .03928 ? v/12.92 : Math.pow((v+.055)/1.055, 2.4));
+        return .2126*r + .7152*g + .0722*b;
+      }
+      function contrastRatio(c1, c2){
+        const l1 = luminance(c1), l2 = luminance(c2);
+        const lighter = Math.max(l1,l2), darker = Math.min(l1,l2);
+        return (lighter + .05)/(darker + .05);
+      }
+
+      function update(){
+        const ratio = contrastRatio(fg.value, bg.value);
+        preview.style.background = bg.value;
+        preview.style.color = fg.value;
+
+        const pass = ratio >= 4.5;
+        const passAAA = ratio >= 7;
+        const passLarge = ratio >= 3;
+
+        let badges = '';
+        badges += '<span class="contrast-score ' + (passLarge?'score-pass':'score-fail') + '">AA Large ' + (passLarge?'✓':'✗') + '</span> ';
+        badges += '<span class="contrast-score ' + (pass?'score-pass':'score-fail') + '">AA ' + (pass?'✓':'✗') + '</span> ';
+        badges += '<span class="contrast-score ' + (passAAA?'score-pass':'score-fail') + '">AAA ' + (passAAA?'✓':'✗') + '</span>';
+
+        score.innerHTML = '<div style="text-align:center;margin-top:1rem">' +
+          '<div style="font-size:2rem;font-weight:900;color:var(--gold)">' + ratio.toFixed(2) + ':1</div>' +
+          '<div style="margin-top:.6rem">' + badges + '</div>' +
+        '</div>';
+      }
+
+      fg.addEventListener('input', update);
+      bg.addEventListener('input', update);
+      update();
+    }
+  },
+
+  /* ===== 3. GRADIENT ===== */
+  {
+    id: 'gradient',
+    category: 'color',
+    icon: 'fa-solid fa-fill-drip',
+    title: 'سازندهٔ گرادیان',
+    tag: 'رنگ و طراحی',
+    desc: 'گرادیان CSS بسازید و کد آن را کپی کنید.',
+    content: `
+      <div class="field-row">
+        <div class="field">
+          <label for="gColor1">رنگ اول</label>
+          <input type="color" id="gColor1" value="#D9C200">
+        </div>
+        <div class="field">
+          <label for="gColor2">رنگ دوم</label>
+          <input type="color" id="gColor2" value="#001830">
+        </div>
+      </div>
+      <div class="field">
+        <label for="gAngle">زاویه (<span id="gAngleVal">۱۳۵</span>°)</label>
+        <input type="range" id="gAngle" min="0" max="360" value="135">
+      </div>
+      <div class="field">
+        <label for="gType">نوع</label>
+        <select id="gType">
+          <option value="linear">خطی</option>
+          <option value="radial">شعاعی</option>
+        </select>
+      </div>
+      <div class="gradient-preview" id="gPreview"></div>
+      <div class="output" id="gOutput" style="margin-top:1rem"></div>
+      <div class="btn-row">
+        <button class="btn" id="gCopy"><span>کپی CSS <i class="fa-solid fa-copy"></i></span></button>
+      </div>
+    `,
+    init(){
+      const c1 = $('#gColor1'), c2 = $('#gColor2');
+      const angle = $('#gAngle'), angleVal = $('#gAngleVal');
+      const type = $('#gType');
+      const preview = $('#gPreview'), out = $('#gOutput');
+
+      function update(){
+        const a = angle.value;
+        angleVal.textContent = toFa(a);
+        const css = type.value === 'linear'
+          ? 'linear-gradient(' + a + 'deg, ' + c1.value + ', ' + c2.value + ')'
+          : 'radial-gradient(circle, ' + c1.value + ', ' + c2.value + ')';
+        preview.style.background = css;
+        out.textContent = 'background: ' + css + ';';
+      }
+
+      [c1,c2,angle,type].forEach(el => el.addEventListener('input', update));
+      $('#gCopy').addEventListener('click', () => copyText(out.textContent, 'CSS کپی شد ✦'));
+      update();
+    }
+  },
+
+  /* ===== 4. PERSIAN TEXT FIXER ===== */
+  {
+    id: 'persian-fix',
+    category: 'text',
+    icon: 'fa-solid fa-wand-sparkles',
+    title: 'تصحیح‌گر متن فارسی',
+    tag: 'متن',
+    desc: 'حروف عربی، اعداد و فاصله‌های متن فارسی را اصلاح کنید.',
+    content: `
+      <div class="field">
+        <label for="pfInput">متن ورودی</label>
+        <textarea id="pfInput" placeholder="متن خود را این‌جا بچسبانید..."></textarea>
+      </div>
+      <div class="field-row" style="grid-template-columns:1fr 1fr">
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pfArabic" checked> تبدیل ی/ک عربی
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pfDigits" checked> اعداد فارسی
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pfSpaces" checked> حذف فاصله‌های اضافی
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pfPunct" checked> علائم فارسی
+        </label>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="pfRun"><span>اصلاح کن <i class="fa-solid fa-wand-magic-sparkles"></i></span></button>
+        <button class="btn ghost" id="pfCopy"><span>کپی خروجی</span></button>
+        <button class="btn ghost" id="pfClear"><span>پاک کردن</span></button>
+      </div>
+      <div class="field" style="margin-top:1rem">
+        <label>خروجی</label>
+        <textarea id="pfOutput" readonly placeholder="خروجی این‌جا نمایش داده می‌شود..."></textarea>
+      </div>
+    `,
+    init(){
+      const input = $('#pfInput'), output = $('#pfOutput');
+      function fix(){
+        let t = input.value;
+        if ($('#pfArabic').checked){
+          t = t.replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/ﻻ/g, 'لا');
+        }
+        if ($('#pfDigits').checked){
+          t = t.replace(/[0-9]/g, d => '۰۱۲۳۴۵۶۷۸۹'[d]);
+        }
+        if ($('#pfPunct').checked){
+          t = t.replace(/,/g, '،').replace(/\?/g, '؟').replace(/;/g, '؛');
+        }
+        if ($('#pfSpaces').checked){
+          t = t.replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
+        }
+        output.value = t;
+      }
+      $('#pfRun').addEventListener('click', fix);
+      $('#pfCopy').addEventListener('click', () => {
+        if (output.value) copyText(output.value, 'متن اصلاح‌شده کپی شد ✦');
+      });
+      $('#pfClear').addEventListener('click', () => {
+        input.value = ''; output.value = '';
+      });
+      input.addEventListener('input', fix);
+    }
+  },
+
+  /* ===== 5. WORD COUNTER ===== */
+  {
+    id: 'word-count',
+    category: 'text',
+    icon: 'fa-solid fa-calculator',
+    title: 'شمارندهٔ کلمات',
+    tag: 'متن',
+    desc: 'تعداد کلمات، حروف، جملات و زمان تقریبی خواندن را ببینید.',
+    content: `
+      <div class="field">
+        <label for="wcInput">متن خود را وارد کنید</label>
+        <textarea id="wcInput" placeholder="متن..."></textarea>
+      </div>
+      <div class="date-result" id="wcResult"></div>
+    `,
+    init(){
+      const input = $('#wcInput');
+      const out = $('#wcResult');
+      function count(){
+        const t = input.value;
+        const chars = t.length;
+        const charsNoSpace = t.replace(/\s/g,'').length;
+        const words = t.trim() ? t.trim().split(/\s+/).length : 0;
+        const sentences = t.split(/[.!?؟।]+/).filter(s => s.trim()).length;
+        const paragraphs = t.split(/\n+/).filter(p => p.trim()).length;
+        const readMin = Math.max(1, Math.round(words / 200));
+        const speakMin = Math.max(1, Math.round(words / 130));
+
+        out.innerHTML = '' +
+          '<div><b>' + toFa(words) + '</b><span>کلمه</span></div>' +
+          '<div><b>' + toFa(chars) + '</b><span>حرف</span></div>' +
+          '<div><b>' + toFa(charsNoSpace) + '</b><span>حرف بدون فاصله</span></div>' +
+          '<div><b>' + toFa(sentences) + '</b><span>جمله</span></div>' +
+          '<div><b>' + toFa(paragraphs) + '</b><span>پاراگراف</span></div>' +
+          '<div><b>' + toFa(readMin) + ' دقیقه</b><span>زمان خواندن</span></div>' +
+          '<div><b>' + toFa(speakMin) + ' دقیقه</b><span>زمان گفتار</span></div>';
+      }
+      input.addEventListener('input', count);
+      count();
+    }
+  },
+
+  /* ===== 6. PERSIAN LOREM ===== */
+  {
+    id: 'persian-lorem',
+    category: 'text',
+    icon: 'fa-solid fa-paragraph',
+    title: 'متن ساختگی فارسی',
+    tag: 'متن',
+    desc: 'متن نمونهٔ فارسی برای تست چیدمان و طراحی بسازید.',
+    content: `
+      <div class="field-row">
+        <div class="field">
+          <label for="plCount">تعداد پاراگراف</label>
+          <input type="number" id="plCount" min="1" max="20" value="3">
+        </div>
+        <div class="field">
+          <label for="plLength">طول هر پاراگراف</label>
+          <select id="plLength">
+            <option value="short">کوتاه</option>
+            <option value="medium" selected>متوسط</option>
+            <option value="long">بلند</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="plGen"><span>بساز <i class="fa-solid fa-wand-magic-sparkles"></i></span></button>
+        <button class="btn ghost" id="plCopy"><span>کپی</span></button>
+      </div>
+      <div class="field" style="margin-top:1rem">
+        <label>خروجی</label>
+        <textarea id="plOutput" readonly style="min-height:180px"></textarea>
+      </div>
+    `,
+    init(){
+      const sentences = [
+        'طراحی خوب، پلی است میان ایده و مخاطب.',
+        'هر پروژه فرصتی تازه برای یادگیری و خلق چیزی ماندگار است.',
+        'جزئیات کوچک، تفاوت‌های بزرگ می‌سازند.',
+        'رنگ‌ها زبان بی‌صدای احساسات‌اند.',
+        'تایپوگرافی درست، نیمی از موفقیت یک طرح است.',
+        'هنر، روایتِ آرامِ لحظه‌هایی است که فراموش می‌شوند.',
+        'سادگی، پیچیده‌ترین شکل هنر است.',
+        'هر خط، هر رنگ و هر سکون، بخشی از یک داستان است.',
+        'ایده‌ها بی‌شکل متولد می‌شوند و با طراحی جان می‌گیرند.',
+        'خلاقیت، دیدنِ چیزی است که دیگران نمی‌بینند.',
+        'کد و هنر، دو زبان متفاوت برای یک معنا هستند.',
+        'تعادل میان رنگ و فرم، راز یک طرح حرفه‌ای است.',
+        'معماری اطلاعات، ستون فقرات یک تجربهٔ کاربری خوب است.',
+        'حرکت، جانِ طراحی مدرن است.',
+        'بافت، عمق و احساس را به تصویر می‌آورد.'
+      ];
+      function pick(){
+        return sentences[Math.floor(Math.random() * sentences.length)];
+      }
+      function gen(){
+        const n = Math.max(1, Math.min(20, +$('#plCount').value || 3));
+        const len = $('#plLength').value;
+        const perPara = len === 'short' ? 3 : len === 'long' ? 8 : 5;
+        let text = '';
+        for (let i = 0; i < n; i++){
+          const arr = [];
+          for (let j = 0; j < perPara; j++) arr.push(pick());
+          text += arr.join(' ') + '\n\n';
+        }
+        $('#plOutput').value = text.trim();
+      }
+      $('#plGen').addEventListener('click', gen);
+      $('#plCopy').addEventListener('click', () => {
+        const v = $('#plOutput').value;
+        if (v) copyText(v, 'متن کپی شد ✦');
+      });
+      gen();
+    }
+  },
+
+  /* ===== 7. BASE64 ===== */
+  {
+    id: 'base64',
+    category: 'text',
+    icon: 'fa-solid fa-right-left',
+    title: 'تبدیل Base64',
+    tag: 'متن',
+    desc: 'متن را به Base64 تبدیل کنید یا از آن رمزگشایی کنید.',
+    content: `
+      <div class="field">
+        <label for="b64Input">ورودی</label>
+        <textarea id="b64Input" placeholder="متن یا کد Base64..."></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="b64Encode"><span>رمزگذاری <i class="fa-solid fa-lock"></i></span></button>
+        <button class="btn" id="b64Decode"><span>رمزگشایی <i class="fa-solid fa-lock-open"></i></span></button>
+        <button class="btn ghost" id="b64Copy"><span>کپی</span></button>
+      </div>
+      <div class="field" style="margin-top:1rem">
+        <label>خروجی</label>
+        <textarea id="b64Output" readonly></textarea>
+      </div>
+    `,
+    init(){
+      const input = $('#b64Input'), output = $('#b64Output');
+      function encode(){
+        try {
+          const t = input.value;
+          output.value = btoa(unescape(encodeURIComponent(t)));
+        } catch(e){ output.value = 'خطا در رمزگذاری'; }
+      }
+      function decode(){
+        try {
+          const t = input.value.trim();
+          output.value = decodeURIComponent(escape(atob(t)));
+        } catch(e){ output.value = 'متن Base64 معتبر نیست'; }
+      }
+      $('#b64Encode').addEventListener('click', encode);
+      $('#b64Decode').addEventListener('click', decode);
+      $('#b64Copy').addEventListener('click', () => {
+        if (output.value) copyText(output.value, 'کپی شد ✦');
+      });
+    }
+  },
+
+  /* ===== 8. IMAGE COMPRESSOR ===== */
+  {
+    id: 'img-compress',
+    category: 'image',
+    icon: 'fa-solid fa-compress',
+    title: 'فشرده‌ساز تصویر',
+    tag: 'تصویر',
+    desc: 'تصویر خود را در مرورگر فشرده کنید — بدون آپلود به سرور.',
+    content: `
+      <label class="file-drop" for="icFile">
+        <div>
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <b>انتخاب تصویر</b>
+          <span>PNG، JPG یا WebP — حداکثر ۱۰ مگابایت</span>
+        </div>
+        <input type="file" id="icFile" accept="image/*">
+      </label>
+      <div class="field" style="margin-top:1rem">
+        <label for="icQuality">کیفیت: <span id="icQualityVal">۷۰</span>٪</label>
+        <input type="range" id="icQuality" min="10" max="100" value="70">
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="icRun"><span>فشرده کن <i class="fa-solid fa-bolt"></i></span></button>
+        <button class="btn ghost" id="icDownload"><span>دانلود</span></button>
+      </div>
+      <div id="icInfo" class="result-info" style="display:none"></div>
+      <img id="icPreview" class="img-preview" style="display:none" alt="">
+    `,
+    init(){
+      const fileEl = $('#icFile');
+      const quality = $('#icQuality'), qualityVal = $('#icQualityVal');
+      const preview = $('#icPreview'), info = $('#icInfo');
+      let originalFile = null;
+      let compressedBlob = null;
+
+      quality.addEventListener('input', () => {
+        qualityVal.textContent = toFa(quality.value);
+      });
+
+      fileEl.addEventListener('change', () => {
+        const f = fileEl.files[0];
+        if (!f) return;
+        originalFile = f;
+        const url = URL.createObjectURL(f);
+        preview.src = url;
+        preview.style.display = 'block';
+        info.style.display = 'flex';
+        info.innerHTML = '<div>حجم اصلی: <b>' + (f.size/1024).toFixed(1) + ' KB</b></div>';
+        compressedBlob = null;
+      });
+
+      $('#icRun').addEventListener('click', () => {
+        if (!originalFile){ showToast('ابتدا یک تصویر انتخاب کنید'); return; }
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.naturalWidth;
+          canvas.height = img.naturalHeight;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
+          canvas.toBlob(blob => {
+            compressedBlob = blob;
+            const url = URL.createObjectURL(blob);
+            preview.src = url;
+            const saving = ((1 - blob.size / originalFile.size) * 100).toFixed(1);
+            info.innerHTML = '' +
+              '<div>حجم اصلی: <b>' + (originalFile.size/1024).toFixed(1) + ' KB</b></div>' +
+              '<div>حجم فشرده: <b>' + (blob.size/1024).toFixed(1) + ' KB</b></div>' +
+              '<div>کاهش: <b>' + toFa(saving) + '٪</b></div>';
+            showToast('فشرده شد ✦');
+          }, 'image/jpeg', quality.value / 100);
+        };
+        img.src = URL.createObjectURL(originalFile);
+      });
+
+      $('#icDownload').addEventListener('click', () => {
+        if (!compressedBlob){ showToast('ابتدا فشرده‌سازی کنید'); return; }
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(compressedBlob);
+        a.download = 'compressed-' + (originalFile.name.replace(/\.[^.]+$/, '') || 'image') + '.jpg';
+        a.click();
+      });
+    }
+  },
+
+  /* ===== 9. IMAGE RESIZER ===== */
+  {
+    id: 'img-resize',
+    category: 'image',
+    icon: 'fa-solid fa-expand',
+    title: 'تغییر اندازه و فرمت تصویر',
+    tag: 'تصویر',
+    desc: 'ابعاد تصویر را تغییر دهید و به فرمت دلخواه تبدیل کنید.',
+    content: `
+      <label class="file-drop" for="irFile">
+        <div>
+          <i class="fa-solid fa-image"></i>
+          <b>انتخاب تصویر</b>
+          <span>PNG، JPG یا WebP</span>
+        </div>
+        <input type="file" id="irFile" accept="image/*">
+      </label>
+      <div class="field-row" style="margin-top:1rem">
+        <div class="field">
+          <label for="irWidth">عرض (پیکسل)</label>
+          <input type="number" id="irWidth" min="1">
+        </div>
+        <div class="field">
+          <label for="irHeight">ارتفاع (پیکسل)</label>
+          <input type="number" id="irHeight" min="1">
+        </div>
+      </div>
+      <div class="field">
+        <label for="irFormat">فرمت خروجی</label>
+        <select id="irFormat">
+          <option value="image/jpeg">JPG</option>
+          <option value="image/png">PNG</option>
+          <option value="image/webp">WebP</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="irRun"><span>تغییر بده</span></button>
+        <button class="btn ghost" id="irDownload"><span>دانلود</span></button>
+      </div>
+      <img id="irPreview" class="img-preview" style="display:none" alt="">
+    `,
+    init(){
+      const fileEl = $('#irFile');
+      const preview = $('#irPreview');
+      let originalFile = null;
+      let resultBlob = null;
+      let naturalW = 0, naturalH = 0;
+
+      fileEl.addEventListener('change', () => {
+        const f = fileEl.files[0];
+        if (!f) return;
+        originalFile = f;
+        const img = new Image();
+        img.onload = () => {
+          naturalW = img.naturalWidth;
+          naturalH = img.naturalHeight;
+          $('#irWidth').value = naturalW;
+          $('#irHeight').value = naturalH;
+          preview.src = URL.createObjectURL(f);
+          preview.style.display = 'block';
+        };
+        img.src = URL.createObjectURL(f);
+      });
+
+      $('#irRun').addEventListener('click', () => {
+        if (!originalFile){ showToast('ابتدا تصویری انتخاب کنید'); return; }
+        const w = Math.max(1, +$('#irWidth').value || naturalW);
+        const h = Math.max(1, +$('#irHeight').value || naturalH);
+        const fmt = $('#irFormat').value;
+        const img = new Image();
+        img.onload = () => {
+          const c = document.createElement('canvas');
+          c.width = w; c.height = h;
+          c.getContext('2d').drawImage(img, 0, 0, w, h);
+          c.toBlob(blob => {
+            resultBlob = blob;
+            preview.src = URL.createObjectURL(blob);
+            showToast('آماده شد ✦');
+          }, fmt, 0.92);
+        };
+        img.src = URL.createObjectURL(originalFile);
+      });
+
+      $('#irDownload').addEventListener('click', () => {
+        if (!resultBlob){ showToast('ابتدا تغییر بدهید'); return; }
+        const ext = $('#irFormat').value.split('/')[1];
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(resultBlob);
+        a.download = 'resized.' + ext;
+        a.click();
+      });
+    }
+  },
+
+  /* ===== 10. QR ===== */
+  {
+    id: 'qr',
+    category: 'general',
+    icon: 'fa-solid fa-qrcode',
+    title: 'سازندهٔ QR کد',
+    tag: 'عمومی',
+    desc: 'برای هر متن یا لینکی، QR کد بسازید و دانلود کنید.',
+    content: `
+      <div class="field">
+        <label for="qrText">متن یا لینک</label>
+        <textarea id="qrText" placeholder="https://example.com" style="min-height:80px">https://mah-moj.github.io</textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="qrSize">اندازه</label>
+          <input type="number" id="qrSize" value="300" min="100" max="1000" step="50">
+        </div>
+        <div class="field">
+          <label for="qrEc">سطح تصحیح خطا</label>
+          <select id="qrEc">
+            <option value="L">کم (L)</option>
+            <option value="M" selected>متوسط (M)</option>
+            <option value="Q">بالا (Q)</option>
+            <option value="H">حداکثر (H)</option>
+          </select>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="qrGen"><span>بساز <i class="fa-solid fa-qrcode"></i></span></button>
+        <button class="btn ghost" id="qrDownload"><span>دانلود PNG</span></button>
+      </div>
+      <div class="qr-output" id="qrOut"></div>
+    `,
+    init(){
+      const text = $('#qrText');
+      const size = $('#qrSize');
+      const ec = $('#qrEc');
+      const out = $('#qrOut');
+
+      function generate(){
+        const t = text.value.trim();
+        if (!t){ out.innerHTML = '<span style="color:#666">متن خالی</span>'; return; }
+        if (typeof qrcode !== 'function'){
+          out.innerHTML = '<span style="color:#666">کتابخانهٔ QR بارگذاری نشد</span>';
+          return;
+        }
+        try {
+          const qr = qrcode(0, ec.value);
+          qr.addData(t);
+          qr.make();
+          const moduleCount = qr.getModuleCount();
+          const cellSize = Math.max(2, Math.floor(+size.value / (moduleCount + 8)));
+          out.innerHTML = qr.createSvgTag({ cellSize, margin: 8, scalable: true });
+          const svg = out.querySelector('svg');
+          if (svg){
+            svg.setAttribute('width', size.value);
+            svg.setAttribute('height', size.value);
+          }
+        } catch(e){
+          out.innerHTML = '<span style="color:#666">متن طولانی است</span>';
+        }
+      }
+
+      $('#qrGen').addEventListener('click', generate);
+      text.addEventListener('input', generate);
+      size.addEventListener('input', generate);
+      ec.addEventListener('change', generate);
+
+      $('#qrDownload').addEventListener('click', () => {
+        const svg = out.querySelector('svg');
+        if (!svg){ showToast('ابتدا QR بسازید'); return; }
+        const s = new XMLSerializer().serializeToString(svg);
+        const blob = new Blob([s], {type:'image/svg+xml'});
+        const url = URL.createObjectURL(blob);
+        const img = new Image();
+        img.onload = () => {
+          const c = document.createElement('canvas');
+          const sz = +size.value || 300;
+          c.width = sz; c.height = sz;
+          const ctx = c.getContext('2d');
+          ctx.fillStyle = '#fff';
+          ctx.fillRect(0, 0, sz, sz);
+          ctx.drawImage(img, 0, 0, sz, sz);
+          c.toBlob(b => {
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = 'qrcode.png';
+            a.click();
+            URL.revokeObjectURL(url);
+          });
+        };
+        img.src = url;
+      });
+
+      generate();
+    }
+  },
+
+  /* ===== 11. PASSWORD ===== */
+  {
+    id: 'password',
+    category: 'general',
+    icon: 'fa-solid fa-key',
+    title: 'تولید رمز عبور امن',
+    tag: 'عمومی',
+    desc: 'رمز عبور قوی و تصادفی با تنظیمات دلخواه بسازید.',
+    content: `
+      <div class="field">
+        <label for="pwLength">طول رمز: <span id="pwLenVal">۱۶</span></label>
+        <input type="range" id="pwLength" min="4" max="64" value="16">
+      </div>
+      <div class="field-row" style="grid-template-columns:1fr 1fr">
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pwUpper" checked> حروف بزرگ
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pwLower" checked> حروف کوچک
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pwDigits" checked> اعداد
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="pwSymbols" checked> نمادها
+        </label>
+      </div>
+      <div class="output" id="pwOut" style="font-size:1.1rem;font-weight:700;letter-spacing:.05em"></div>
+      <div class="strength-bar"><i id="pwStrength"></i></div>
+      <div class="btn-row">
+        <button class="btn" id="pwGen"><span>تولید مجدد <i class="fa-solid fa-rotate"></i></span></button>
+        <button class="btn ghost" id="pwCopy"><span>کپی</span></button>
+      </div>
+    `,
+    init(){
+      const len = $('#pwLength'), lenVal = $('#pwLenVal');
+      const out = $('#pwOut'), strength = $('#pwStrength');
+      const U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const L = 'abcdefghijklmnopqrstuvwxyz';
+      const D = '0123456789';
+      const S = '!@#$%^&*()_+-=[]{}|;:,.<>?';
+
+      len.addEventListener('input', () => lenVal.textContent = toFa(len.value));
+
+      function gen(){
+        let pool = '';
+        if ($('#pwUpper').checked) pool += U;
+        if ($('#pwLower').checked) pool += L;
+        if ($('#pwDigits').checked) pool += D;
+        if ($('#pwSymbols').checked) pool += S;
+        if (!pool){ out.textContent = 'حداقل یک گزینه انتخاب کنید'; return; }
+
+        const n = +len.value;
+        const arr = new Uint32Array(n);
+        crypto.getRandomValues(arr);
+        let pw = '';
+        for (let i = 0; i < n; i++) pw += pool[arr[i] % pool.length];
+        out.textContent = pw;
+
+        // قدرت تقریبی
+        let strengthVal = 0;
+        if (pw.length >= 8) strengthVal += 25;
+        if (pw.length >= 12) strengthVal += 25;
+        if ($('#pwUpper').checked && $('#pwLower').checked) strengthVal += 20;
+        if ($('#pwDigits').checked) strengthVal += 15;
+        if ($('#pwSymbols').checked) strengthVal += 15;
+
+        strength.style.width = strengthVal + '%';
+        strength.style.background = strengthVal >= 80 ? '#4CAF50'
+                                  : strengthVal >= 55 ? '#D9C200'
+                                  : '#E57373';
+      }
+
+      $('#pwGen').addEventListener('click', gen);
+      $('#pwCopy').addEventListener('click', () => {
+        if (out.textContent) copyText(out.textContent, 'رمز کپی شد ✦');
+      });
+      len.addEventListener('input', gen);
+      $$('#pwUpper, #pwLower, #pwDigits, #pwSymbols').forEach(c => c.addEventListener('change', gen));
+      gen();
+    }
+  },
+
+  /* ===== 12. PERCENTAGE ===== */
+  {
+    id: 'percent',
+    category: 'general',
+    icon: 'fa-solid fa-percent',
+    title: 'ماشین‌حساب درصد',
+    tag: 'عمومی',
+    desc: 'محاسبهٔ درصد، تخفیف و تغییرات با یک کلیک.',
+    content: `
+      <div class="field">
+        <label>حالت محاسبه</label>
+        <select id="pcMode">
+          <option value="of">X درصد از Y چقدر است؟</option>
+          <option value="is">X چند درصد Y است؟</option>
+          <option value="change">درصد تغییر از X به Y</option>
+          <option value="discount">قیمت پس از تخفیف</option>
+        </select>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="pcA" id="pcALabel">مقدار X</label>
+          <input type="number" id="pcA" value="20">
+        </div>
+        <div class="field">
+          <label for="pcB" id="pcBLabel">مقدار Y</label>
+          <input type="number" id="pcB" value="150">
+        </div>
+      </div>
+      <div class="output" id="pcOut" style="font-size:1.1rem;text-align:center;padding:1.2rem"></div>
+    `,
+    init(){
+      const mode = $('#pcMode'), a = $('#pcA'), b = $('#pcB');
+      const aL = $('#pcALabel'), bL = $('#pcBLabel');
+      const out = $('#pcOut');
+
+      const labels = {
+        of: ['درصد', 'از مقدار'],
+        is: ['مقدار', 'از مقدار'],
+        change: ['از مقدار', 'به مقدار'],
+        discount: ['قیمت اصلی', 'درصد تخفیف']
+      };
+
+      function update(){
+        const m = mode.value;
+        aL.textContent = labels[m][0];
+        bL.textContent = labels[m][1];
+        const x = +a.value || 0, y = +b.value || 0;
+        let res = '';
+        if (m === 'of') res = (x/100*y).toFixed(2) + ' <small style="color:var(--muted);font-size:.7em">' + x + '٪ از ' + y + '</small>';
+        else if (m === 'is') res = (y ? (x/y*100).toFixed(2) : '0') + '٪';
+        else if (m === 'change'){
+          if (!x) res = '—';
+          else {
+            const ch = ((y-x)/x*100).toFixed(2);
+            res = (ch >= 0 ? '+' : '') + ch + '٪';
+          }
+        }
+        else if (m === 'discount') res = (x - x*y/100).toFixed(2) + ' <small style="color:var(--muted);font-size:.7em">با ' + y + '٪ تخفیف</small>';
+        out.innerHTML = res;
+      }
+      [mode,a,b].forEach(el => el.addEventListener('input', update));
+      update();
+    }
+  },
+
+  /* ===== 13. JSON FORMATTER ===== */
+  {
+    id: 'json',
+    category: 'dev',
+    icon: 'fa-solid fa-brackets-curly',
+    title: 'مرتب‌ساز JSON',
+    tag: 'توسعه‌دهنده',
+    desc: 'JSON را مرتب، معتبر و با فرمت زیبا نمایش دهید.',
+    content: `
+      <div class="field">
+        <label for="jsInput">JSON ورودی</label>
+        <textarea id="jsInput" placeholder='{"name":"Mahdi","role":"Developer"}'></textarea>
+      </div>
+      <div class="field">
+        <label for="jsIndent">تودرتویی</label>
+        <select id="jsIndent">
+          <option value="2">۲ فاصله</option>
+          <option value="4">۴ فاصله</option>
+          <option value="\t">Tab</option>
+        </select>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="jsFormat"><span>مرتب کن</span></button>
+        <button class="btn" id="jsMinify"><span>فشرده کن</span></button>
+        <button class="btn ghost" id="jsCopy"><span>کپی</span></button>
+      </div>
+      <div class="output" id="jsOut" style="margin-top:1rem;white-space:pre-wrap;max-height:280px;overflow:auto"></div>
+    `,
+    init(){
+      const input = $('#jsInput'), out = $('#jsOut');
+      function format(min){
+        try {
+          const obj = JSON.parse(input.value);
+          if (min){
+            out.textContent = JSON.stringify(obj);
+          } else {
+            const ind = $('#jsIndent').value === '\\t' ? '\t' : +$('#jsIndent').value;
+            out.textContent = JSON.stringify(obj, null, ind);
+          }
+        } catch(e){
+          out.textContent = 'خطا: ' + e.message;
+        }
+      }
+      $('#jsFormat').addEventListener('click', () => format(false));
+      $('#jsMinify').addEventListener('click', () => format(true));
+      $('#jsCopy').addEventListener('click', () => {
+        if (out.textContent) copyText(out.textContent, 'JSON کپی شد ✦');
+      });
+    }
+  },
+
+  /* ===== 14. UUID ===== */
+  {
+    id: 'uuid',
+    category: 'dev',
+    icon: 'fa-solid fa-fingerprint',
+    title: 'تولید UUID',
+    tag: 'توسعه‌دهنده',
+    desc: 'شناسه‌های یکتا (v4) به تعداد دلخواه بسازید.',
+    content: `
+      <div class="field">
+        <label for="uuCount">تعداد (۱ تا ۵۰)</label>
+        <input type="number" id="uuCount" value="5" min="1" max="50">
+      </div>
+      <div class="field-row" style="grid-template-columns:1fr 1fr">
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="uuUpper"> حروف بزرگ
+        </label>
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.78rem;color:var(--muted)">
+          <input type="checkbox" id="uuBraces"> با { } احاطه شود
+        </label>
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="uuGen"><span>تولید مجدد</span></button>
+        <button class="btn ghost" id="uuCopy"><span>کپی همه</span></button>
+      </div>
+      <div class="output" id="uuOut" style="margin-top:1rem;white-space:pre-wrap;line-height:2"></div>
+    `,
+    init(){
+      const out = $('#uuOut');
+      function gen(){
+        const n = Math.max(1, Math.min(50, +$('#uuCount').value || 5));
+        const upper = $('#uuUpper').checked;
+        const braces = $('#uuBraces').checked;
+        const arr = [];
+        for (let i = 0; i < n; i++){
+          let u = crypto.randomUUID ? crypto.randomUUID()
+                : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                  });
+          if (upper) u = u.toUpperCase();
+          if (braces) u = '{' + u + '}';
+          arr.push(u);
+        }
+        out.textContent = arr.join('\n');
+      }
+      $('#uuGen').addEventListener('click', gen);
+      $('#uuCopy').addEventListener('click', () => {
+        if (out.textContent) copyText(out.textContent, 'UUIDها کپی شدند ✦');
+      });
+      $('#uuCount').addEventListener('input', gen);
+      $('#uuUpper').addEventListener('change', gen);
+      $('#uuBraces').addEventListener('change', gen);
+      gen();
+    }
+  },
+
+  /* ===== 15. ISLAMIC PATTERN ===== */
+  {
+    id: 'pattern',
+    category: 'special',
+    icon: 'fa-solid fa-star-and-crescent',
+    title: 'پترن هندسی اسلامی',
+    tag: 'خاص',
+    desc: 'یک پترن هندسی بسازید و به‌صورت SVG یا PNG دانلود کنید.',
+    content: `
+      <div class="field-row">
+        <div class="field">
+          <label for="ptSides">تعداد اضلاع: <span id="ptSidesVal">۸</span></label>
+          <input type="range" id="ptSides" min="3" max="16" value="8">
+        </div>
+        <div class="field">
+          <label for="ptRings">تعداد حلقه: <span id="ptRingsVal">۳</span></label>
+          <input type="range" id="ptRings" min="1" max="6" value="3">
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="ptColor">رنگ اصلی</label>
+          <input type="color" id="ptColor" value="#D9C200">
+        </div>
+        <div class="field">
+          <label for="ptBg">پس‌زمینه</label>
+          <input type="color" id="ptBg" value="#001830">
+        </div>
+      </div>
+      <div class="pattern-preview" id="ptPreview"></div>
+      <div class="btn-row">
+        <button class="btn" id="ptGen"><span>ساخت پترن</span></button>
+        <button class="btn ghost" id="ptDownload"><span>دانلود SVG</span></button>
+      </div>
+    `,
+    init(){
+      const preview = $('#ptPreview');
+      function update(){
+        const n = +$('#ptSides').value;
+        const rings = +$('#ptRings').value;
+        const col = $('#ptColor').value;
+        const bg = $('#ptBg').value;
+        $('#ptSidesVal').textContent = toFa(n);
+        $('#ptRingsVal').textContent = toFa(rings);
+
+        const size = 400;
+        const center = size / 2;
+        let svg = '<svg viewBox="0 0 ' + size + ' ' + size + '" xmlns="http://www.w3.org/2000/svg">';
+        svg += '<rect width="' + size + '" height="' + size + '" fill="' + bg + '"/>';
+
+        for (let r = 0; r < rings; r++){
+          const radius = 40 + r * (140 / rings);
+          const rotation = r * 180 / n;
+          let points = '';
+          for (let i = 0; i < n; i++){
+            const angle = (i / n) * Math.PI * 2 + rotation * Math.PI / 180;
+            const x = center + Math.cos(angle) * radius;
+            const y = center + Math.sin(angle) * radius;
+            points += x.toFixed(1) + ',' + y.toFixed(1) + ' ';
+          }
+          svg += '<polygon points="' + points.trim() + '" fill="none" stroke="' + col + '" stroke-width="1.5" opacity="' + (0.4 + r * 0.15) + '"/>';
+
+          // دایره‌های تزئینی
+          for (let i = 0; i < n; i++){
+            const angle = (i / n) * Math.PI * 2 + rotation * Math.PI / 180;
+            const x = center + Math.cos(angle) * radius;
+            const y = center + Math.sin(angle) * radius;
+            svg += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="3" fill="' + col + '"/>';
+          }
+        }
+        svg += '</svg>';
+        preview.innerHTML = svg;
+      }
+      ['ptSides','ptRings','ptColor','ptBg'].forEach(id => {
+        $('#' + id).addEventListener('input', update);
+      });
+      $('#ptGen').addEventListener('click', update);
+      $('#ptDownload').addEventListener('click', () => {
+        const svg = preview.querySelector('svg');
+        if (!svg) return;
+        const s = new XMLSerializer().serializeToString(svg);
+        const blob = new Blob([s], {type:'image/svg+xml'});
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'pattern.svg';
+        a.click();
+      });
+      update();
+    }
+  },
+
+  /* ===== 16. PERSIAN FONT PREVIEW ===== */
+  {
+    id: 'font-preview',
+    category: 'special',
+    icon: 'fa-solid fa-font',
+    title: 'پیش‌نمایش فونت فارسی',
+    tag: 'خاص',
+    desc: 'چند فونت فارسی را روی متن دلخواه مقایسه کنید.',
+    content: `
+      <div class="field">
+        <label for="fpText">متن نمونه</label>
+        <textarea id="fpText" style="min-height:70px">طراحی، زبانِ بی‌صدای اندیشه است.</textarea>
+      </div>
+      <div class="field">
+        <label for="fpSize">اندازه: <span id="fpSizeVal">۲۴</span> px</label>
+        <input type="range" id="fpSize" min="12" max="72" value="24">
+      </div>
+      <div id="fpList"></div>
+    `,
+    init(){
+      const fonts = [
+        { name: 'وزیرمتن (Vazirmatn)', family: '"Vazirmatn", sans-serif', w: '400' },
+        { name: 'نسخ (Noto Naskh)', family: '"Noto Naskh Arabic", serif', w: '400' },
+        { name: 'کوفی (Noto Kufi)', family: '"Noto Kufi Arabic", sans-serif', w: '400' },
+        { name: 'نستعلیق (Nastaliq)', family: '"Noto Nastaliq Urdu", serif', w: '400' },
+        { name: 'وزیرمتن سیاه', family: '"Vazirmatn", sans-serif', w: '900' },
+        { name: 'وزیرمتن نازک', family: '"Vazirmatn", sans-serif', w: '200' }
+      ];
+      const list = $('#fpList');
+      const text = $('#fpText'), size = $('#fpSize'), sizeVal = $('#fpSizeVal');
+
+      function render(){
+        list.innerHTML = '';
+        fonts.forEach(f => {
+          const box = document.createElement('div');
+          box.className = 'font-preview';
+          box.style.fontFamily = f.family;
+          box.style.fontWeight = f.w;
+          box.style.fontSize = size.value + 'px';
+          box.textContent = text.value || 'متن نمونه';
+          const lbl = document.createElement('div');
+          lbl.style.cssText = 'font-size:.65rem;color:var(--muted);text-align:center;margin-top:.4rem;font-family:Vazirmatn';
+          lbl.textContent = f.name;
+          const wrap = document.createElement('div');
+          wrap.appendChild(box);
+          wrap.appendChild(lbl);
+          list.appendChild(wrap);
+        });
+      }
+      text.addEventListener('input', render);
+      size.addEventListener('input', () => {
+        sizeVal.textContent = toFa(size.value);
+        render();
+      });
+      render();
+    }
+  }
+];
+
+/* ============================================================
+   RENDER TOOLS GRID
+   ============================================================ */
+const grid = $('#toolsGrid');
+
+function renderGrid(filter = 'all'){
+  grid.innerHTML = '';
+  const list = filter === 'all' ? TOOLS : TOOLS.filter(t => t.category === filter);
+  list.forEach((tool, i) => {
+    const card = document.createElement('div');
+    card.className = 'tool-card';
+    card.style.animationDelay = (i * 0.04) + 's';
+    card.dataset.id = tool.id;
+    card.innerHTML = '' +
+      '<div class="arrow"><i class="fa-solid fa-arrow-up-left"></i></div>' +
+      '<div class="tool-icon"><i class="' + tool.icon + '"></i></div>' +
+      '<h3>' + esc(tool.title) + '</h3>' +
+      '<p>' + esc(tool.desc) + '</p>' +
+      '<span class="tool-tag"><i class="fa-solid fa-tag"></i> ' + esc(tool.tag) + '</span>';
+    card.addEventListener('click', () => openTool(tool.id));
+    grid.appendChild(card);
+  });
+}
+
+/* Filters */
+$$('#filters .filter').forEach(f => {
+  f.addEventListener('click', () => {
+    $$('#filters .filter').forEach(x => x.classList.remove('active'));
+    f.classList.add('active');
+    renderGrid(f.dataset.filter);
+  });
+});
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+const modal = $('#modal');
+const modalBody = $('#modalBody');
+const modalClose = $('#modalClose');
+const modalBackdrop = $('#modalBackdrop');
+
+function openTool(id){
+  const tool = TOOLS.find(t => t.id === id);
+  if (!tool) return;
+  modalBody.innerHTML = '' +
+    '<div class="tool-title">' +
+      '<div class="tool-title-icon"><i class="' + tool.icon + '"></i></div>' +
+      '<div>' +
+        '<h2>' + esc(tool.title) + '</h2>' +
+        '<p>' + esc(tool.desc) + '</p>' +
+      '</div>' +
+    '</div>' +
+    '<div class="tool-content">' + tool.content + '</div>';
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('lock');
+
+  // run init after DOM inserted
+  requestAnimationFrame(() => {
+    try { tool.init && tool.init(); }
+    catch(e){ console.error('Tool init error:', e); }
+  });
+}
+
+function closeModal(){
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('lock');
+  setTimeout(() => { modalBody.innerHTML = ''; }, 400);
+}
+
+modalClose.addEventListener('click', closeModal);
+modalBackdrop.addEventListener('click', closeModal);
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+});
+
+/* ============================================================
+   STARFIELD
+   ============================================================ */
+(function starfield(){
+  const canvas = $('#stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let w, h, dpr, stars = [];
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width  = innerWidth  * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width  = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
+
+    const count = Math.min(80, Math.floor(innerWidth / 18));
+    stars = Array.from({ length: count }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: (Math.random() * 1.2 + 0.35) * dpr,
+      vx: (Math.random() - 0.5) * 0.18 * dpr,
+      vy: (Math.random() - 0.5) * 0.18 * dpr,
+      a: Math.random() * 0.6 + 0.2
+    }));
+  }
+
+  function draw(){
+    ctx.clearRect(0, 0, w, h);
+    const gold = getComputedStyle(document.documentElement)
+                   .getPropertyValue('--gold').trim() || '#D9C200';
+
+    stars.forEach(s => {
+      s.x += s.vx; s.y += s.vy;
+      if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
+      if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = gold;
+      ctx.globalAlpha = s.a;
+      ctx.fill();
+    });
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(draw);
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
+})();
+
+/* ============================================================
+   YEAR + INIT
+   ============================================================ */
+$('#year').textContent = toFa(new Date().getFullYear());
+renderGrid('all');
+
+/* جلوگیری از کلیک راست و انتخاب متن */
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea')) return;
+  e.preventDefault();
+});
+</script>
+
+</body>
+</html>
