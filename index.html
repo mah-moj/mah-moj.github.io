@@ -155,7 +155,6 @@ body.has-cursor .cursor-glow{opacity:1}
   transition:width .12s linear;
 }
 
-/* HEADER بالاتر از NAV تا دکمهٔ بستن همیشه قابل کلیک باشد */
 .header{
   position:fixed;top:0;right:0;left:0;
   z-index:130;
@@ -171,7 +170,6 @@ body.has-cursor .cursor-glow{opacity:1}
   -webkit-backdrop-filter:blur(20px) saturate(180%);
   border-bottom:1px solid var(--stroke);
 }
-/* وقتی منو باز است، هدر پس‌زمینهٔ خود را نمی‌گیرد */
 body.lock .header.scrolled{
   background:transparent;
   border-bottom-color:transparent;
@@ -345,8 +343,10 @@ html.no-js [data-reveal]{
 .btn:nth-child(even)::before{animation-duration:4.6s;animation-direction:reverse}
 @keyframes btnSpin{to{--btn-angle:360deg}}
 
+/* flex: 1 باعث می‌شود span دقیقاً هم‌اندازهٔ دکمه شود — کلید رفع مشکل */
 .btn > span{
   position:relative;z-index:1;
+  flex:1 1 auto;
   display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
   padding:.85rem 1.8rem;border-radius:999px;
   background:var(--panel-2);
@@ -354,7 +354,7 @@ html.no-js [data-reveal]{
   backdrop-filter:blur(16px) saturate(180%);
   -webkit-backdrop-filter:blur(16px) saturate(180%);
   font-weight:700;font-size:.85rem;white-space:nowrap;
-  max-width:100%;text-align:center;
+  text-align:center;min-width:0;
   transition:background .4s var(--ease),color .4s,letter-spacing .4s var(--ease);
 }
 .btn:hover > span{background:var(--accent-soft);color:var(--gold);letter-spacing:.02em}
@@ -369,6 +369,10 @@ html.no-js [data-reveal]{
   transition:transform .9s var(--ease);
 }
 .btn:hover > span::after{transform:translateX(260%) skewX(-18deg)}
+
+/* دکمهٔ فرم ارسال نظر: تمام‌عرض با span کشیده */
+.form-card > .btn{ width: 100%; }
+.form-card > .btn > span{ width: 100%; }
 
 /* ============================================================
    9. HERO
@@ -687,7 +691,6 @@ h1.hero-title em::after{
 .load-more-wrap{display:flex;justify-content:center;padding-top:.8rem}
 .load-more-wrap .btn > span{padding:.65rem 1.4rem;font-size:.78rem}
 
-/* ارتفاع یکسان فرم و لیست نظرات در دسکتاپ */
 @media (min-width: 901px){
   .form-card{ height: 600px; }
   .comments-list{ height: 600px; max-height: 600px; }
@@ -1053,7 +1056,7 @@ footer{
           </li>
           <li data-reveal style="--d:.3s">
             <i class="fa-solid fa-bullhorn"></i>
-            <span><strong>سه سال مسئول</strong> متن‌های گردان سایبری شهرستان</span>
+            <span><strong>سه سال مسئول متنای گردان سایبری شهرستان</strong></span>
           </li>
           <li data-reveal style="--d:.34s">
             <i class="fa-solid fa-chalkboard-user"></i>
