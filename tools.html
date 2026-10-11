@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>جعبه ابزار | مهدی مجاهد</title>
-<meta name="description" content="مجموعه‌ای از ۳۵ ابزار رایگان و کاربردی — رنگ، متن، تصویر، عمومی و توسعه‌دهنده">
+<meta name="description" content="۳۲ ابزار رایگان و کاربردی — رنگ، متن، تصویر، عمومی و توسعه‌دهنده">
 <link rel="icon" href="img/20261011_025918.ico">
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Kufi+Arabic:wght@400..700&family=Lalezar&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -16,20 +16,25 @@
   --stroke:rgba(255,255,255,.09);--text:#f1f5f7;--muted:#8b9ba6;
   --soft:rgba(217,194,0,.13);--ease:cubic-bezier(.16,1,.3,1);
 }
-html{scroll-behavior:smooth;overflow-x:clip}
+html{scroll-behavior:smooth;overflow-x:clip;max-width:100%}
 body{
   font-family:"Vazirmatn",sans-serif;background:var(--bg);color:var(--text);
-  min-height:100vh;line-height:1.85;overflow-x:clip;
+  min-height:100vh;line-height:1.85;overflow-x:clip;max-width:100%;
   -webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+  -webkit-touch-callout:none;
 }
 body.lock{overflow:hidden}
+input,textarea,select,[contenteditable="true"]{
+  -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;
+}
 img,canvas,svg{max-width:100%;display:block}
-input,textarea,select{font:inherit;-webkit-user-select:text;user-select:text}
+img{-webkit-user-drag:none;user-drag:none;pointer-events:none}
 button{font:inherit;cursor:pointer;background:none;border:0;color:inherit}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--gold);color:#001830}
 
-/* BACKGROUND */
+/* پس‌زمینه */
 .bg{position:fixed;inset:0;z-index:-2;pointer-events:none;overflow:hidden}
 .au{position:absolute;border-radius:50%;filter:blur(110px);opacity:.5}
 .au.a{width:min(58vw,520px);height:min(58vw,520px);background:#D9C200;top:-14vw;right:-14vw;animation:f1 22s ease-in-out infinite}
@@ -38,21 +43,34 @@ a{color:inherit;text-decoration:none}
 @keyframes f2{50%{transform:translateY(-7vh) scale(1.15)}}
 #stars{position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5}
 
-/* HEADER */
+/* هدر — لوگو درست شده */
 header{
   position:fixed;top:0;left:0;right:0;z-index:100;
   display:flex;align-items:center;justify-content:space-between;
   padding:.85rem clamp(1rem,4vw,3rem);
-  background:rgba(0,13,24,.82);backdrop-filter:blur(20px);
+  background:rgba(0,13,24,.85);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--stroke);
 }
-.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem}
-.logo img{width:38px;height:38px;padding:8px;border-radius:12px;background:linear-gradient(140deg,var(--gold),#8a7a00);filter:invert(1) brightness(.1)}
-.back{padding:.5rem 1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);font-size:.78rem;font-weight:700;display:inline-flex;gap:.4rem;align-items:center;transition:.4s var(--ease)}
+.logo{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;min-width:0}
+.logo-mark{
+  width:38px;height:38px;border-radius:12px;
+  display:grid;place-items:center;flex:none;overflow:hidden;
+  background:linear-gradient(140deg,var(--gold),#8a7a00);
+  box-shadow:0 0 22px rgba(217,194,0,.4);
+}
+.logo-mark img{
+  width:68%;height:68%;object-fit:contain;
+  filter:invert(1) brightness(.1);
+}
+.back{
+  padding:.5rem 1rem;border-radius:99px;background:var(--panel);
+  border:1px solid var(--stroke);font-size:.78rem;font-weight:700;
+  display:inline-flex;gap:.4rem;align-items:center;transition:.4s var(--ease);
+}
 .back i{color:var(--gold)}
 .back:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
 
-/* MAIN */
+/* لایه اصلی */
 main{padding-top:80px;overflow-x:clip}
 section{padding:clamp(1.5rem,5vh,3rem) clamp(1rem,3.5vw,3rem);overflow-x:clip}
 .wrap{max-width:1200px;margin:0 auto;width:100%}
@@ -63,7 +81,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 @keyframes sh{to{background-position:220% center}}
 .lead{color:var(--muted);font-size:clamp(.85rem,1.2vw,.95rem);max-width:62ch}
 
-/* SEARCH & FILTER */
+/* جستجو و فیلتر */
 .search{position:relative;max-width:440px;margin:0 auto 1rem}
 .search i{position:absolute;top:50%;right:1rem;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.85rem}
 #searchInput{width:100%;padding:.8rem 2.5rem .8rem 1rem;border-radius:99px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.85rem;transition:.3s}
@@ -74,7 +92,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .filter:hover{background:var(--soft);border-color:var(--gold);color:var(--gold)}
 .filter.active{background:var(--soft);border-color:var(--gold);color:var(--gold);box-shadow:0 0 22px rgba(217,194,0,.25)}
 
-/* GRID */
+/* گرید کارت‌ها */
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,245px),1fr));gap:.9rem;margin-top:1rem}
 .card{position:relative;padding:1.3rem 1.15rem 1.1rem;border-radius:18px;background:var(--panel);border:1px solid var(--stroke);backdrop-filter:blur(16px);cursor:pointer;overflow:hidden;text-align:right;transition:transform .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease)}
 .card:hover{transform:translateY(-6px);border-color:rgba(217,194,0,.55);box-shadow:0 0 50px rgba(217,194,0,.22);background:rgba(255,255,255,.06)}
@@ -88,24 +106,37 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .empty{grid-column:1/-1;text-align:center;padding:2.5rem 1rem;color:var(--muted);font-size:.88rem}
 .empty i{font-size:1.8rem;color:var(--gold);display:block;margin-bottom:.7rem;opacity:.5}
 
-/* MODAL */
+/* مودال شیشه‌ای */
 .modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:1rem;opacity:0;visibility:hidden;transition:.4s var(--ease)}
 .modal.open{opacity:1;visibility:visible}
-.mback{position:absolute;inset:0;background:rgba(0,6,12,.72);backdrop-filter:blur(20px);cursor:pointer}
-.mbox{position:relative;width:100%;max-width:min(700px,100%);max-height:92vh;border-radius:26px;background:rgba(0,24,48,.55);border:1px solid rgba(217,194,0,.2);backdrop-filter:blur(36px) saturate(180%);box-shadow:0 40px 90px rgba(0,0,0,.7);overflow:hidden;display:flex;flex-direction:column;transform:scale(.94) translateY(20px);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.mback{position:absolute;inset:0;background:rgba(0,6,12,.75);backdrop-filter:blur(22px);cursor:pointer}
+.mbox{
+  position:relative;width:100%;max-width:min(700px,100%);max-height:92vh;
+  border-radius:26px;background:rgba(0,24,48,.55);
+  border:1px solid rgba(217,194,0,.2);
+  backdrop-filter:blur(38px) saturate(180%);
+  box-shadow:0 40px 90px rgba(0,0,0,.75);
+  overflow:hidden;display:flex;flex-direction:column;
+  transform:scale(.94) translateY(20px);
+  transition:transform .5s cubic-bezier(.34,1.56,.64,1);
+}
 .modal.open .mbox{transform:scale(1) translateY(0)}
 .mclose{position:absolute;top:1rem;left:1rem;z-index:5;width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:rgba(0,24,48,.7);border:1px solid var(--stroke);color:var(--text);font-size:1rem;cursor:pointer;transition:.4s}
 .mclose:hover{background:rgba(217,194,0,.2);border-color:var(--gold);color:var(--gold);transform:rotate(90deg)}
-.mbody{padding:2rem clamp(1.1rem,4vw,1.8rem) 1.8rem;overflow-y:auto;flex:1}
+.mbody{padding:2rem clamp(1.1rem,4vw,1.8rem) 1.8rem;overflow-y:auto;flex:1;overflow-x:clip}
 .mtitle{display:flex;gap:.8rem;align-items:center;margin-bottom:1.3rem;padding-left:3rem}
 .mticon{width:42px;height:42px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(140deg,var(--gold),#8a7a00);color:#001830;font-size:1.05rem;flex:none}
 .mtitle h2{font-size:1.05rem;font-weight:900;letter-spacing:-.02em}
 .mtitle p{font-size:.7rem;color:var(--muted);margin-top:.15rem}
 
-/* FORMS */
+/* فرم‌ها */
 .f{margin-bottom:1rem;text-align:right}
 .f label{display:block;font-size:.72rem;font-weight:700;color:var(--muted);margin-bottom:.4rem}
-.f input,.f textarea,.f select{width:100%;padding:.75rem .9rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);color:var(--text);font-size:.84rem;transition:.3s;resize:vertical}
+.f input,.f textarea,.f select{
+  width:100%;padding:.75rem .9rem;border-radius:12px;
+  background:var(--panel);border:1px solid var(--stroke);
+  color:var(--text);font-size:.84rem;transition:.3s;resize:vertical;
+}
 .f input:focus,.f textarea:focus,.f select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 4px var(--soft);background:var(--panel2)}
 .f textarea{min-height:100px;line-height:1.85}
 .frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.65rem}
@@ -116,7 +147,7 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .chk{display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--muted);padding:.4rem 0}
 .chk input{width:16px;height:16px;accent-color:var(--gold)}
 
-/* BUTTONS */
+/* دکمه‌ها */
 @property --ang{syntax:"<angle>";initial-value:0deg;inherits:false}
 .btn{position:relative;display:inline-flex;padding:2px;border-radius:99px;overflow:hidden;isolation:isolate;cursor:pointer;flex:none;max-width:100%}
 .btn::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:conic-gradient(from var(--ang),transparent 0 190deg,var(--gold) 265deg,#fff8c4 300deg,var(--gold) 330deg,transparent 360deg);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;animation:bs 3.6s linear infinite;z-index:0;pointer-events:none}
@@ -128,13 +159,13 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .btnrow{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.4rem}
 .btnrow .btn{flex:1 1 auto;min-width:110px}
 
-/* OUTPUT */
-.out{padding:.9rem 1rem;border-radius:12px;background:var(--panel);border:1px dashed rgba(217,194,0,.3);font-family:ui-monospace,monospace;font-size:.78rem;color:var(--gold);word-break:break-all;line-height:1.8;min-height:50px;-webkit-user-select:text;user-select:text}
+/* خروجی‌ها */
+.out{padding:.9rem 1rem;border-radius:12px;background:var(--panel);border:1px dashed rgba(217,194,0,.3);font-family:ui-monospace,monospace;font-size:.78rem;color:var(--gold);word-break:break-all;line-height:1.8;min-height:50px}
 .hint{font-size:.68rem;color:var(--muted);margin-top:.5rem}
 .rinfo{display:flex;gap:1rem;flex-wrap:wrap;margin-top:.8rem;padding:.6rem .9rem;border-radius:11px;background:var(--soft);border:1px solid rgba(217,194,0,.25);font-size:.74rem;color:var(--gold)}
 .rinfo b{font-weight:800}
 
-/* COMPONENTS */
+/* کامپوننت‌ها */
 .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-top:1rem}
 .sw{position:relative;aspect-ratio:1/1.4;border-radius:12px;cursor:pointer;overflow:hidden;border:1px solid var(--stroke);transition:.3s}
 .sw:hover{transform:translateY(-5px) scale(1.03)}
@@ -153,12 +184,21 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .stats div{padding:.75rem .85rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);text-align:center}
 .stats b{display:block;font-size:.95rem;font-weight:900;color:var(--gold);margin-bottom:.15rem}
 .stats span{font-size:.62rem;color:var(--muted)}
-.file{padding:1.5rem 1rem;border-radius:14px;border:2px dashed rgba(217,194,0,.4);background:var(--panel);text-align:center;cursor:pointer;transition:.3s}
+
+/* کادر آپلود — بدون سرریز */
+.file{
+  display:block;width:100%;max-width:100%;
+  padding:1.5rem 1rem;border-radius:14px;
+  border:2px dashed rgba(217,194,0,.4);
+  background:var(--panel);text-align:center;cursor:pointer;
+  transition:.3s;overflow:hidden;
+}
 .file:hover{border-color:var(--gold);background:var(--soft)}
 .file i{font-size:1.6rem;color:var(--gold);display:block;margin-bottom:.4rem}
 .file b{font-size:.82rem;font-weight:800;display:block;margin-bottom:.2rem}
-.file small{font-size:.66rem;color:var(--muted)}
+.file small{font-size:.66rem;color:var(--muted);display:block}
 .file input{display:none}
+
 .imgp{max-width:100%;max-height:260px;border-radius:12px;margin:1rem auto 0;border:1px solid var(--stroke);object-fit:contain}
 .picked{display:flex;gap:.8rem;align-items:center;margin-top:1rem;padding:.75rem .95rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke)}
 .picked .csw{width:48px;height:48px;border-radius:11px;border:1px solid var(--stroke);flex:none}
@@ -177,67 +217,35 @@ h1 em{font-style:normal;background:linear-gradient(105deg,var(--gold),#fff6b0,va
 .fancy:hover{border-color:var(--gold);background:var(--soft)}
 .fancy b{font-weight:400;flex:1;word-break:break-all;text-align:right;font-size:.95rem}
 .fancy small{color:var(--muted);font-size:.62rem;flex:none}
-
-/* Animation preview */
-.anim-preview{
-  margin-top:1rem;padding:2rem 1rem;border-radius:14px;
-  background:var(--panel);border:1px solid var(--stroke);
-  display:grid;place-items:center;min-height:180px;
-}
-.anim-box{
-  width:80px;height:80px;border-radius:14px;
-  background:linear-gradient(140deg,var(--gold),#8a7a00);
-  box-shadow:0 10px 30px rgba(217,194,0,.4);
-}
-
-/* Stopwatch */
 .stimer{font-size:clamp(2.4rem,12vw,4rem);font-weight:900;text-align:center;letter-spacing:-.04em;font-variant-numeric:tabular-nums;color:var(--gold);text-shadow:0 0 40px rgba(217,194,0,.45);margin:1rem 0}
 .laps{max-height:180px;overflow-y:auto;margin-top:1rem;border-radius:12px;background:var(--panel);border:1px solid var(--stroke);padding:.3rem}
-.lap{display:flex;justify-content:space-between;padding:.45rem .75rem;border-radius:8px;font-family:ui-monospace,monospace;font-size:.76rem}
+.lap{display:flex;justify-content:space-between;padding:.45rem .75rem;border-radius:8px;font-family:ui-monospace,monospace;font-size:.76rem;gap:.5rem}
 .lap:nth-child(odd){background:rgba(255,255,255,.03)}
-
-/* Dice */
 .dice{font-size:4.5rem;text-align:center;color:var(--gold);text-shadow:0 0 40px rgba(217,194,0,.6);margin:1rem 0;line-height:1}
-
-/* Wheel */
 .wheelwrap{position:relative;max-width:320px;margin:1rem auto;aspect-ratio:1}
 .wheelp{position:absolute;top:-8px;right:50%;transform:translateX(50%);border-left:13px solid transparent;border-right:13px solid transparent;border-top:22px solid var(--gold);filter:drop-shadow(0 4px 8px rgba(0,0,0,.5));z-index:3}
 #wheelC{width:100%;height:100%;border-radius:50%;transition:transform 5s cubic-bezier(.15,.7,.2,1);box-shadow:0 0 40px rgba(217,194,0,.3),inset 0 0 0 4px rgba(217,194,0,.4)}
 .wres{text-align:center;margin-top:1rem;font-size:1rem;font-weight:900;color:var(--gold);min-height:1.6em}
+.bmi-bar{position:relative;height:10px;border-radius:99px;margin:1rem 0;background:linear-gradient(90deg,#5FA8D3 0%,#5FA8D3 18%,#7DDBA0 18%,#7DDBA0 42%,#D9C200 42%,#D9C200 58%,#FF9A9A 58%,#FF9A9A 78%,#B14A2E 78%)}
+.bmi-marker{position:absolute;top:-6px;width:22px;height:22px;border-radius:50%;background:#fff;border:3px solid #001830;transform:translateX(-50%);transition:left .6s var(--ease);box-shadow:0 4px 12px rgba(0,0,0,.5)}
 
-/* BMI */
-.bmi-bar{
-  position:relative;height:10px;border-radius:99px;margin:1rem 0;
-  background:linear-gradient(90deg,#5FA8D3 0%,#5FA8D3 18%,#7DDBA0 18%,#7DDBA0 42%,#D9C200 42%,#D9C200 58%,#FF9A9A 58%,#FF9A9A 78%,#B14A2E 78%);
-}
-.bmi-marker{
-  position:absolute;top:-6px;width:22px;height:22px;
-  border-radius:50%;background:#fff;border:3px solid #001830;
-  transform:translateX(-50%);transition:left .6s var(--ease);
-  box-shadow:0 4px 12px rgba(0,0,0,.5);
-}
-
-/* Toast */
 .toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(40px);padding:.65rem 1.2rem;border-radius:99px;background:rgba(0,24,48,.9);border:1px solid var(--gold);color:var(--gold);font-size:.78rem;font-weight:700;backdrop-filter:blur(16px);z-index:2000;opacity:0;pointer-events:none;transition:.5s;max-width:90vw;text-align:center}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-/* Music button */
 .mbtn{position:fixed;bottom:1.2rem;right:1.2rem;width:50px;height:50px;border-radius:15px;display:grid;place-items:center;background:rgba(0,24,48,.65);border:1px solid var(--stroke);backdrop-filter:blur(18px);color:var(--gold);cursor:pointer;transition:.3s;z-index:90}
 .mbtn:hover{background:var(--soft);border-color:var(--gold);transform:translateY(-3px)}
 .mbtn i{font-size:1rem}
 .mbtn.playing i{animation:mp 2s ease-in-out infinite}
 @keyframes mp{50%{transform:scale(1.18)}}
 
-/* Footer */
 footer{padding:2rem clamp(1rem,3.5vw,3rem) 1.3rem;border-top:1px solid var(--stroke);background:rgba(0,13,24,.65);backdrop-filter:blur(20px);font-size:.7rem;color:var(--muted)}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
 footer a{color:var(--gold);font-weight:700}
 
-/* Responsive */
 @media (max-width:640px){
   header{padding:.65rem .9rem}
   .logo{font-size:.88rem}
-  .logo img{width:34px;height:34px;padding:7px}
+  .logo-mark{width:34px;height:34px}
   .back{padding:.45rem .85rem;font-size:.72rem}
   main{padding-top:70px}
   section{padding:1.4rem 1rem}
@@ -284,7 +292,9 @@ footer a{color:var(--gold);font-weight:700}
 
 <header>
   <a href="index.html" class="logo">
-    <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    <span class="logo-mark">
+      <img src="img/20261011_025918.ico" alt="مهدی مجاهد">
+    </span>
     <span>مهدی مجاهد</span>
   </a>
   <a href="index.html" class="back"><i class="fa-solid fa-arrow-right"></i> بازگشت</a>
@@ -295,7 +305,7 @@ footer a{color:var(--gold);font-weight:700}
     <div class="wrap">
       <span class="eyebrow">جعبه ابزار</span>
       <h1>ابزارهای <em>کاربردی</em></h1>
-      <p class="lead">۳۵ ابزار رایگان و سبک. همه چیز کاملاً در مرورگر شما اجرا می‌شود و هیچ داده‌ای به سرور فرستاده نمی‌شود.</p>
+      <p class="lead">۳۲ ابزار رایگان و سبک. همه چیز کاملاً در مرورگر شما اجرا می‌شود و هیچ داده‌ای به سرور فرستاده نمی‌شود.</p>
     </div>
   </section>
 
@@ -346,7 +356,22 @@ footer a{color:var(--gold);font-weight:700}
 
 <script>
 /* ══════════════════════════════════════════════
-   HELPERS
+   محافظت از محتوا (کپی، کلیک راست، درگ)
+   ══════════════════════════════════════════════ */
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest('input, textarea')) return;
+  e.preventDefault();
+});
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('selectstart', e => {
+  const t = e.target;
+  if (!t || !t.tagName) return;
+  if (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable) return;
+  e.preventDefault();
+});
+
+/* ══════════════════════════════════════════════
+   توابع کمکی
    ══════════════════════════════════════════════ */
 const $ = (s, ctx=document) => ctx.querySelector(s);
 const $$ = (s, ctx=document) => Array.from(ctx.querySelectorAll(s));
@@ -416,7 +441,6 @@ function download(blob, name){
   setTimeout(() => URL.revokeObjectURL(a.href), 200);
 }
 
-/* تاریخ شمسی */
 function gregToJalali(gy, gm, gd){
   const gdm = [0,31,59,90,120,151,181,212,243,273,304,334];
   let jy = (gy <= 1600) ? 0 : 979;
@@ -461,14 +485,25 @@ function jalaliToGreg(jy, jm, jd){
   }
   return [gy, gm, gd];
 }
-const jMonth = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+
+/* AudioContext مشترک برای کد مورس */
+let audioCtx = null;
+function getAudioCtx(){
+  if (!audioCtx){
+    try {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    } catch(e){ return null; }
+  }
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  return audioCtx;
+}
 
 /* ══════════════════════════════════════════════
-   TOOLS ARRAY
+   آرایه ابزارها
    ══════════════════════════════════════════════ */
 const TOOLS = [];
 
-/* ---------- 1. پالت ---------- */
+/* ══════ 1. پالت رنگ ══════ */
 TOOLS.push({
   id:'palette', cat:'color', icon:'fa-solid fa-palette',
   title:'سازندهٔ پالت رنگ', tag:'رنگ',
@@ -519,7 +554,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 2. کنتراست ---------- */
+/* ══════ 2. کنتراست ══════ */
 TOOLS.push({
   id:'contrast', cat:'color', icon:'fa-solid fa-circle-half-stroke',
   title:'بررسی کنتراست WCAG', tag:'رنگ',
@@ -560,7 +595,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 3. گرادیان ---------- */
+/* ══════ 3. گرادیان ══════ */
 TOOLS.push({
   id:'gradient', cat:'color', icon:'fa-solid fa-fill-drip',
   title:'سازندهٔ گرادیان', tag:'رنگ',
@@ -590,7 +625,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 4. Box Shadow ---------- */
+/* ══════ 4. Box Shadow ══════ */
 TOOLS.push({
   id:'bshadow', cat:'color', icon:'fa-solid fa-square',
   title:'سازندهٔ Box Shadow', tag:'رنگ',
@@ -635,121 +670,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 5. انیمیشن CSS ---------- */
-TOOLS.push({
-  id:'cssanim', cat:'color', icon:'fa-solid fa-play',
-  title:'سازندهٔ انیمیشن CSS', tag:'رنگ',
-  desc:'انیمیشن دلخواه بسازید و کد @keyframes بگیرید.',
-  html:`<div class="f"><label>نوع انیمیشن</label><select id="at">
-      <option value="fade">محو شدن (Fade)</option>
-      <option value="slideUp" selected>ورود از پایین</option>
-      <option value="slideDown">ورود از بالا</option>
-      <option value="slideRight">ورود از راست</option>
-      <option value="slideLeft">ورود از چپ</option>
-      <option value="scale">بزرگ شدن (Scale)</option>
-      <option value="rotate">چرخش (Rotate)</option>
-      <option value="bounce">پرش (Bounce)</option>
-      <option value="flip">چرخش سه‌بعدی (Flip)</option>
-      <option value="pulse">ضربان (Pulse)</option>
-      <option value="shake">لرزش (Shake)</option>
-    </select></div>
-    <div class="frow">
-      <div class="f"><label>مدت: <span id="adv">۰.۸</span>s</label><input type="range" id="ad" min="0.2" max="4" step="0.1" value="0.8"></div>
-      <div class="f"><label>تأخیر: <span id="alv">۰</span>s</label><input type="range" id="al" min="0" max="3" step="0.1" value="0"></div>
-    </div>
-    <div class="frow">
-      <div class="f"><label>تکرار</label><select id="ac">
-        <option value="1">یک‌بار</option>
-        <option value="infinite" selected>بی‌پایان</option>
-        <option value="2">۲ بار</option>
-        <option value="3">۳ بار</option>
-      </select></div>
-      <div class="f"><label>شیوه</label><select id="ae">
-        <option value="ease" selected>Ease</option>
-        <option value="ease-in">Ease-In</option>
-        <option value="ease-out">Ease-Out</option>
-        <option value="ease-in-out">Ease-In-Out</option>
-        <option value="linear">Linear</option>
-      </select></div>
-    </div>
-    <div class="anim-preview"><div class="anim-box" id="ab"></div></div>
-    <div class="out" id="ao" style="margin-top:1rem;white-space:pre-wrap;max-height:220px;overflow:auto"></div>
-    <div class="btnrow"><button class="btn" id="acp"><span>کپی CSS <i class="fa-solid fa-copy"></i></span></button></div>`,
-  init(){
-    const T = $('#at'), D = $('#ad'), DV = $('#adv'), L = $('#al'), LV = $('#alv');
-    const C = $('#ac'), E = $('#ae'), B = $('#ab'), O = $('#ao');
-    let styleTag = document.getElementById('anim-style');
-    if (!styleTag){ styleTag = document.createElement('style'); styleTag.id = 'anim-style'; document.head.appendChild(styleTag); }
-    function gen(){
-      const name = 'anim_' + Math.random().toString(36).slice(2, 8);
-      DV.textContent = toFa(+D.value);
-      LV.textContent = toFa(+L.value);
-      let kf = '';
-      switch(T.value){
-        case 'fade': kf = 'from{opacity:0}to{opacity:1}'; break;
-        case 'slideUp': kf = 'from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}'; break;
-        case 'slideDown': kf = 'from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}'; break;
-        case 'slideRight': kf = 'from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)}'; break;
-        case 'slideLeft': kf = 'from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}'; break;
-        case 'scale': kf = 'from{opacity:0;transform:scale(.7)}to{opacity:1;transform:scale(1)}'; break;
-        case 'rotate': kf = 'from{transform:rotate(0deg)}to{transform:rotate(360deg)}'; break;
-        case 'bounce': kf = '0%{transform:translateY(0)}50%{transform:translateY(-20px)}100%{transform:translateY(0)}'; break;
-        case 'flip': kf = 'from{transform:perspective(400px) rotateY(0)}to{transform:perspective(400px) rotateY(360deg)}'; break;
-        case 'pulse': kf = '0%,100%{transform:scale(1)}50%{transform:scale(1.15)}'; break;
-        case 'shake': kf = '0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}'; break;
-      }
-      const css = '@keyframes ' + name + '{' + kf + '}';
-      styleTag.textContent = css;
-      B.style.animation = 'none';
-      void B.offsetWidth;
-      B.style.animation = name + ' ' + D.value + 's ' + E.value + ' ' + L.value + 's ' + C.value;
-      O.textContent = css + '\n\n.my-element{\n  animation: ' + name + ' ' + D.value + 's ' + E.value + ' ' + L.value + 's ' + C.value + ';\n}';
-    }
-    [T,D,L,C,E].forEach(el => el.addEventListener('input', gen));
-    $('#acp').addEventListener('click', () => copy(O.textContent, 'CSS کپی شد ✦'));
-    gen();
-  }
-});
-
-/* ---------- 6. اسکرول‌بار ---------- */
-TOOLS.push({
-  id:'scrollbar', cat:'color', icon:'fa-solid fa-scroll',
-  title:'اسکرول‌بار سفارشی', tag:'رنگ',
-  desc:'استایل اسکرول‌بار دلخواه بسازید.',
-  html:`<div class="frow">
-      <div class="f"><label>عرض: <span id="swv">۱۰</span>px</label><input type="range" id="sw" min="4" max="24" value="10"></div>
-      <div class="f"><label>گردی: <span id="srv">۹۹</span>px</label><input type="range" id="sr" min="0" max="99" value="99"></div>
-    </div>
-    <div class="frow">
-      <div class="f"><label>رنگ دسته</label><input type="color" id="st" value="#D9C200"></div>
-      <div class="f"><label>رنگ مسیر</label><input type="color" id="sk" value="#001830"></div>
-    </div>
-    <div id="spv" style="margin-top:1rem;max-height:180px;overflow-y:scroll;padding:.9rem;border-radius:12px;border:1px solid var(--stroke);background:var(--panel);font-size:.78rem;color:var(--muted)"></div>
-    <div class="out" id="so" style="margin-top:1rem;white-space:pre-wrap"></div>
-    <div class="btnrow"><button class="btn" id="scp"><span>کپی CSS</span></button></div>`,
-  init(){
-    const W = $('#sw'), R = $('#sr'), T = $('#st'), K = $('#sk'), P = $('#spv'), O = $('#so');
-    P.innerHTML = '<p style="margin-bottom:.6rem">این یک ناحیه برای پیش‌نمایش است.</p>'.repeat(15);
-    let tag = document.getElementById('sb-tag');
-    if (!tag){ tag = document.createElement('style'); tag.id = 'sb-tag'; document.head.appendChild(tag); }
-    function upd(){
-      $('#swv').textContent = toFa(W.value);
-      $('#srv').textContent = toFa(R.value);
-      tag.textContent = '#spv::-webkit-scrollbar{width:' + W.value + 'px}' +
-        '#spv::-webkit-scrollbar-track{background:' + K.value + ';border-radius:' + R.value + 'px}' +
-        '#spv::-webkit-scrollbar-thumb{background:' + T.value + ';border-radius:' + R.value + 'px}' +
-        '#spv{scrollbar-color:' + T.value + ' ' + K.value + '}';
-      O.textContent = '::-webkit-scrollbar{width:' + W.value + 'px}\n' +
-        '::-webkit-scrollbar-track{background:' + K.value + ';border-radius:' + R.value + 'px}\n' +
-        '::-webkit-scrollbar-thumb{background:' + T.value + ';border-radius:' + R.value + 'px}';
-    }
-    [W,R,T,K].forEach(el => el.addEventListener('input', upd));
-    $('#scp').addEventListener('click', () => copy(O.textContent, 'کپی شد ✦'));
-    upd();
-  }
-});
-
-/* ---------- 7. رنگ‌های ایرانی ---------- */
+/* ══════ 5. رنگ‌های ایرانی ══════ */
 TOOLS.push({
   id:'iran', cat:'color', icon:'fa-solid fa-mosque',
   title:'رنگ‌های اصیل ایرانی', tag:'رنگ',
@@ -771,7 +692,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 8. شمارندهٔ کلمات ---------- */
+/* ══════ 6. شمارندهٔ کلمات ══════ */
 TOOLS.push({
   id:'word', cat:'text', icon:'fa-solid fa-calculator',
   title:'شمارندهٔ کلمات', tag:'متن',
@@ -799,7 +720,8 @@ TOOLS.push({
   }
 });
 
-/* ---------- 9. متن ساختگی ---------- */
+/* ════ */
+  /* ══════ 7. متن ساختگی فارسی ══════ */
 TOOLS.push({
   id:'lorem', cat:'text', icon:'fa-solid fa-paragraph',
   title:'متن ساختگی فارسی', tag:'متن',
@@ -820,7 +742,9 @@ TOOLS.push({
       'تایپوگرافی درست، نیمی از موفقیت یک طرح است.','هنر، روایتِ آرامِ لحظه‌هاست.',
       'سادگی، پیچیده‌ترین شکل هنر است.','هر خط و رنگ، بخشی از یک داستان است.',
       'ایده‌ها بی‌شکل متولد می‌شوند و با طراحی جان می‌گیرند.','خلاقیت، دیدنِ چیزی است که دیگران نمی‌بینند.',
-      'کد و هنر، دو زبان متفاوت برای یک معنا هستند.','تعادل میان رنگ و فرم، راز یک طرح حرفه‌ای است.'
+      'کد و هنر، دو زبان متفاوت برای یک معنا هستند.','تعادل میان رنگ و فرم، راز یک طرح حرفه‌ای است.',
+      'طراحی، گفت‌وگویی بی‌صداست میان خالق و مخاطب.','هر پروژه، فصلی تازه از یک سفر بی‌پایان است.',
+      'جزئیات، جایی است که حرفه‌ای‌ها از آماتورها جدا می‌شوند.','سلیقه، چیزی است که با تجربه ساخته می‌شود.'
     ];
     const pk = () => S[Math.floor(Math.random()*S.length)];
     function g(){
@@ -841,7 +765,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 10. Base64 ---------- */
+/* ══════ 8. Base64 ══════ */
 TOOLS.push({
   id:'b64', cat:'text', icon:'fa-solid fa-right-left',
   title:'تبدیل Base64', tag:'متن',
@@ -857,7 +781,7 @@ TOOLS.push({
     const i = $('#bi'), o = $('#bo');
     $('#be').addEventListener('click', () => {
       try { o.value = btoa(unescape(encodeURIComponent(i.value))); }
-      catch(e){ o.value = 'خطا'; }
+      catch(e){ o.value = 'خطا در رمزگذاری'; }
     });
     $('#bd').addEventListener('click', () => {
       try { o.value = decodeURIComponent(escape(atob(i.value.trim()))); }
@@ -867,43 +791,53 @@ TOOLS.push({
   }
 });
 
-/* ---------- 11. حروف فانتزی ---------- */
+/* ══════ 9. حروف فانتزی (فقط لاتین) ══════ */
 TOOLS.push({
   id:'fancy', cat:'text', icon:'fa-solid fa-wand-sparkles',
   title:'تبدیل حروف به سبک خاص', tag:'متن',
-  desc:'متن را به فونت‌های تزئینی یونیکد یا فونت‌های فارسی تبدیل کنید.',
-  html:`<div class="f"><label>متن شما</label><input type="text" id="fi" value="Mahdi Mojahed"></div>
-    <div class="btnrow">
-      <button class="btn" id="ft1"><span>سبک‌های لاتین</span></button>
-      <button class="btn" id="ft2"><span>فونت‌های فارسی</span></button>
-    </div>
-    <div id="fo" style="margin-top:1rem"></div>
+  desc:'متن لاتین را به فونت‌های تزئینی یونیکد تبدیل کنید.',
+  html:`<div class="f"><label>متن (لاتین)</label><input type="text" id="fi" value="Mahdi Mojahed" placeholder="فقط حروف انگلیسی"></div>
+    <div id="fo"></div>
     <p class="hint">روی هر سبک کلیک کنید تا کپی شود.</p>`,
   init(){
     const inp = $('#fi'), out = $('#fo');
     const AZ = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const az = 'abcdefghijklmnopqrstuvwxyz';
     const D = '0123456789';
+
     const sets = [
       { n: 'Bold', A: 0x1D400, a: 0x1D41A, d: 0x1D7CE },
       { n: 'Italic', A: 0x1D434, a: 0x1D44E, d: null },
       { n: 'Bold Italic', A: 0x1D468, a: 0x1D482, d: null },
       { n: 'Script', A: 0x1D49C, a: 0x1D4B6, d: null },
+      { n: 'Bold Script', A: 0x1D4D0, a: 0x1D4EA, d: null },
       { n: 'Fraktur', A: 0x1D504, a: 0x1D51E, d: null },
+      { n: 'Bold Fraktur', A: 0x1D56C, a: 0x1D586, d: null },
       { n: 'Double-Struck', A: 0x1D538, a: 0x1D552, d: 0x1D7D8 },
       { n: 'Sans Bold', A: 0x1D5D4, a: 0x1D5EE, d: 0x1D7EC },
+      { n: 'Sans Italic', A: 0x1D608, a: 0x1D622, d: null },
+      { n: 'Sans Bold Italic', A: 0x1D63C, a: 0x1D656, d: null },
       { n: 'Monospace', A: 0x1D670, a: 0x1D68A, d: 0x1D7F6 }
     ];
-    const persianFonts = [
-      { n: 'وزیرمتن', family: '"Vazirmatn", sans-serif', w: '400' },
-      { n: 'وزیرمتن سیاه', family: '"Vazirmatn", sans-serif', w: '900' },
-      { n: 'نسخ', family: '"Noto Naskh Arabic", serif', w: '400' },
-      { n: 'کوفی', family: '"Noto Kufi Arabic", sans-serif', w: '400' },
-      { n: 'لاله‌زار', family: '"Lalezar", cursive', w: '400' },
-      { n: 'امیری', family: '"Amiri", serif', w: '400' }
-    ];
+
+    /* حروف استثنایی که در یونیکد جای دیگری دارند */
+    const scriptExceptions = {
+      'B': 0x212C, 'E': 0x2130, 'F': 0x2131, 'H': 0x210B, 'I': 0x2110,
+      'L': 0x2112, 'M': 0x2133, 'R': 0x211B,
+      'e': 0x212F, 'g': 0x210A, 'o': 0x2134
+    };
+    const frakturExceptions = {
+      'C': 0x212D, 'H': 0x210C, 'I': 0x2111, 'R': 0x211C, 'Z': 0x2128
+    };
+
     function apply(str, set){
       return str.split('').map(c => {
+        if (set.n === 'Script' && scriptExceptions[c] !== undefined){
+          return String.fromCodePoint(scriptExceptions[c]);
+        }
+        if ((set.n === 'Fraktur' || set.n === 'Bold Fraktur') && frakturExceptions[c] !== undefined){
+          return String.fromCodePoint(frakturExceptions[c]);
+        }
         let i = AZ.indexOf(c);
         if (i >= 0) return String.fromCodePoint(set.A + i);
         i = az.indexOf(c);
@@ -915,52 +849,61 @@ TOOLS.push({
         return c;
       }).join('');
     }
+
     const extra = [
       { n: 'Fullwidth', f: s => s.replace(/[A-Za-z0-9]/g, c => String.fromCharCode(c.charCodeAt(0) + 0xFEE0)) },
       { n: 'Circled', f: s => s.replace(/[A-Za-z]/g, c => {
           const code = c.charCodeAt(0);
           if (code >= 65 && code <= 90) return String.fromCodePoint(0x24B6 + code - 65);
-          return String.fromCodePoint(0x24D0 + code - 97);
+          if (code >= 97 && code <= 122) return String.fromCodePoint(0x24D0 + code - 97);
+          return c;
+      })},
+      { n: 'Circled Negative', f: s => s.replace(/[A-Za-z]/g, c => {
+          const code = c.charCodeAt(0);
+          if (code >= 65 && code <= 90) return String.fromCodePoint(0x1F150 + code - 65);
+          if (code >= 97 && code <= 122) return String.fromCodePoint(0x1F170 + code - 97);
+          return c;
       })},
       { n: 'Squared', f: s => s.replace(/[A-Z]/g, c => String.fromCodePoint(0x1F130 + c.charCodeAt(0) - 65)) },
-      { n: 'Upside-Down', f: s => {
-          const m = {'a':'ɐ','b':'q','c':'ɔ','d':'p','e':'ǝ','f':'ɟ','g':'ƃ','h':'ɥ','i':'ᴉ','j':'ɾ','k':'ʞ','l':'l','m':'ɯ','n':'u','o':'o','p':'d','q':'b','r':'ɹ','s':'s','t':'ʇ','u':'n','v':'ʌ','w':'ʍ','x':'x','y':'ʎ','z':'z'};
-          return s.split('').map(c => m[c] || c).reverse().join('');
+      { n: 'Parenthesized', f: s => s.replace(/[A-Za-z]/g, c => {
+          const code = c.charCodeAt(0);
+          if (code >= 65 && code <= 90) return String.fromCodePoint(0x249C + code - 65);
+          if (code >= 97 && code <= 122) return String.fromCodePoint(0x249C + code - 97);
+          return c;
+      })},
+      { n: 'Upside Down', f: s => {
+          const m = {'a':'ɐ','b':'q','c':'ɔ','d':'p','e':'ǝ','f':'ɟ','g':'ƃ','h':'ɥ','i':'ᴉ','j':'ɾ','k':'ʞ','l':'l','m':'ɯ','n':'u','o':'o','p':'d','q':'b','r':'ɹ','s':'s','t':'ʇ','u':'n','v':'ʌ','w':'ʍ','x':'x','y':'ʎ','z':'z','A':'∀','B':'ᗺ','C':'Ɔ','D':'ᗡ','E':'Ǝ','F':'Ⅎ','G':'⅁','H':'H','I':'I','J':'ſ','K':'ʞ','L':'˥','M':'W','N':'N','O':'O','P':'Ԁ','Q':'Ò','R':'ᴚ','S':'S','T':'┴','U':'∩','V':'Λ','W':'M','X':'X','Y':'⅄','Z':'Z','0':'0','1':'Ɩ','2':'ᄅ','3':'Ɛ','4':'ㄣ','5':'ϛ','6':'9','7':'ㄥ','8':'8','9':'6'};
+          return s.split('').map(c => m[c] !== undefined ? m[c] : c).reverse().join('');
+      }},
+      { n: 'Small Caps', f: s => {
+          const m = {'a':'ᴀ','b':'ʙ','c':'ᴄ','d':'ᴅ','e':'ᴇ','f':'ꜰ','g':'ɢ','h':'ʜ','i':'ɪ','j':'ᴊ','k':'ᴋ','l':'ʟ','m':'ᴍ','n':'ɴ','o':'ᴏ','p':'ᴘ','q':'ǫ','r':'ʀ','s':'ꜱ','t':'ᴛ','u':'ᴜ','v':'ᴠ','w':'ᴡ','x':'x','y':'ʏ','z':'ᴢ'};
+          return s.split('').map(c => m[c.toLowerCase()] || c).join('');
       }}
     ];
-    let mode = 'latin';
+
     function render(){
       const v = inp.value;
-      if (mode === 'latin'){
-        const items = [];
-        sets.forEach(s => items.push([s.n, apply(v, s)]));
-        extra.forEach(e => items.push([e.n, e.f(v)]));
-        out.innerHTML = items.map(([n,t]) =>
-          '<div class="fancy" data-t="' + esc(t) + '"><b>' + esc(t) + '</b><small>' + n + '</small></div>'
-        ).join('');
-      } else {
-        out.innerHTML = persianFonts.map(f =>
-          '<div class="fancy" data-t="' + esc(v) + '" style="display:block;text-align:center">' +
-            '<div style="font-family:' + f.family + ';font-weight:' + f.w + ';font-size:1.3rem;line-height:1.9">' + esc(v) + '</div>' +
-            '<small style="display:block;margin-top:.3rem">' + f.n + '</small>' +
-          '</div>'
-        ).join('');
-      }
-      out.querySelectorAll('.fancy').forEach(el => el.addEventListener('click', () => copy(el.dataset.t, 'کپی شد ✦')));
+      const items = [];
+      sets.forEach(s => items.push([s.n, apply(v, s)]));
+      extra.forEach(e => items.push([e.n, e.f(v)]));
+      out.innerHTML = items.map(([n,t]) =>
+        '<div class="fancy" data-t="' + esc(t) + '"><b>' + esc(t) + '</b><small>' + n + '</small></div>'
+      ).join('');
+      out.querySelectorAll('.fancy').forEach(el =>
+        el.addEventListener('click', () => copy(el.dataset.t, 'کپی شد ✦'))
+      );
     }
-    $('#ft1').addEventListener('click', () => { mode = 'latin'; render(); });
-    $('#ft2').addEventListener('click', () => { mode = 'persian'; render(); });
     inp.addEventListener('input', render);
     render();
   }
 });
 
-/* ---------- 12. مورس ---------- */
+/* ══════ 10. کد مورس (اصلاح‌شده) ══════ */
 TOOLS.push({
   id:'morse', cat:'text', icon:'fa-solid fa-wave-square',
   title:'کد مورس', tag:'متن',
   desc:'متن را به کد مورس یا برعکس تبدیل کنید و بشنوید.',
-  html:`<div class="f"><label>ورودی</label><textarea id="mi" placeholder="متن یا کد مورس..."></textarea></div>
+  html:`<div class="f"><label>ورودی</label><textarea id="mi" placeholder="متن انگلیسی یا کد مورس..."></textarea></div>
     <div class="btnrow">
       <button class="btn" id="mto"><span>متن ← مورس</span></button>
       <button class="btn" id="mfr"><span>مورس ← متن</span></button>
@@ -968,50 +911,93 @@ TOOLS.push({
     <div class="btnrow">
       <button class="btn ghost" id="mc"><span>کپی</span></button>
       <button class="btn ghost" id="mp"><span>پخش <i class="fa-solid fa-volume-high"></i></span></button>
+      <button class="btn ghost" id="mstop"><span>توقف <i class="fa-solid fa-stop"></i></span></button>
     </div>
-    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="mo" readonly></textarea></div>`,
+    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="mo" readonly></textarea></div>
+    <p class="hint">حروف با فاصله جدا می‌شوند و کلمات با علامت / </p>`,
   init(){
     const M = {'A':'.-','B':'-...','C':'-.-.','D':'-..','E':'.','F':'..-.','G':'--.','H':'....','I':'..','J':'.---','K':'-.-','L':'.-..','M':'--','N':'-.','O':'---','P':'.--.','Q':'--.-','R':'.-.','S':'...','T':'-','U':'..-','V':'...-','W':'.--','X':'-..-','Y':'-.--','Z':'--..','0':'-----','1':'.----','2':'..---','3':'...--','4':'....-','5':'.....','6':'-....','7':'--...','8':'---..','9':'----.'};
     const R = {};
     for (const k in M) R[M[k]] = k;
     const i = $('#mi'), o = $('#mo');
+
     $('#mto').addEventListener('click', () => {
-      o.value = i.value.toUpperCase().split(/\s+/).map(w => w.split('').map(c => M[c] || '').filter(Boolean).join(' ')).filter(Boolean).join(' / ');
+      const words = i.value.toUpperCase().split(/\s+/);
+      o.value = words.map(w => w.split('').map(c => M[c] || '').filter(Boolean).join(' ')).filter(Boolean).join(' / ');
     });
     $('#mfr').addEventListener('click', () => {
-      o.value = i.value.trim().split(/\s*\/\s*/).map(w => w.split(/\s+/).map(c => R[c] || '').join('')).join(' ');
+      const words = i.value.trim().split(/\s*\/\s*/);
+      o.value = words.map(w => w.split(/\s+/).map(c => R[c] || '').join('')).join(' ');
     });
     $('#mc').addEventListener('click', () => { if (o.value) copy(o.value, 'کپی شد ✦'); });
-    $('#mp').addEventListener('click', () => {
+
+    let stopFlag = false;
+    $('#mstop').addEventListener('click', () => {
+      stopFlag = true;
+      toast('پخش متوقف شد');
+    });
+
+    $('#mp').addEventListener('click', async () => {
       const txt = o.value || i.value;
-      if (!txt) return;
-      const code = /[.\-]/.test(txt) ? txt : i.value.toUpperCase().split('').map(c => M[c] || ' ').join('');
-      try {
-        const ac = new (window.AudioContext || window.webkitAudioContext)();
-        let t = ac.currentTime;
-        const dot = .09, dash = .27, gap = .09;
-        for (const c of code){
-          if (c === '.' || c === '-'){
-            const dur = c === '.' ? dot : dash;
-            const osc = ac.createOscillator();
-            const gn = ac.createGain();
-            osc.frequency.value = 700;
-            osc.type = 'sine';
-            osc.connect(gn); gn.connect(ac.destination);
-            gn.gain.setValueAtTime(0.15, t);
-            gn.gain.setValueAtTime(0.15, t + dur);
-            gn.gain.linearRampToValueAtTime(0, t + dur + 0.02);
-            osc.start(t); osc.stop(t + dur + 0.03);
-            t += dur + 0.07;
-          } else if (c === '/') t += 0.35;
-          else if (c === ' ') t += gap;
+      if (!txt){ toast('ابتدا متن یا مورس وارد کنید'); return; }
+      const ctx = getAudioCtx();
+      if (!ctx){ toast('مرورگر از صدا پشتیبانی نمی‌کند'); return; }
+
+      /* تشخیص: اگر شامل نقطه یا خط تیره باشد، خودش مورس است */
+      const isMorse = /[.\-]/.test(txt);
+      let code;
+      if (isMorse){
+        code = txt;
+      } else {
+        code = txt.toUpperCase().split('').map(c => M[c] || ' ').join('');
+      }
+
+      stopFlag = false;
+      const dot = 0.1, dash = 0.3, gap = 0.1, letterGap = 0.3;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.frequency.value = 700;
+      osc.type = 'sine';
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.value = 0;
+      osc.start();
+
+      let t = ctx.currentTime + 0.05;
+      const schedule = [];
+
+      for (let idx = 0; idx < code.length; idx++){
+        const c = code[idx];
+        let dur = 0;
+        if (c === '.') dur = dot;
+        else if (c === '-') dur = dash;
+        else if (c === '/') dur = letterGap * 2;
+        else if (c === ' ') dur = letterGap;
+        else continue;
+
+        if (c === '.' || c === '-'){
+          schedule.push({ start: t, dur: dur });
+          t += dur + 0.08;
+        } else {
+          t += dur;
         }
-      } catch(e){}
+      }
+
+      schedule.forEach(s => {
+        gain.gain.setValueAtTime(0.15, s.start);
+        gain.gain.setValueAtTime(0.15, s.start + s.dur);
+        gain.gain.linearRampToValueAtTime(0, s.start + s.dur + 0.02);
+      });
+
+      const totalDur = t - ctx.currentTime + 0.2;
+      setTimeout(() => {
+        try { osc.stop(); osc.disconnect(); gain.disconnect(); } catch(e){}
+      }, totalDur * 1000);
     });
   }
 });
 
-/* ---------- 13. ابجد ---------- */
+/* ══════ 11. ابجد کبیر و صغیر ══════ */
 TOOLS.push({
   id:'abjad', cat:'text', icon:'fa-solid fa-hashtag',
   title:'ابجد کبیر و صغیر', tag:'متن',
@@ -1039,12 +1025,12 @@ TOOLS.push({
   }
 });
 
-/* ---------- 14. فشرده‌ساز تصویر ---------- */
+/* ══════ 12. فشرده‌ساز تصویر ══════ */
 TOOLS.push({
   id:'compress', cat:'image', icon:'fa-solid fa-compress',
   title:'فشرده‌ساز تصویر', tag:'تصویر',
   desc:'تصویر خود را در مرورگر فشرده کنید — بدون آپلود.',
-  html:`<label class="file" for="cf"><div><i class="fa-solid fa-cloud-arrow-up"></i><b>انتخاب تصویر</b><small>PNG، JPG یا WebP</small></div><input type="file" id="cf" accept="image/*"></label>
+  html:`<label class="file" for="cf"><span><i class="fa-solid fa-cloud-arrow-up"></i><b>انتخاب تصویر</b><small>PNG، JPG یا WebP</small></span><input type="file" id="cf" accept="image/*"></label>
     <div class="f" style="margin-top:1rem"><label>کیفیت: <span id="cqv">۷۰</span>٪</label><input type="range" id="cq" min="10" max="100" value="70"></div>
     <div class="btnrow">
       <button class="btn" id="cr"><span>فشرده کن <i class="fa-solid fa-bolt"></i></span></button>
@@ -1091,12 +1077,12 @@ TOOLS.push({
   }
 });
 
-/* ---------- 15. تغییر اندازه تصویر ---------- */
+/* ══════ 13. تغییر اندازه و فرمت تصویر ══════ */
 TOOLS.push({
   id:'resize', cat:'image', icon:'fa-solid fa-expand',
   title:'تغییر اندازه و فرمت تصویر', tag:'تصویر',
   desc:'ابعاد و فرمت تصویر را تغییر دهید.',
-  html:`<label class="file" for="rf"><div><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>PNG، JPG یا WebP</small></div><input type="file" id="rf" accept="image/*"></label>
+  html:`<label class="file" for="rf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>PNG، JPG یا WebP</small></span><input type="file" id="rf" accept="image/*"></label>
     <div class="frow" style="margin-top:1rem">
       <div class="f"><label>عرض (px)</label><input type="number" id="rw" min="1"></div>
       <div class="f"><label>ارتفاع (px)</label><input type="number" id="rh" min="1"></div>
@@ -1151,12 +1137,12 @@ TOOLS.push({
   }
 });
 
-/* ---------- 16. رنگ از تصویر ---------- */
+/* ══════ 14. انتخاب رنگ از تصویر ══════ */
 TOOLS.push({
   id:'pick', cat:'image', icon:'fa-solid fa-eye-dropper',
   title:'انتخاب رنگ از تصویر', tag:'تصویر',
   desc:'روی هر نقطه از تصویر کلیک کنید تا کد رنگ را بگیرید.',
-  html:`<label class="file" for="pkf"><div><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>روی نقطهٔ دلخواه کلیک کنید</small></div><input type="file" id="pkf" accept="image/*"></label>
+  html:`<label class="file" for="pkf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>روی نقطهٔ دلخواه کلیک کنید</small></span><input type="file" id="pkf" accept="image/*"></label>
     <canvas id="pkc" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke);cursor:crosshair"></canvas>
     <div class="picked" id="pko" style="display:none">
       <div class="csw" id="pksw"></div>
@@ -1199,24 +1185,26 @@ TOOLS.push({
   }
 });
 
-/* ══ */
-  /* ---------- 17. ویرایشگر تصویر ---------- */
+/* ═══════ */
+  /* ══════ 15. ویرایشگر تصویر پیشرفته (ادغام با افزایش کیفیت) ══════ */
 TOOLS.push({
   id:'editor', cat:'image', icon:'fa-solid fa-sliders',
-  title:'ویرایشگر تصویر ساده', tag:'تصویر',
-  desc:'روشنایی، کنتراست، اشباع و فیلترهای آماده.',
-  html:`<label class="file" for="ef"><div><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>PNG یا JPG</small></div><input type="file" id="ef" accept="image/*"></label>
+  title:'ویرایشگر تصویر پیشرفته', tag:'تصویر',
+  desc:'روشنایی، کنتراست، اشباع، وضوح، فیلتر و افزایش کیفیت.',
+  html:`<label class="file" for="ef"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>PNG یا JPG</small></span><input type="file" id="ef" accept="image/*"></label>
     <div style="margin-top:1rem">
       <div class="f"><label>روشنایی: <span id="ebv">۱۰۰</span>٪</label><input type="range" id="eb" min="0" max="200" value="100"></div>
       <div class="f"><label>کنتراست: <span id="ecv">۱۰۰</span>٪</label><input type="range" id="ec" min="0" max="200" value="100"></div>
       <div class="f"><label>اشباع: <span id="esv">۱۰۰</span>٪</label><input type="range" id="es" min="0" max="200" value="100"></div>
       <div class="f"><label>چرخش رنگ: <span id="ehv">۰</span>°</label><input type="range" id="eh" min="0" max="360" value="0"></div>
       <div class="f"><label>بلور: <span id="eblv">۰</span>px</label><input type="range" id="ebl" min="0" max="20" value="0"></div>
+      <div class="f"><label>وضوح (Sharpen): <span id="eshv">۰</span>٪</label><input type="range" id="esh" min="0" max="100" value="0"></div>
     </div>
     <div class="btnrow">
       <button class="btn ghost" id="egr"><span>سیاه‌وسفید</span></button>
       <button class="btn ghost" id="esep"><span>سِپیا</span></button>
       <button class="btn ghost" id="evin"><span>وینتیج</span></button>
+      <button class="btn ghost" id="ehd"><span>کیفیت بالا</span></button>
       <button class="btn ghost" id="erst"><span>بازنشانی</span></button>
     </div>
     <canvas id="ecv2" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke)"></canvas>
@@ -1227,13 +1215,14 @@ TOOLS.push({
     const F = $('#ef'), C = $('#ecv2');
     const ctx = C.getContext('2d');
     let im = null;
-    let v = {b:100, c:100, s:100, h:0, bl:0};
+    let v = {b:100, c:100, s:100, h:0, bl:0, sh:0};
+
     F.addEventListener('change', () => {
       const f = F.files[0]; if (!f) return;
       const i = new Image();
       i.onload = () => {
         im = i;
-        const maxW = 700;
+        const maxW = 800;
         const sc = Math.min(1, maxW / i.naturalWidth);
         C.width = Math.floor(i.naturalWidth * sc);
         C.height = Math.floor(i.naturalHeight * sc);
@@ -1243,169 +1232,21 @@ TOOLS.push({
       };
       i.src = URL.createObjectURL(f);
     });
+
     function draw(){
       if (!im) return;
-      ctx.clearRect(0, 0, C.width, C.height);
       ctx.filter = 'brightness(' + v.b + '%) contrast(' + v.c + '%) saturate(' + v.s + '%) hue-rotate(' + v.h + 'deg) blur(' + v.bl + 'px)';
+      ctx.clearRect(0, 0, C.width, C.height);
       ctx.drawImage(im, 0, 0, C.width, C.height);
       ctx.filter = 'none';
-    }
-    function bind(id, key, vid){
-      $('#' + id).addEventListener('input', e => {
-        v[key] = +e.target.value;
-        $('#' + vid).textContent = toFa(e.target.value);
-        draw();
-      });
-    }
-    bind('eb','b','ebv'); bind('ec','c','ecv'); bind('es','s','esv'); bind('eh','h','ehv'); bind('ebl','bl','eblv');
-    function sync(){
-      $('#eb').value = v.b; $('#ebv').textContent = toFa(v.b);
-      $('#ec').value = v.c; $('#ecv').textContent = toFa(v.c);
-      $('#es').value = v.s; $('#esv').textContent = toFa(v.s);
-      $('#eh').value = v.h; $('#ehv').textContent = toFa(v.h);
-      $('#ebl').value = v.bl; $('#eblv').textContent = toFa(v.bl);
-      draw();
-    }
-    $('#egr').addEventListener('click', () => { v = {b:100,c:100,s:0,h:0,bl:0}; sync(); });
-    $('#esep').addEventListener('click', () => { v = {b:105,c:95,s:70,h:35,bl:0}; sync(); });
-    $('#evin').addEventListener('click', () => { v = {b:110,c:120,s:80,h:340,bl:0}; sync(); });
-    $('#erst').addEventListener('click', () => { v = {b:100,c:100,s:100,h:0,bl:0}; sync(); });
-    $('#edl').addEventListener('click', () => C.toBlob(b => download(b, 'edited.jpg'), 'image/jpeg', .92));
-  }
-});
 
-/* ---------- 18. کلاژ ساز ---------- */
-TOOLS.push({
-  id:'collage', cat:'image', icon:'fa-solid fa-images',
-  title:'کلاژ ساز', tag:'تصویر',
-  desc:'چند تصویر انتخاب کنید و کلاژ آماده تحویل بگیرید.',
-  html:`<label class="file" for="clf"><div><i class="fa-solid fa-images"></i><b>انتخاب چند تصویر</b><small>۲ تا ۹ تصویر</small></div><input type="file" id="clf" accept="image/*" multiple></label>
-    <div class="frow" style="margin-top:1rem">
-      <div class="f"><label>چیدمان</label><select id="cll">
-        <option value="2">۲ تصویر کنار هم</option>
-        <option value="4" selected>شبکه ۲×۲</option>
-        <option value="6">شبکه ۳×۲</option>
-        <option value="9">شبکه ۳×۳</option>
-      </select></div>
-      <div class="f"><label>اندازه سلول (px)</label><input type="number" id="cls" value="400" min="200" max="1200" step="100"></div>
-    </div>
-    <div class="f"><label>فاصله: <span id="clgv">۸</span>px</label><input type="range" id="clg" min="0" max="30" value="8"></div>
-    <div class="f"><label>پس‌زمینه</label><input type="color" id="clbg" value="#001830"></div>
-    <div class="btnrow">
-      <button class="btn" id="clgen"><span>بساز <i class="fa-solid fa-images"></i></span></button>
-      <button class="btn ghost" id="cldl"><span>دانلود PNG</span></button>
-    </div>
-    <canvas id="clcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke)"></canvas>`,
-  init(){
-    const F = $('#clf'), L = $('#cll'), S = $('#cls'), G = $('#clg'), GV = $('#clgv');
-    const BG = $('#clbg'), C = $('#clcv');
-    const ctx = C.getContext('2d');
-    let images = [];
-    G.addEventListener('input', () => GV.textContent = toFa(G.value));
-    F.addEventListener('change', () => {
-      images = [];
-      const files = Array.from(F.files).slice(0, 9);
-      let done = 0;
-      files.forEach(f => {
-        const im = new Image();
-        im.onload = () => {
-          images.push(im);
-          done++;
-          if (done === files.length) render();
-        };
-        im.src = URL.createObjectURL(f);
-      });
-    });
-    function render(){
-      const n = +L.value;
-      const size = Math.max(200, Math.min(1200, +S.value || 400));
-      const gap = +G.value;
-      const cols = n === 2 ? 2 : n === 4 ? 2 : n === 6 ? 3 : 3;
-      const rows = Math.ceil(n / cols);
-      C.width = cols * size + (cols + 1) * gap;
-      C.height = rows * size + (rows + 1) * gap;
-      ctx.fillStyle = BG.value;
-      ctx.fillRect(0, 0, C.width, C.height);
-      for (let i = 0; i < Math.min(n, images.length); i++){
-        const r = Math.floor(i / cols);
-        const c = i % cols;
-        const x = gap + c * (size + gap);
-        const y = gap + r * (size + gap);
-        const im = images[i];
-        const ar = im.naturalWidth / im.naturalHeight;
-        let dw = size, dh = size, dx = x, dy = y;
-        if (ar > 1){ dh = size; dw = size * ar; dx = x - (dw - size)/2; }
-        else { dw = size; dh = size / ar; dy = y - (dh - size)/2; }
-        ctx.save();
-        ctx.beginPath();
-        ctx.rect(x, y, size, size);
-        ctx.clip();
-        ctx.drawImage(im, dx, dy, dw, dh);
-        ctx.restore();
-      }
-      C.style.display = 'block';
-    }
-    [L,S,BG].forEach(el => el.addEventListener('input', render));
-    $('#clgen').addEventListener('click', render);
-    $('#cldl').addEventListener('click', () => {
-      if (!C.width){ toast('ابتدا کلاژ بسازید'); return; }
-      C.toBlob(b => download(b, 'collage.png'));
-    });
-  }
-});
-
-/* ---------- 19. افزایش کیفیت تصویر ---------- */
-TOOLS.push({
-  id:'enhance', cat:'image', icon:'fa-solid fa-sparkles',
-  title:'افزایش کیفیت تصویر', tag:'تصویر',
-  desc:'روشنایی، وضوح و اشباع را افزایش دهید.',
-  html:`<label class="file" for="qhf"><div><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>افزایش کیفیت ساده</small></div><input type="file" id="qhf" accept="image/*"></label>
-    <div class="f" style="margin-top:1rem"><label>میزان افزایش وضوح: <span id="qhv">۵۰</span>٪</label><input type="range" id="qh" min="0" max="100" value="50"></div>
-    <div class="f"><label>روشنایی اضافه: <span id="qbv">۱۵</span>٪</label><input type="range" id="qb" min="0" max="60" value="15"></div>
-    <div class="f"><label>اشباع اضافه: <span id="qsv">۲۰</span>٪</label><input type="range" id="qs" min="0" max="100" value="20"></div>
-    <div class="btnrow">
-      <button class="btn" id="qrun"><span>افزایش کیفیت <i class="fa-solid fa-sparkles"></i></span></button>
-      <button class="btn ghost" id="qdl"><span>دانلود</span></button>
-    </div>
-    <canvas id="qcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke)"></canvas>
-    <p class="hint">توجه: این ابزار کیفیت را بهبود می‌دهد، ولی جایگزین نرم‌افزارهای حرفه‌ای AI نیست.</p>`,
-  init(){
-    const F = $('#qhf'), C = $('#qcv');
-    const ctx = C.getContext('2d');
-    let im = null;
-    ['qh','qb','qs'].forEach(id => {
-      $('#' + id).addEventListener('input', () => {
-        const valId = id === 'qh' ? 'qhv' : id === 'qb' ? 'qbv' : 'qsv';
-        $('#' + valId).textContent = toFa($('#' + id).value);
-        if (im) apply();
-      });
-    });
-    F.addEventListener('change', () => {
-      const f = F.files[0]; if (!f) return;
-      const i = new Image();
-      i.onload = () => {
-        im = i;
-        C.width = i.naturalWidth;
-        C.height = i.naturalHeight;
-        C.style.display = 'block';
-        apply();
-      };
-      i.src = URL.createObjectURL(f);
-    });
-    function apply(){
-      const qh = +$('#qh').value / 100;
-      const qb = 100 + (+$('#qb').value);
-      const qs = 100 + (+$('#qs').value);
-      ctx.filter = 'brightness(' + qb + '%) saturate(' + qs + '%) contrast(' + (100 + qh * 40) + '%)';
-      ctx.drawImage(im, 0, 0);
-      ctx.filter = 'none';
-      if (qh > 0.05){
+      if (v.sh > 0){
         try {
-          const img = ctx.getImageData(0, 0, C.width, C.height);
-          const d = img.data;
-          const amt = qh * 0.8;
-          const w = C.width, h = C.height;
+          const imgData = ctx.getImageData(0, 0, C.width, C.height);
+          const d = imgData.data;
           const orig = new Uint8ClampedArray(d);
+          const w = C.width, h = C.height;
+          const amt = v.sh / 100 * 1.2;
           for (let y = 1; y < h - 1; y++){
             for (let x = 1; x < w - 1; x++){
               const idx = (y * w + x) * 4;
@@ -1418,42 +1259,94 @@ TOOLS.push({
               }
             }
           }
-          ctx.putImageData(img, 0, 0);
+          ctx.putImageData(imgData, 0, 0);
         } catch(e){}
       }
     }
-    $('#qrun').addEventListener('click', () => { if (im) apply(); });
-    $('#qdl').addEventListener('click', () => {
+
+    function bind(id, key, vid){
+      $('#' + id).addEventListener('input', e => {
+        v[key] = +e.target.value;
+        $('#' + vid).textContent = toFa(e.target.value);
+        draw();
+      });
+    }
+    bind('eb','b','ebv'); bind('ec','c','ecv'); bind('es','s','esv');
+    bind('eh','h','ehv'); bind('ebl','bl','eblv'); bind('esh','sh','eshv');
+
+    function sync(){
+      $('#eb').value = v.b; $('#ebv').textContent = toFa(v.b);
+      $('#ec').value = v.c; $('#ecv').textContent = toFa(v.c);
+      $('#es').value = v.s; $('#esv').textContent = toFa(v.s);
+      $('#eh').value = v.h; $('#ehv').textContent = toFa(v.h);
+      $('#ebl').value = v.bl; $('#eblv').textContent = toFa(v.bl);
+      $('#esh').value = v.sh; $('#eshv').textContent = toFa(v.sh);
+      draw();
+    }
+
+    $('#egr').addEventListener('click', () => { v = {b:100,c:100,s:0,h:0,bl:0,sh:0}; sync(); });
+    $('#esep').addEventListener('click', () => { v = {b:105,c:95,s:70,h:35,bl:0,sh:0}; sync(); });
+    $('#evin').addEventListener('click', () => { v = {b:110,c:120,s:80,h:340,bl:0,sh:10}; sync(); });
+    $('#ehd').addEventListener('click', () => { v = {b:108,c:115,s:115,h:0,bl:0,sh:60}; sync(); });
+    $('#erst').addEventListener('click', () => { v = {b:100,c:100,s:100,h:0,bl:0,sh:0}; sync(); });
+
+    $('#edl').addEventListener('click', () => {
       if (!C.width){ toast('ابتدا تصویری انتخاب کنید'); return; }
-      C.toBlob(b => download(b, 'enhanced.png'));
+      C.toBlob(b => download(b, 'edited.png'), 'image/png');
     });
   }
 });
 
-/* ---------- 20. حذف پس‌زمینه ---------- */
+/* ══════ 16. واترمارک ══════ */
 TOOLS.push({
-  id:'bgremove', cat:'image', icon:'fa-solid fa-scissors',
-  title:'حذف پس‌زمینه', tag:'تصویر',
-  desc:'رنگ پس‌زمینه را انتخاب و حذف کنید.',
-  html:`<label class="file" for="brf"><div><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>پس‌زمینهٔ یکدست بهتر جواب می‌دهد</small></div><input type="file" id="brf" accept="image/*"></label>
-    <div class="f" style="margin-top:1rem">
-      <label class="chk"><input type="checkbox" id="brpick"> انتخاب رنگ پس‌زمینه با کلیک روی تصویر</label>
+  id:'watermark', cat:'image', icon:'fa-solid fa-stamp',
+  title:'واترمارک', tag:'تصویر',
+  desc:'روی تصویر خود، متن یا لوگو با شفافیت و موقعیت دلخواه بگذارید.',
+  html:`<label class="file" for="wmf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر اصلی</b><small>PNG یا JPG</small></span><input type="file" id="wmf" accept="image/*"></label>
+    <div class="f" style="margin-top:1rem"><label>متن واترمارک</label><input type="text" id="wmt" value="© Mahdi Mojahed"></div>
+    <div class="frow">
+      <div class="f"><label>اندازه: <span id="wmsv">۳۲</span>px</label><input type="range" id="wms" min="10" max="120" value="32"></div>
+      <div class="f"><label>شفافیت: <span id="wmov">۶۰</span>٪</label><input type="range" id="wmo" min="5" max="100" value="60"></div>
     </div>
     <div class="frow">
-      <div class="f"><label>رنگ پس‌زمینه</label><input type="color" id="brc" value="#ffffff"></div>
-      <div class="f"><label>تلورانس: <span id="brtv">۳۰</span></label><input type="range" id="brt" min="0" max="150" value="30"></div>
+      <div class="f"><label>رنگ متن</label><input type="color" id="wmc" value="#ffffff"></div>
+      <div class="f"><label>موقعیت</label><select id="wmp">
+        <option value="br" selected>پایین-راست</option>
+        <option value="bl">پایین-چپ</option>
+        <option value="tr">بالا-راست</option>
+        <option value="tl">بالا-چپ</option>
+        <option value="center">وسط</option>
+        <option value="tile">تکرار (Tile)</option>
+      </select></div>
+    </div>
+    <div class="frow">
+      <div class="f"><label>چرخش: <span id="wmrv">۰</span>°</label><input type="range" id="wmr" min="-90" max="90" value="0"></div>
+      <div class="f"><label>سایه متن</label><select id="wmsh">
+        <option value="yes" selected>با سایه</option>
+        <option value="no">بدون سایه</option>
+      </select></div>
     </div>
     <div class="btnrow">
-      <button class="btn" id="brrun"><span>حذف کن <i class="fa-solid fa-scissors"></i></span></button>
-      <button class="btn ghost" id="brdl"><span>دانلود PNG</span></button>
+      <button class="btn" id="wmrun"><span>اعمال <i class="fa-solid fa-stamp"></i></span></button>
+      <button class="btn ghost" id="wmdl"><span>دانلود PNG</span></button>
     </div>
-    <canvas id="brcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke);cursor:crosshair;background-image:linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(-45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%),linear-gradient(-45deg,transparent 75%,#ccc 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0px"></canvas>
-    <p class="hint">برای نتیجهٔ بهتر روی رنگ پس‌زمینه کلیک کنید و تلورانس را تنظیم کنید.</p>`,
+    <canvas id="wmcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke)"></canvas>`,
   init(){
-    const F = $('#brf'), C = $('#brcv'), CP = $('#brpick'), RC = $('#brc'), RT = $('#brt');
+    const F = $('#wmf'), C = $('#wmcv');
     const ctx = C.getContext('2d');
-    let im = null, orig = null;
-    RT.addEventListener('input', () => $('#brtv').textContent = toFa(RT.value));
+    let im = null;
+
+    ['wms','wmo','wmr'].forEach(id => {
+      const vid = id === 'wms' ? 'wmsv' : id === 'wmo' ? 'wmov' : 'wmrv';
+      $('#' + id).addEventListener('input', () => {
+        $('#' + vid).textContent = toFa($('#' + id).value);
+        if (im) render();
+      });
+    });
+    ['wmt','wmc','wmp','wmsh'].forEach(id => {
+      $('#' + id).addEventListener('input', () => { if (im) render(); });
+    });
+
     F.addEventListener('change', () => {
       const f = F.files[0]; if (!f) return;
       const i = new Image();
@@ -1463,36 +1356,162 @@ TOOLS.push({
         const sc = Math.min(1, maxW / i.naturalWidth);
         C.width = Math.floor(i.naturalWidth * sc);
         C.height = Math.floor(i.naturalHeight * sc);
+        C.style.display = 'block';
+        render();
+      };
+      i.src = URL.createObjectURL(f);
+    });
+
+    function drawWatermark(x, y, text, size, color, opacity, rotation, shadow){
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.rotate(rotation * Math.PI / 180);
+      ctx.font = 'bold ' + size + 'px Vazirmatn, sans-serif';
+      ctx.fillStyle = color;
+      ctx.globalAlpha = opacity / 100;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      if (shadow === 'yes'){
+        ctx.shadowColor = 'rgba(0,0,0,.6)';
+        ctx.shadowBlur = 8;
+        ctx.shadowOffsetX = 2;
+        ctx.shadowOffsetY = 2;
+      }
+      ctx.fillText(text, 0, 0);
+      ctx.restore();
+    }
+
+    function render(){
+      if (!im) return;
+      ctx.clearRect(0, 0, C.width, C.height);
+      ctx.drawImage(im, 0, 0, C.width, C.height);
+
+      const text = $('#wmt').value || '';
+      const size = +$('#wms').value;
+      const color = $('#wmc').value;
+      const opacity = +$('#wmo').value;
+      const position = $('#wmp').value;
+      const rotation = +$('#wmr').value;
+      const shadow = $('#wmsh').value;
+      const pad = Math.max(20, size);
+
+      if (position === 'tile'){
+        ctx.save();
+        ctx.globalAlpha = opacity / 100;
+        ctx.font = 'bold ' + size + 'px Vazirmatn, sans-serif';
+        ctx.fillStyle = color;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        if (shadow === 'yes'){
+          ctx.shadowColor = 'rgba(0,0,0,.6)';
+          ctx.shadowBlur = 8;
+        }
+        ctx.rotate(rotation * Math.PI / 180);
+        for (let y = -C.height; y < C.height * 2; y += size * 4){
+          for (let x = -C.width; x < C.width * 2; x += size * 12){
+            ctx.fillText(text, x, y);
+          }
+        }
+        ctx.restore();
+        return;
+      }
+
+      let x, y;
+      if (position === 'br'){ x = C.width - pad; y = C.height - pad; }
+      else if (position === 'bl'){ x = pad; y = C.height - pad; }
+      else if (position === 'tr'){ x = C.width - pad; y = pad; }
+      else if (position === 'tl'){ x = pad; y = pad; }
+      else { x = C.width / 2; y = C.height / 2; }
+
+      drawWatermark(x, y, text, size, color, opacity, rotation, shadow);
+    }
+
+    $('#wmrun').addEventListener('click', render);
+    $('#wmdl').addEventListener('click', () => {
+      if (!C.width){ toast('ابتدا تصویری انتخاب کنید'); return; }
+      C.toBlob(b => download(b, 'watermarked.png'));
+    });
+  }
+});
+
+/* ══════ 17. حذف پس‌زمینه ══════ */
+TOOLS.push({
+  id:'bgremove', cat:'image', icon:'fa-solid fa-scissors',
+  title:'حذف پس‌زمینه', tag:'تصویر',
+  desc:'رنگ پس‌زمینه را انتخاب و حذف کنید.',
+  html:`<label class="file" for="brf"><span><i class="fa-solid fa-image"></i><b>انتخاب تصویر</b><small>پس‌زمینهٔ یکدست بهتر جواب می‌دهد</small></span><input type="file" id="brf" accept="image/*"></label>
+    <label class="chk" style="margin-top:1rem"><input type="checkbox" id="brpick" checked> انتخاب رنگ با کلیک روی تصویر</label>
+    <div class="frow">
+      <div class="f"><label>رنگ پس‌زمینه</label><input type="color" id="brc" value="#ffffff"></div>
+      <div class="f"><label>تلورانس: <span id="brtv">۳۰</span></label><input type="range" id="brt" min="0" max="150" value="30"></div>
+    </div>
+    <div class="btnrow">
+      <button class="btn" id="brrun"><span>حذف کن <i class="fa-solid fa-scissors"></i></span></button>
+      <button class="btn ghost" id="brreset"><span>بازنشانی</span></button>
+      <button class="btn ghost" id="brdl"><span>دانلود PNG</span></button>
+    </div>
+    <canvas id="brcv" style="display:none;max-width:100%;border-radius:12px;margin-top:1rem;border:1px solid var(--stroke);cursor:crosshair;background-image:linear-gradient(45deg,#ccc 25%,transparent 25%),linear-gradient(-45deg,#ccc 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ccc 75%),linear-gradient(-45deg,transparent 75%,#ccc 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0px"></canvas>
+    <p class="hint">برای نتیجهٔ بهتر: روی رنگ پس‌زمینه کلیک کنید و تلورانس را تنظیم کنید.</p>`,
+  init(){
+    const F = $('#brf'), C = $('#brcv'), CP = $('#brpick'), RC = $('#brc'), RT = $('#brt');
+    const ctx = C.getContext('2d');
+    let origData = null, origCanvas = null;
+    RT.addEventListener('input', () => $('#brtv').textContent = toFa(RT.value));
+
+    F.addEventListener('change', () => {
+      const f = F.files[0]; if (!f) return;
+      const i = new Image();
+      i.onload = () => {
+        const maxW = 800;
+        const sc = Math.min(1, maxW / i.naturalWidth);
+        C.width = Math.floor(i.naturalWidth * sc);
+        C.height = Math.floor(i.naturalHeight * sc);
         ctx.clearRect(0, 0, C.width, C.height);
         ctx.drawImage(i, 0, 0, C.width, C.height);
-        orig = ctx.getImageData(0, 0, C.width, C.height);
+        origData = ctx.getImageData(0, 0, C.width, C.height);
+        origCanvas = document.createElement('canvas');
+        origCanvas.width = C.width;
+        origCanvas.height = C.height;
+        origCanvas.getContext('2d').putImageData(origData, 0, 0);
         C.style.display = 'block';
       };
       i.src = URL.createObjectURL(f);
     });
+
     C.addEventListener('click', e => {
-      if (!CP.checked || !orig) return;
+      if (!CP.checked || !origData) return;
       const r = C.getBoundingClientRect();
       const x = Math.floor((e.clientX - r.left) * C.width / r.width);
       const y = Math.floor((e.clientY - r.top) * C.height / r.height);
       const idx = (y * C.width + x) * 4;
-      const h = rgbToHex(orig.data[idx], orig.data[idx+1], orig.data[idx+2]);
+      const h = rgbToHex(origData.data[idx], origData.data[idx+1], origData.data[idx+2]);
       RC.value = h;
       toast('رنگ انتخاب شد: ' + h.toUpperCase());
     });
+
     $('#brrun').addEventListener('click', () => {
-      if (!orig){ toast('ابتدا تصویری انتخاب کنید'); return; }
-      const data = new Uint8ClampedArray(orig.data);
+      if (!origData){ toast('ابتدا تصویری انتخاب کنید'); return; }
+      const data = new Uint8ClampedArray(origData.data);
       const [tr,tg,tb] = hexToRgb(RC.value);
       const tol = +RT.value;
+      const tolSq = tol * tol * 3;
       for (let i = 0; i < data.length; i += 4){
-        const dr = data[i] - tr, dg = data[i+1] - tg, db = data[i+2] - tb;
-        const d = Math.sqrt(dr*dr + dg*dg + db*db);
-        if (d < tol) data[i+3] = 0;
+        const dr = data[i] - tr;
+        const dg = data[i+1] - tg;
+        const db = data[i+2] - tb;
+        if (dr*dr + dg*dg + db*db < tolSq) data[i+3] = 0;
       }
       ctx.clearRect(0, 0, C.width, C.height);
       ctx.putImageData(new ImageData(data, C.width, C.height), 0, 0);
+      toast('پس‌زمینه حذف شد ✦');
     });
+
+    $('#brreset').addEventListener('click', () => {
+      if (!origCanvas) return;
+      ctx.clearRect(0, 0, C.width, C.height);
+      ctx.drawImage(origCanvas, 0, 0);
+    });
+
     $('#brdl').addEventListener('click', () => {
       if (!C.width){ toast('ابتدا پردازش کنید'); return; }
       C.toBlob(b => download(b, 'no-bg.png'));
@@ -1500,7 +1519,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 21. QR کد ---------- */
+/* ══════ 18. QR کد ══════ */
 TOOLS.push({
   id:'qr', cat:'general', icon:'fa-solid fa-qrcode',
   title:'سازندهٔ QR کد', tag:'عمومی',
@@ -1528,7 +1547,7 @@ TOOLS.push({
         O.innerHTML = q.createSvgTag({ cellSize: 6, margin: 8, scalable: true });
         const svg = O.querySelector('svg');
         if (svg){ svg.setAttribute('width', S.value); svg.setAttribute('height', S.value); }
-      } catch(e){ O.innerHTML = '<span style="color:#666">خطا</span>'; }
+      } catch(e){ O.innerHTML = '<span style="color:#666">متن برای QR طولانی است</span>'; }
     }
     $('#qg').addEventListener('click', gen);
     T.addEventListener('input', gen);
@@ -1556,7 +1575,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 22. رمز عبور ---------- */
+/* ══════ 19. رمز عبور ══════ */
 TOOLS.push({
   id:'pass', cat:'general', icon:'fa-solid fa-key',
   title:'تولید رمز عبور امن', tag:'عمومی',
@@ -1566,7 +1585,7 @@ TOOLS.push({
     <label class="chk"><input type="checkbox" id="pl2" checked> حروف کوچک</label>
     <label class="chk"><input type="checkbox" id="pd" checked> اعداد</label>
     <label class="chk"><input type="checkbox" id="ps" checked> نمادها</label>
-    <div class="out" id="po" style="font-size:1.05rem;font-weight:700;letter-spacing:.05em;margin-top:.5rem"></div>
+    <div class="out" id="po" style="font-size:1.05rem;font-weight:700;letter-spacing:.05em;margin-top:.5rem;word-break:break-all"></div>
     <div class="sbar"><i id="psb"></i></div>
     <div class="btnrow" style="margin-top:1rem">
       <button class="btn" id="pg2"><span>تولید <i class="fa-solid fa-rotate"></i></span></button>
@@ -1575,7 +1594,7 @@ TOOLS.push({
   init(){
     const L = $('#pl'), LV = $('#plv'), O = $('#po'), SB = $('#psb');
     const U = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', Lo = 'abcdefghijklmnopqrstuvwxyz', D = '0123456789', S = '!@#$%^&*()_+-=[]{}|;:,.<>?';
-    L.addEventListener('input', () => LV.textContent = toFa(L.value));
+    L.addEventListener('input', () => { LV.textContent = toFa(L.value); gen(); });
     function gen(){
       let pool = '';
       if ($('#pu').checked) pool += U;
@@ -1600,13 +1619,12 @@ TOOLS.push({
     }
     $('#pg2').addEventListener('click', gen);
     $('#pc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
-    L.addEventListener('input', gen);
     ['pu','pl2','pd','ps'].forEach(id => $('#' + id).addEventListener('change', gen));
     gen();
   }
 });
 
-/* ---------- 23. ماشین‌حساب درصد ---------- */
+/* ══════ 20. ماشین‌حساب درصد ══════ */
 TOOLS.push({
   id:'percent', cat:'general', icon:'fa-solid fa-percent',
   title:'ماشین‌حساب درصد', tag:'عمومی',
@@ -1616,16 +1634,17 @@ TOOLS.push({
       <option value="is">X چند درصد Y است؟</option>
       <option value="change">درصد تغییر از X به Y</option>
       <option value="discount">قیمت پس از تخفیف</option>
+      <option value="increase">افزایش درصدی</option>
     </select></div>
     <div class="frow">
       <div class="f"><label id="pal">مقدار X</label><input type="number" id="pa" value="20"></div>
       <div class="f"><label id="pbl">مقدار Y</label><input type="number" id="pb" value="150"></div>
     </div>
-    <div class="out" id="po2" style="font-size:1.1rem;text-align:center;padding:1.1rem"></div>`,
+    <div class="out" id="po2" style="font-size:1.2rem;text-align:center;padding:1.2rem;font-weight:900"></div>`,
   init(){
     const M = $('#pm'), A = $('#pa'), B = $('#pb');
     const AL = $('#pal'), BL = $('#pbl'), O = $('#po2');
-    const L = {of:['درصد','از مقدار'], is:['مقدار','از مقدار'], change:['از مقدار','به مقدار'], discount:['قیمت اصلی','درصد تخفیف']};
+    const L = {of:['درصد','از مقدار'], is:['مقدار','از مقدار'], change:['از مقدار','به مقدار'], discount:['قیمت اصلی','درصد تخفیف'], increase:['مقدار اولیه','درصد افزایش']};
     function upd(){
       const m = M.value;
       AL.textContent = L[m][0]; BL.textContent = L[m][1];
@@ -1641,6 +1660,7 @@ TOOLS.push({
         }
       }
       else if (m === 'discount') r = (x - x*y/100).toFixed(2);
+      else if (m === 'increase') r = (x + x*y/100).toFixed(2);
       O.textContent = r;
     }
     [M,A,B].forEach(el => el.addEventListener('input', upd));
@@ -1648,11 +1668,11 @@ TOOLS.push({
   }
 });
 
-/* ---------- 24. کرنومتر ---------- */
+/* ══════ 21. کرنومتر دقیق ══════ */
 TOOLS.push({
   id:'stopwatch', cat:'general', icon:'fa-solid fa-stopwatch',
   title:'کرنومتر دقیق', tag:'عمومی',
-  desc:'با دقت میلی‌ثانیه، همراه با ثبت دور.',
+  desc:'با دقت صدم ثانیه، همراه با ثبت دور.',
   html:`<div class="stimer" id="stime">۰۰:۰۰.۰۰</div>
     <div class="btnrow">
       <button class="btn" id="sstart"><span>شروع <i class="fa-solid fa-play"></i></span></button>
@@ -1664,18 +1684,21 @@ TOOLS.push({
     const T = $('#stime'), LAPS = $('#slaps');
     let running = false, startTime = 0, elapsed = 0, raf = null;
     let lastLap = 0, lapCount = 0;
+
     function fmt(ms){
       const m = Math.floor(ms / 60000);
       const s = Math.floor((ms % 60000) / 1000);
       const cs = Math.floor((ms % 1000) / 10);
       return toFa(String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + '.' + String(cs).padStart(2,'0'));
     }
+
     function tick(){
       const now = performance.now();
       const total = elapsed + (now - startTime);
       T.textContent = fmt(total);
       if (running) raf = requestAnimationFrame(tick);
     }
+
     function start(){
       if (running) return;
       running = true;
@@ -1683,6 +1706,7 @@ TOOLS.push({
       raf = requestAnimationFrame(tick);
       $('#sstart').querySelector('span').innerHTML = 'توقف <i class="fa-solid fa-pause"></i>';
     }
+
     function stop(){
       if (!running) return;
       running = false;
@@ -1691,8 +1715,11 @@ TOOLS.push({
       T.textContent = fmt(elapsed);
       $('#sstart').querySelector('span').innerHTML = 'ادامه <i class="fa-solid fa-play"></i>';
     }
+
     $('#sstart').addEventListener('click', () => running ? stop() : start());
+
     $('#slap').addEventListener('click', () => {
+      if (!running && elapsed === 0) return;
       const current = running ? elapsed + (performance.now() - startTime) : elapsed;
       const diff = current - lastLap;
       lastLap = current;
@@ -1702,6 +1729,7 @@ TOOLS.push({
       div.innerHTML = '<span>دور ' + toFa(lapCount) + '</span><span>' + fmt(diff) + '</span><span>' + fmt(current) + '</span>';
       LAPS.prepend(div);
     });
+
     $('#sreset').addEventListener('click', () => {
       running = false;
       cancelAnimationFrame(raf);
@@ -1715,7 +1743,9 @@ TOOLS.push({
   }
 });
 
-/* ---------- 25. تاس و سکه ---------- */
+/* ══════════ */
+
+  /* ══════ 22. تاس و سکه شانس ══════ */
 TOOLS.push({
   id:'dice', cat:'general', icon:'fa-solid fa-dice',
   title:'تاس و سکه شانس', tag:'عمومی',
@@ -1726,6 +1756,7 @@ TOOLS.push({
         <option value="1" selected>۱ تاس</option>
         <option value="2">۲ تاس</option>
         <option value="3">۳ تاس</option>
+        <option value="4">۴ تاس</option>
       </select></div>
     </div>
     <div class="btnrow">
@@ -1738,13 +1769,14 @@ TOOLS.push({
     const SHOW = $('#dshow'), OUT = $('#dout');
     $('#droll').addEventListener('click', () => {
       const n = +$('#dcount').value;
-      let sum = 0, txt = [];
+      let sum = 0;
+      const txt = [];
       for (let i = 0; i < n; i++){
         const v = Math.floor(Math.random() * 6) + 1;
         sum += v;
         txt.push(v);
       }
-      SHOW.textContent = n === 1 ? D[txt[0]] : '🎲';
+      SHOW.textContent = n === 1 ? D[txt[0]] : '🎲'.repeat(Math.min(n, 3));
       OUT.textContent = 'نتیجه: ' + txt.map(toFa).join(' + ') + (n > 1 ? ' = ' + toFa(sum) : '');
     });
     $('#dflip').addEventListener('click', () => {
@@ -1755,7 +1787,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 26. اعداد تصادفی ---------- */
+/* ══════ 23. اعداد تصادفی ══════ */
 TOOLS.push({
   id:'random', cat:'general', icon:'fa-solid fa-shuffle',
   title:'تولید اعداد تصادفی', tag:'عمومی',
@@ -1775,11 +1807,11 @@ TOOLS.push({
     const MIN = $('#rmin'), MAX = $('#rmax'), C = $('#rc'), CV = $('#rcv'), NR = $('#rno'), O = $('#ro');
     C.addEventListener('input', () => CV.textContent = toFa(C.value));
     $('#rgen').addEventListener('click', () => {
-      const mn = +MIN.value || 0;
-      const mx = +MAX.value || 100;
+      const mn = Math.floor(+MIN.value);
+      const mx = Math.floor(+MAX.value);
       const n = +C.value;
       const noDup = NR.checked;
-      if (mx < mn){ O.textContent = 'بازه نامعتبر'; return; }
+      if (isNaN(mn) || isNaN(mx) || mx < mn){ O.textContent = 'بازه نامعتبر'; return; }
       const range = mx - mn + 1;
       if (noDup && range < n){ O.textContent = 'بازه برای بدون تکرار کافی نیست'; return; }
       const out = [];
@@ -1799,7 +1831,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 27. ماشین‌حساب سن ---------- */
+/* ══════ 24. ماشین‌حساب سن دقیق ══════ */
 TOOLS.push({
   id:'age', cat:'general', icon:'fa-solid fa-cake-candles',
   title:'ماشین‌حساب سن دقیق', tag:'عمومی',
@@ -1816,11 +1848,16 @@ TOOLS.push({
     <div class="btnrow"><button class="btn" id="agrun"><span>محاسبه <i class="fa-solid fa-cake-candles"></i></span></button></div>
     <div class="stats" id="agout"></div>`,
   init(){
+    const J_MONTHS = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
     function calc(){
       const type = $('#agType').value;
       let gy, gm, gd;
       const y = +$('#agy').value, m = +$('#agm').value, d = +$('#agd').value;
       if (type === 'jalali'){
+        if (y < 1200 || y > 1500 || m < 1 || m > 12 || d < 1 || d > 31){
+          $('#agout').innerHTML = '<div style="grid-column:1/-1"><b>—</b><span>تاریخ شمسی نامعتبر</span></div>';
+          return;
+        }
         [gy, gm, gd] = jalaliToGreg(y, m, d);
       } else {
         gy = y; gm = m; gd = d;
@@ -1847,6 +1884,7 @@ TOOLS.push({
       if (nextB < now) nextB.setFullYear(nextB.getFullYear() + 1);
       const daysToNext = Math.ceil((nextB - now) / 86400000);
       const [jy, jm, jd] = gregToJalali(birth.getFullYear(), birth.getMonth() + 1, birth.getDate());
+      const monthName = J_MONTHS[(jm - 1) % 12];
       $('#agout').innerHTML =
         '<div><b>' + toFa(years) + ' سال</b><span>سن</span></div>' +
         '<div><b>' + toFa(months) + ' ماه</b><span>اضافه</span></div>' +
@@ -1855,14 +1893,15 @@ TOOLS.push({
         '<div><b>' + toFa(totalWeeks) + '</b><span>کل هفته‌ها</span></div>' +
         '<div><b>' + toFa(totalMonths) + '</b><span>کل ماه‌ها</span></div>' +
         '<div><b>' + toFa(daysToNext) + ' روز</b><span>تا تولد بعدی</span></div>' +
-        '<div><b>' + toFa(jy) + '/' + toFa(jm) + '/' + toFa(jd) + '</b><span>تاریخ تولد شمسی</span></div>';
+        '<div><b>' + toFa(jd) + ' ' + monthName + ' ' + toFa(jy) + '</b><span>تاریخ تولد شمسی</span></div>';
     }
     $('#agrun').addEventListener('click', calc);
+    ['agy','agm','agd','agType'].forEach(id => $('#' + id).addEventListener('input', calc));
     calc();
   }
 });
 
-/* ---------- 28. BMI و سلامت ---------- */
+/* ══════ 25. BMI و سلامت ══════ */
 TOOLS.push({
   id:'bmi', cat:'general', icon:'fa-solid fa-heart-pulse',
   title:'ماشین‌حساب BMI', tag:'عمومی',
@@ -1878,6 +1917,13 @@ TOOLS.push({
         <option value="f">زن</option>
       </select></div>
     </div>
+    <div class="f"><label>سطح فعالیت</label><select id="bl">
+      <option value="1.2">کم‌تحرک</option>
+      <option value="1.375">فعالیت سبک</option>
+      <option value="1.55" selected>فعالیت متوسط</option>
+      <option value="1.725">فعالیت زیاد</option>
+      <option value="1.9">ورزشکار حرفه‌ای</option>
+    </select></div>
     <div class="btnrow"><button class="btn" id="brun"><span>محاسبه <i class="fa-solid fa-heart-pulse"></i></span></button></div>
     <div id="bout"></div>`,
   init(){
@@ -1886,6 +1932,7 @@ TOOLS.push({
       const w = +$('#bw').value;
       const age = +$('#ba').value;
       const g = $('#bg').value;
+      const lvl = +$('#bl').value;
       if (!h || !w){ return; }
       const bmi = w / (h * h);
       let cat = '';
@@ -1900,7 +1947,7 @@ TOOLS.push({
       let bmr;
       if (g === 'm') bmr = 10*w + 6.25*(h*100) - 5*age + 5;
       else bmr = 10*w + 6.25*(h*100) - 5*age - 161;
-      const tdee = Math.round(bmr * 1.55);
+      const tdee = Math.round(bmr * lvl);
       const markerPos = Math.max(0, Math.min(100, ((bmi - 15) / 30) * 100));
       $('#bout').innerHTML =
         '<div class="out" style="text-align:center;font-size:1.4rem;font-weight:900;padding:1rem;margin-top:1rem">' +
@@ -1915,15 +1962,16 @@ TOOLS.push({
         '</div>';
     }
     $('#brun').addEventListener('click', calc);
+    ['bh','bw','ba','bg','bl'].forEach(id => $('#' + id).addEventListener('input', calc));
     calc();
   }
 });
 
-/* ---------- 29. تبدیل واحد ---------- */
+/* ══════ 26. تبدیل واحد پیشرفته ══════ */
 TOOLS.push({
   id:'units', cat:'general', icon:'fa-solid fa-ruler-combined',
   title:'تبدیل واحد پیشرفته', tag:'عمومی',
-  desc:'طول، وزن، حجم، دما، سرعت، مساحت و داده.',
+  desc:'طول، وزن، حجم، دما، سرعت، مساحت، داده و زمان.',
   html:`<div class="f"><label>دسته</label><select id="uc">
       <option value="length">طول</option>
       <option value="weight">وزن</option>
@@ -1939,17 +1987,17 @@ TOOLS.push({
       <div class="f"><label>به</label><select id="ut"></select></div>
     </div>
     <div class="f"><label>مقدار</label><input type="number" id="uv" value="1"></div>
-    <div class="out" id="uo" style="text-align:center;font-size:1.15rem;padding:1.2rem;margin-top:1rem"></div>`,
+    <div class="out" id="uo" style="text-align:center;font-size:1.2rem;padding:1.2rem;margin-top:1rem;font-weight:900"></div>`,
   init(){
     const CATS = {
-      length: { name: 'طول', units: { m:['متر',1], km:['کیلومتر',1000], cm:['سانتی‌متر',0.01], mm:['میلی‌متر',0.001], in:['اینچ',0.0254], ft:['فوت',0.3048], yd:['یارد',0.9144], mi:['مایل',1609.344], nmi:['مایل دریایی',1852] } },
-      weight: { name: 'وزن', units: { kg:['کیلوگرم',1], g:['گرم',0.001], mg:['میلی‌گرم',0.000001], t:['تن',1000], lb:['پوند',0.45359237], oz:['اونس',0.0283495] } },
-      volume: { name: 'حجم', units: { l:['لیتر',1], ml:['میلی‌لیتر',0.001], m3:['متر مکعب',1000], gal:['گالن آمریکایی',3.78541], qt:['کوارت',0.946353], cup:['پیمانه',0.236588] } },
-      temp: { name: 'دما', custom: 'temp' },
-      speed: { name: 'سرعت', units: { mps:['متر بر ثانیه',1], kmh:['کیلومتر بر ساعت',0.277778], mph:['مایل بر ساعت',0.44704], kn:['نات',0.514444] } },
-      area: { name: 'مساحت', units: { m2:['متر مربع',1], km2:['کیلومتر مربع',1e6], cm2:['سانتی‌متر مربع',0.0001], ha:['هکتار',10000], ft2:['فوت مربع',0.092903], ac:['ایکر',4046.86] } },
-      data: { name: 'داده', units: { B:['بایت',1], KB:['کیلوبایت',1024], MB:['مگابایت',1048576], GB:['گیگابایت',1073741824], TB:['ترابایت',1099511627776], bit:['بیت',0.125] } },
-      time: { name: 'زمان', units: { s:['ثانیه',1], min:['دقیقه',60], h:['ساعت',3600], d:['روز',86400], wk:['هفته',604800] } }
+      length: { units: { m:['متر',1], km:['کیلومتر',1000], cm:['سانتی‌متر',0.01], mm:['میلی‌متر',0.001], in:['اینچ',0.0254], ft:['فوت',0.3048], yd:['یارد',0.9144], mi:['مایل',1609.344], nmi:['مایل دریایی',1852] } },
+      weight: { units: { kg:['کیلوگرم',1], g:['گرم',0.001], mg:['میلی‌گرم',0.000001], t:['تن',1000], lb:['پوند',0.45359237], oz:['اونس',0.0283495] } },
+      volume: { units: { l:['لیتر',1], ml:['میلی‌لیتر',0.001], m3:['متر مکعب',1000], gal:['گالن آمریکایی',3.78541], qt:['کوارت',0.946353], cup:['پیمانه',0.236588] } },
+      temp: { custom: 'temp' },
+      speed: { units: { mps:['متر بر ثانیه',1], kmh:['کیلومتر بر ساعت',0.277778], mph:['مایل بر ساعت',0.44704], kn:['نات',0.514444] } },
+      area: { units: { m2:['متر مربع',1], km2:['کیلومتر مربع',1e6], cm2:['سانتی‌متر مربع',0.0001], ha:['هکتار',10000], ft2:['فوت مربع',0.092903], ac:['ایکر',4046.86] } },
+      data: { units: { B:['بایت',1], KB:['کیلوبایت',1024], MB:['مگابایت',1048576], GB:['گیگابایت',1073741824], TB:['ترابایت',1099511627776], bit:['بیت',0.125] } },
+      time: { units: { s:['ثانیه',1], min:['دقیقه',60], h:['ساعت',3600], d:['روز',86400], wk:['هفته',604800], mo:['ماه (۳۰ روز)',2592000], yr:['سال',31536000] } }
     };
     const C = $('#uc'), F = $('#uf'), T = $('#ut'), V = $('#uv'), O = $('#uo');
     function fill(){
@@ -1960,7 +2008,7 @@ TOOLS.push({
           F.innerHTML += '<option value="' + k + '">' + n + '</option>';
           T.innerHTML += '<option value="' + k + '">' + n + '</option>';
         });
-        T.value = 'f';
+        F.value = 'c'; T.value = 'f';
       } else {
         for (const k in cat.units){
           F.innerHTML += '<option value="' + k + '">' + cat.units[k][0] + '</option>';
@@ -1988,7 +2036,13 @@ TOOLS.push({
         const ut = cat.units[T.value][1];
         result = v * uf / ut;
       }
-      const display = Math.abs(result) < 0.0001 || Math.abs(result) > 1e9 ? result.toExponential(4) : result.toFixed(6).replace(/\.?0+$/, '');
+      let display;
+      if (Math.abs(result) < 0.0001 && result !== 0){
+        display = result.toExponential(4);
+      } else {
+        display = result.toFixed(6).replace(/\.?0+$/, '');
+        if (display === '' || display === '-') display = '0';
+      }
       O.textContent = display;
     }
     C.addEventListener('change', fill);
@@ -1999,7 +2053,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 30. گردونه شانس ---------- */
+/* ══════ 27. گردونه شانس (اصلاح‌شده) ══════ */
 TOOLS.push({
   id:'wheel', cat:'general', icon:'fa-solid fa-dharmachakra',
   title:'گردونه شانس', tag:'عمومی',
@@ -2007,7 +2061,8 @@ TOOLS.push({
   html:`<div class="f"><label>گزینه‌ها (هر خط یکی)</label><textarea id="wop" style="min-height:90px">گزینه اول
 گزینه دوم
 گزینه سوم
-گزینه چهارم</textarea></div>
+گزینه چهارم
+گزینه پنجم</textarea></div>
     <div class="wheelwrap">
       <div class="wheelp"></div>
       <canvas id="wheelC" width="600" height="600"></canvas>
@@ -2017,86 +2072,174 @@ TOOLS.push({
   init(){
     const T = $('#wop'), C = $('#wheelC'), R = $('#wres');
     const ctx = C.getContext('2d');
-    let items = [], angle = 0, spinning = false;
-    const COLORS = ['#D9C200','#1F3A93','#8B0045','#2E8B57','#7B2D8E','#B87333','#40E0D0','#9B111E','#3B3B98','#FFA500'];
-    function draw(){
-      const cx = C.width / 2, cy = C.height / 2;
-      const r = Math.min(cx, cy) - 10;
+    const COLORS = ['#D9C200','#1F3A93','#8B0045','#2E8B57','#7B2D8E','#B87333','#40E0D0','#9B111E','#3B3B98','#FFA500','#5FA8D3','#7DDBA0'];
+    let items = [];
+    let currentAngle = 0;
+    let spinning = false;
+
+    /* ترسیم گردونه با زاویهٔ فعلی */
+    function drawWheel(){
+      const cx = C.width / 2;
+      const cy = C.height / 2;
+      const radius = Math.min(cx, cy) - 12;
       ctx.clearRect(0, 0, C.width, C.height);
-      if (!items.length){ return; }
+
+      if (!items.length){
+        ctx.fillStyle = 'rgba(255,255,255,.08)';
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#8b9ba6';
+        ctx.font = 'bold 22px Vazirmatn, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('حداقل ۲ گزینه', cx, cy);
+        return;
+      }
+
       const n = items.length;
-      const arc = (Math.PI * 2) / n;
+      const slice = (Math.PI * 2) / n;
+
       for (let i = 0; i < n; i++){
-        const a = i * arc + angle;
+        const start = i * slice + currentAngle;
+        const end = start + slice;
+
+        /* قطاع */
         ctx.beginPath();
         ctx.moveTo(cx, cy);
-        ctx.arc(cx, cy, r, a, a + arc);
+        ctx.arc(cx, cy, radius, start, end);
         ctx.closePath();
         ctx.fillStyle = COLORS[i % COLORS.length];
         ctx.fill();
-        ctx.strokeStyle = 'rgba(0,0,0,.3)';
+        ctx.strokeStyle = 'rgba(0,0,0,.35)';
         ctx.lineWidth = 2;
         ctx.stroke();
+
+        /* متن */
         ctx.save();
         ctx.translate(cx, cy);
-        ctx.rotate(a + arc / 2);
+        ctx.rotate(start + slice / 2);
         ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
         ctx.fillStyle = '#fff';
-        ctx.font = 'bold 22px Vazirmatn, sans-serif';
-        ctx.fillText(items[i].slice(0, 18), r - 20, 8);
+        ctx.font = 'bold 20px Vazirmatn, sans-serif';
+        ctx.shadowColor = 'rgba(0,0,0,.6)';
+        ctx.shadowBlur = 6;
+        const label = items[i].length > 20 ? items[i].slice(0, 18) + '…' : items[i];
+        ctx.fillText(label, radius - 24, 0);
         ctx.restore();
       }
+
+      /* حلقهٔ طلایی */
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+      ctx.strokeStyle = '#D9C200';
+      ctx.lineWidth = 6;
+      ctx.stroke();
+
+      /* دایرهٔ وسط */
+      ctx.beginPath();
+      ctx.arc(cx, cy, 32, 0, Math.PI * 2);
+      ctx.fillStyle = '#001830';
+      ctx.fill();
+      ctx.strokeStyle = '#D9C200';
+      ctx.lineWidth = 4;
+      ctx.stroke();
     }
+
+    /* به‌روزرسانی متن گزینه‌ها */
     function update(){
       items = T.value.split('\n').map(s => s.trim()).filter(Boolean);
-      if (items.length < 2){ R.textContent = 'حداقل ۲ گزینه لازم است'; items = []; draw(); return; }
-      draw();
+      if (items.length < 2){
+        R.textContent = 'حداقل ۲ گزینه وارد کنید';
+      } else {
+        R.textContent = '';
+      }
+      drawWheel();
     }
-    T.addEventListener('input', update);
-    $('#wspin').addEventListener('click', () => {
-      if (spinning || items.length < 2) return;
+
+    /* چرخش */
+    function spin(){
+      if (spinning) return;
+      if (items.length < 2){ toast('حداقل ۲ گزینه لازم است'); return; }
+
       spinning = true;
-      R.textContent = '';
+      R.textContent = 'در حال چرخش...';
+
       const n = items.length;
-      const arc = 360 / n;
+      const slice = (Math.PI * 2) / n;
+
+      /* انتخاب برنده به‌صورت تصادفی */
       const winner = Math.floor(Math.random() * n);
-      const targetCenter = winner * arc + arc / 2;
-      const extraSpins = 5 * 360;
-      const finalRot = extraSpins + (360 - targetCenter) + 360;
-      C.style.transform = 'rotate(' + finalRot + 'deg)';
-      angle = (finalRot * Math.PI / 180) % (Math.PI * 2);
-      setTimeout(() => {
-        spinning = false;
-        R.textContent = '🎉 نتیجه: ' + items[winner];
-        angle = 0;
-        C.style.transform = 'rotate(0deg)';
-        draw();
-      }, 5000);
-    });
+
+      /* محاسبهٔ زاویهٔ هدف: برنده باید زیر اشاره‌گر (بالا = -π/2) قرار بگیرد */
+      /* مرکز قطاع i در زاویهٔ (i * slice + slice/2 + currentAngle) است.
+         می‌خواهیم این مرکز برابر با -π/2 شود:
+         i * slice + slice/2 + targetAngle ≡ -π/2  (mod 2π)
+         targetAngle ≡ -π/2 - i * slice - slice/2  (mod 2π)  */
+      let targetAngle = -Math.PI / 2 - winner * slice - slice / 2;
+
+      /* چند دور کامل اضافه کن */
+      const extraTurns = 5 + Math.floor(Math.random() * 3);
+      targetAngle += Math.PI * 2 * extraTurns;
+
+      /* از موقعیت فعلی به سمت جلو */
+      while (targetAngle < currentAngle + Math.PI * 2 * 4){
+        targetAngle += Math.PI * 2;
+      }
+
+      const startAngle = currentAngle;
+      const delta = targetAngle - startAngle;
+      const duration = 5200;
+      const t0 = performance.now();
+
+      function animate(now){
+        const p = Math.min((now - t0) / duration, 1);
+        /* easeOutQuart */
+        const eased = 1 - Math.pow(1 - p, 4);
+        currentAngle = startAngle + delta * eased;
+        drawWheel();
+        if (p < 1){
+          requestAnimationFrame(animate);
+        } else {
+          spinning = false;
+          R.textContent = '🎉 نتیجه: ' + items[winner];
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+
+    T.addEventListener('input', update);
+    $('#wspin').addEventListener('click', spin);
     update();
   }
 });
 
-/* ---------- 31. JSON ---------- */
+/* ══════ 28. مرتب‌ساز JSON ══════ */
 TOOLS.push({
   id:'json', cat:'dev', icon:'fa-solid fa-brackets-curly',
   title:'مرتب‌ساز JSON', tag:'توسعه‌دهنده',
-  desc:'JSON را مرتب یا فشرده کنید.',
-  html:`<div class="f"><label>ورودی</label><textarea id="ji" placeholder='{"name":"Mahdi"}'></textarea></div>
+  desc:'JSON را مرتب، فشرده یا اعتبارسنجی کنید.',
+  html:`<div class="f"><label>ورودی</label><textarea id="ji" placeholder='{"name":"Mahdi","age":25}' style="font-family:monospace;direction:ltr"></textarea></div>
     <div class="f"><label>تودرتویی</label><select id="jt"><option value="2">۲ فاصله</option><option value="4">۴ فاصله</option></select></div>
     <div class="btnrow">
       <button class="btn" id="jf"><span>مرتب کن</span></button>
       <button class="btn" id="jm"><span>فشرده کن</span></button>
       <button class="btn ghost" id="jc"><span>کپی</span></button>
     </div>
-    <div class="out" id="jo" style="margin-top:1rem;white-space:pre-wrap;max-height:260px;overflow:auto"></div>`,
+    <div class="out" id="jo" style="margin-top:1rem;white-space:pre-wrap;max-height:260px;overflow:auto;direction:ltr;text-align:left"></div>`,
   init(){
     const I = $('#ji'), O = $('#jo');
-    function f(m){
+    function f(min){
+      const v = I.value.trim();
+      if (!v){ O.textContent = 'ورودی خالی است'; return; }
       try {
-        const o = JSON.parse(I.value);
-        O.textContent = m ? JSON.stringify(o) : JSON.stringify(o, null, +$('#jt').value);
-      } catch(e){ O.textContent = 'خطا: ' + e.message; }
+        const o = JSON.parse(v);
+        O.textContent = min ? JSON.stringify(o) : JSON.stringify(o, null, +$('#jt').value);
+        toast('انجام شد ✦');
+      } catch(e){
+        O.textContent = 'خطا: ' + e.message;
+      }
     }
     $('#jf').addEventListener('click', () => f(false));
     $('#jm').addEventListener('click', () => f(true));
@@ -2104,7 +2247,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 32. UUID ---------- */
+/* ══════ 29. تولید UUID ══════ */
 TOOLS.push({
   id:'uuid', cat:'dev', icon:'fa-solid fa-fingerprint',
   title:'تولید UUID', tag:'توسعه‌دهنده',
@@ -2116,7 +2259,7 @@ TOOLS.push({
       <button class="btn" id="ug"><span>تولید <i class="fa-solid fa-rotate"></i></span></button>
       <button class="btn ghost" id="uc"><span>کپی</span></button>
     </div>
-    <div class="out" id="uo" style="margin-top:1rem;white-space:pre-wrap;line-height:2"></div>`,
+    <div class="out" id="uo" style="margin-top:1rem;white-space:pre-wrap;line-height:2;direction:ltr;text-align:left"></div>`,
   init(){
     const O = $('#uo');
     function gen(){
@@ -2136,14 +2279,16 @@ TOOLS.push({
     }
     $('#ug').addEventListener('click', gen);
     $('#uc').addEventListener('click', () => { if (O.textContent) copy(O.textContent, 'کپی شد ✦'); });
-    ['un','uu','ub'].forEach(id => $('#' + id).addEventListener('input', gen));
+    $('#un').addEventListener('input', gen);
     $('#uu').addEventListener('change', gen);
     $('#ub').addEventListener('change', gen);
     gen();
   }
 });
 
-/* ---------- 33. هش ---------- */
+/* ═══════ */
+
+  /* ══════ 30. تولید هش ══════ */
 TOOLS.push({
   id:'hash', cat:'dev', icon:'fa-solid fa-shield-halved',
   title:'تولید هش', tag:'توسعه‌دهنده',
@@ -2154,49 +2299,62 @@ TOOLS.push({
   init(){
     const I = $('#hi'), O = $('#ho');
     const algs = ['SHA-1','SHA-256','SHA-512'];
+
     async function gen(){
       const t = I.value;
       if (!t){ O.innerHTML = ''; return; }
-      if (!crypto.subtle){ O.innerHTML = '<p class="hint">مرورگر پشتیبانی نمی‌کند</p>'; return; }
+      if (!window.crypto || !window.crypto.subtle){
+        O.innerHTML = '<p class="hint" style="color:#ff9a9a">مرورگر از SubtleCrypto پشتیبانی نمی‌کند</p>';
+        return;
+      }
       const enc = new TextEncoder().encode(t);
       let html = '';
       for (const a of algs){
         try {
           const buf = await crypto.subtle.digest(a, enc);
           const hex = Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
-          html += '<div class="f"><label>' + a + '</label><div class="out">' + hex + '</div></div>';
-        } catch(e){}
+          html += '<div class="f"><label>' + a + '</label><div class="out" style="direction:ltr;text-align:left">' + hex + '</div></div>';
+        } catch(e){
+          html += '<div class="f"><label>' + a + '</label><div class="out">خطا</div></div>';
+        }
       }
       O.innerHTML = html;
     }
+
     $('#hgo').addEventListener('click', gen);
+    I.addEventListener('input', () => { clearTimeout(I._t); I._t = setTimeout(gen, 300); });
   }
 });
 
-/* ---------- 34. باینری/هگز/دسیمال ---------- */
+/* ══════ 31. باینری / هگز / دسیمال ══════ */
 TOOLS.push({
   id:'bases', cat:'dev', icon:'fa-solid fa-0',
   title:'باینری / هگز / دسیمال', tag:'توسعه‌دهنده',
   desc:'تبدیل اعداد بین مبناهای ۲، ۸، ۱۰ و ۱۶.',
-  html:`<div class="f"><label>عدد</label><input type="text" id="bi2" value="255"></div>
+  html:`<div class="f"><label>عدد</label><input type="text" id="bi2" value="255" style="direction:ltr;text-align:left;font-family:monospace"></div>
     <div class="f"><label>مبنای ورودی</label><select id="bb">
       <option value="2">باینری (۲)</option>
       <option value="8">اکتال (۸)</option>
       <option value="10" selected>دسیمال (۱۰)</option>
       <option value="16">هگز (۱۶)</option>
     </select></div>
-    <div class="btnrow"><button class="btn" id="bg"><span>تبدیل</span></button></div>
+    <div class="btnrow"><button class="btn" id="bg"><span>تبدیل <i class="fa-solid fa-right-left"></i></span></button></div>
     <div id="bo2" style="margin-top:1rem"></div>`,
   init(){
     const I = $('#bi2'), B = $('#bb'), O = $('#bo2');
     function gen(){
-      const n = parseInt(I.value, +B.value);
-      if (isNaN(n)){ O.innerHTML = '<p class="hint">عدد معتبر وارد کنید</p>'; return; }
+      const v = I.value.trim();
+      if (!v){ O.innerHTML = '<p class="hint">عدد را وارد کنید</p>'; return; }
+      const n = parseInt(v, +B.value);
+      if (isNaN(n)){
+        O.innerHTML = '<p class="hint" style="color:#ff9a9a">عدد معتبر در این مبنا نیست</p>';
+        return;
+      }
       O.innerHTML =
-        '<div class="f"><label>باینری</label><div class="out">' + n.toString(2) + '</div></div>' +
-        '<div class="f"><label>اکتال</label><div class="out">' + n.toString(8) + '</div></div>' +
-        '<div class="f"><label>دسیمال</label><div class="out">' + n.toString(10) + '</div></div>' +
-        '<div class="f"><label>هگز</label><div class="out">' + n.toString(16).toUpperCase() + '</div></div>';
+        '<div class="f"><label>باینری (۲)</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(2) + '</div></div>' +
+        '<div class="f"><label>اکتال (۸)</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(8) + '</div></div>' +
+        '<div class="f"><label>دسیمال (۱۰)</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(10) + '</div></div>' +
+        '<div class="f"><label>هگز (۱۶)</label><div class="out" style="direction:ltr;text-align:left">' + n.toString(16).toUpperCase() + '</div></div>';
     }
     I.addEventListener('input', gen);
     B.addEventListener('change', gen);
@@ -2205,7 +2363,7 @@ TOOLS.push({
   }
 });
 
-/* ---------- 35. Minify / Beautify ---------- */
+/* ══════ 32. Minify / Beautify ══════ */
 TOOLS.push({
   id:'minify', cat:'dev', icon:'fa-solid fa-code',
   title:'Minify / Beautify', tag:'توسعه‌دهنده',
@@ -2215,15 +2373,17 @@ TOOLS.push({
       <option value="js">JavaScript</option>
       <option value="html">HTML</option>
     </select></div>
-    <div class="f"><label>کد ورودی</label><textarea id="min" style="min-height:150px;font-family:monospace;direction:ltr"></textarea></div>
+    <div class="f"><label>کد ورودی</label><textarea id="min" style="min-height:140px;font-family:monospace;direction:ltr;text-align:left" placeholder="کد خود را این‌جا بچسبانید..."></textarea></div>
     <div class="btnrow">
       <button class="btn" id="mmin"><span>فشرده کن</span></button>
       <button class="btn" id="mbea"><span>مرتب کن</span></button>
       <button class="btn ghost" id="mcp"><span>کپی</span></button>
     </div>
-    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="mout" readonly style="min-height:150px;font-family:monospace;direction:ltr"></textarea></div>`,
+    <div class="f" style="margin-top:1rem"><label>خروجی</label><textarea id="mout" readonly style="min-height:140px;font-family:monospace;direction:ltr;text-align:left"></textarea></div>
+    <p class="hint">توجه: این ابزار ساده است و برای کدهای بسیار پیچیده ممکن است کامل نباشد.</p>`,
   init(){
     const T = $('#mtype'), I = $('#min'), O = $('#mout');
+
     function minCSS(s){
       return s.replace(/\/\*[\s\S]*?\*\//g, '')
         .replace(/\s+/g, ' ')
@@ -2233,7 +2393,7 @@ TOOLS.push({
     }
     function minJS(s){
       return s.replace(/\/\*[\s\S]*?\*\//g, '')
-        .replace(/\/\/[^\n\r]*/g, '')
+        .replace(/(^|[^:\\])\/\/[^\n\r]*/g, '$1')
         .replace(/\s+/g, ' ')
         .replace(/\s*([{}();,:=\+\-\*\/<>!&|])\s*/g, '$1')
         .trim();
@@ -2245,64 +2405,81 @@ TOOLS.push({
         .trim();
     }
     function beaCSS(s){
-      return s.replace(/\s*{\s*/g, ' {\n  ')
+      let out = s.replace(/\s*{\s*/g, ' {\n  ')
         .replace(/;\s*/g, ';\n  ')
-        .replace(/\s*}\s*/g, '\n}\n')
-        .trim();
+        .replace(/\s*}\s*/g, '\n}\n');
+      out = out.replace(/\n\s*\n/g, '\n');
+      return out.trim();
     }
     function beaJS(s){
-      return s.replace(/\s*{\s*/g, ' {\n  ')
-        .replace(/;\s*/g, ';\n')
-        .replace(/\s*}\s*/g, '\n}\n')
-        .replace(/\n\s*\n/g, '\n')
-        .trim();
+      let out = s.replace(/\s*{\s*/g, ' {\n  ')
+        .replace(/;\s*/g, ';\n  ')
+        .replace(/\s*}\s*/g, '\n}\n');
+      out = out.replace(/\n\s*\n/g, '\n');
+      return out.trim();
     }
     function beaHTML(s){
       return s.replace(/></g, '>\n<').trim();
     }
+
     $('#mmin').addEventListener('click', () => {
       const t = T.value, v = I.value;
+      if (!v){ toast('ابتدا کدی وارد کنید'); return; }
       if (t === 'css') O.value = minCSS(v);
       else if (t === 'js') O.value = minJS(v);
       else O.value = minHTML(v);
+      toast('فشرده شد ✦');
     });
     $('#mbea').addEventListener('click', () => {
       const t = T.value, v = I.value;
+      if (!v){ toast('ابتدا کدی وارد کنید'); return; }
       if (t === 'css') O.value = beaCSS(v);
       else if (t === 'js') O.value = beaJS(v);
       else O.value = beaHTML(v);
+      toast('مرتب شد ✦');
     });
     $('#mcp').addEventListener('click', () => { if (O.value) copy(O.value, 'کپی شد ✦'); });
   }
 });
 
 /* ══════════════════════════════════════════════
-   RENDER GRID
+   رندر گرید
    ══════════════════════════════════════════════ */
-const GRID = $('#toolsGrid');
+const GRID = document.getElementById('toolsGrid');
+const MODAL = document.getElementById('modal');
+const MBODY = document.getElementById('mbody');
+const MCLOSE = document.getElementById('mclose');
+const MBACK = document.getElementById('mback');
 let currentFilter = 'all';
 
 function renderGrid(filter, query){
   filter = filter || 'all';
   query = (query || '').toLowerCase().trim();
+
   let list = filter === 'all' ? TOOLS.slice() : TOOLS.filter(t => t.cat === filter);
+
   if (query){
     list = list.filter(t =>
       t.title.toLowerCase().includes(query) ||
       t.desc.toLowerCase().includes(query) ||
-      t.tag.toLowerCase().includes(query)
+      t.tag.toLowerCase().includes(query) ||
+      t.id.toLowerCase().includes(query)
     );
   }
+
   GRID.innerHTML = '';
+
   if (!list.length){
     GRID.innerHTML = '<div class="empty"><i class="fa-solid fa-magnifying-glass"></i>ابزاری با این مشخصات پیدا نشد</div>';
     return;
   }
+
   list.forEach((t, i) => {
     const c = document.createElement('div');
     c.className = 'card';
     c.style.animationDelay = (i * 0.03) + 's';
-    c.innerHTML = '<div class="arrow"><i class="fa-solid fa-arrow-up-left"></i></div>' +
+    c.innerHTML =
+      '<div class="arrow"><i class="fa-solid fa-arrow-up-left"></i></div>' +
       '<div class="cicon"><i class="' + t.icon + '"></i></div>' +
       '<h3>' + esc(t.title) + '</h3>' +
       '<p>' + esc(t.desc) + '</p>' +
@@ -2313,76 +2490,93 @@ function renderGrid(filter, query){
 }
 
 /* ══════════════════════════════════════════════
-   MODAL
+   باز و بسته کردن مودال
    ══════════════════════════════════════════════ */
-const MODAL = $('#modal');
-const MBODY = $('#mbody');
-
 function openTool(id){
   const t = TOOLS.find(x => x.id === id);
   if (!t) return;
-  MBODY.innerHTML = '<div class="mtitle"><div class="mticon"><i class="' + t.icon + '"></i></div>' +
-    '<div><h2>' + esc(t.title) + '</h2><p>' + esc(t.desc) + '</p></div></div>' + t.html;
+
+  MBODY.innerHTML =
+    '<div class="mtitle">' +
+      '<div class="mticon"><i class="' + t.icon + '"></i></div>' +
+      '<div><h2>' + esc(t.title) + '</h2><p>' + esc(t.desc) + '</p></div>' +
+    '</div>' +
+    t.html;
+
   MODAL.classList.add('open');
   document.body.classList.add('lock');
+
+  /* init بعد از رندر DOM */
   requestAnimationFrame(() => {
-    try { t.init && t.init(); }
-    catch(e){
-      console.error('init error:', e);
-      MBODY.insertAdjacentHTML('beforeend', '<p class="hint" style="color:#ff9a9a;margin-top:1rem">خطا در راه‌اندازی ابزار.</p>');
+    try {
+      if (typeof t.init === 'function') t.init();
+    } catch(e){
+      console.error('Tool init error:', t.id, e);
+      MBODY.insertAdjacentHTML('beforeend',
+        '<p class="hint" style="color:#ff9a9a;margin-top:1rem">خطا در راه‌اندازی ابزار. لطفاً صفحه را دوباره باز کنید.</p>');
     }
   });
 }
+
 function closeModal(){
   MODAL.classList.remove('open');
   document.body.classList.remove('lock');
   setTimeout(() => { MBODY.innerHTML = ''; }, 400);
 }
-$('#mclose').addEventListener('click', closeModal);
-$('#mback').addEventListener('click', closeModal);
+
+MCLOSE.addEventListener('click', closeModal);
+MBACK.addEventListener('click', closeModal);
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape' && MODAL.classList.contains('open')) closeModal();
 });
 
 /* ══════════════════════════════════════════════
-   FILTERS + SEARCH
+   فیلتر و جستجو
    ══════════════════════════════════════════════ */
-$$('#filters .filter').forEach(f => {
+document.querySelectorAll('#filters .filter').forEach(f => {
   f.addEventListener('click', () => {
-    $$('#filters .filter').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('#filters .filter').forEach(x => x.classList.remove('active'));
     f.classList.add('active');
     currentFilter = f.dataset.filter;
-    renderGrid(currentFilter, $('#searchInput').value);
+    renderGrid(currentFilter, document.getElementById('searchInput').value);
   });
 });
-$('#searchInput').addEventListener('input', e => renderGrid(currentFilter, e.target.value));
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  renderGrid(currentFilter, e.target.value);
+});
 
 /* ══════════════════════════════════════════════
-   STARFIELD
+   ستاره‌های پس‌زمینه
    ══════════════════════════════════════════════ */
-(function stars(){
-  const c = $('#stars');
-  const ctx = c.getContext('2d');
+(function starfield(){
+  const canvas = document.getElementById('stars');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
   let w, h, dpr, list = [];
-  function rs(){
-    dpr = Math.min(devicePixelRatio || 1, 2);
-    w = c.width = innerWidth * dpr;
-    h = c.height = innerHeight * dpr;
-    c.style.width = innerWidth + 'px';
-    c.style.height = innerHeight + 'px';
+
+  function resize(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    w = canvas.width = innerWidth * dpr;
+    h = canvas.height = innerHeight * dpr;
+    canvas.style.width = innerWidth + 'px';
+    canvas.style.height = innerHeight + 'px';
     const n = Math.min(70, Math.floor(innerWidth / 20));
-    list = Array.from({length:n}, () => ({
-      x: Math.random() * w, y: Math.random() * h,
-      r: (Math.random() * 1.2 + .3) * dpr,
-      vx: (Math.random() - .5) * .18 * dpr,
-      vy: (Math.random() - .5) * .18 * dpr,
-      a: Math.random() * .6 + .2
+    list = Array.from({ length: n }, () => ({
+      x: Math.random() * w,
+      y: Math.random() * h,
+      r: (Math.random() * 1.2 + 0.3) * dpr,
+      vx: (Math.random() - 0.5) * 0.18 * dpr,
+      vy: (Math.random() - 0.5) * 0.18 * dpr,
+      a: Math.random() * 0.6 + 0.2
     }));
   }
-  function dr(){
+
+  function draw(){
     ctx.clearRect(0, 0, w, h);
     list.forEach(s => {
-      s.x += s.vx; s.y += s.vy;
+      s.x += s.vx;
+      s.y += s.vy;
       if (s.x < 0) s.x = w; if (s.x > w) s.x = 0;
       if (s.y < 0) s.y = h; if (s.y > h) s.y = 0;
       ctx.beginPath();
@@ -2392,41 +2586,53 @@ $('#searchInput').addEventListener('input', e => renderGrid(currentFilter, e.tar
       ctx.fill();
     });
     ctx.globalAlpha = 1;
-    requestAnimationFrame(dr);
+    requestAnimationFrame(draw);
   }
-  rs(); addEventListener('resize', rs); dr();
+
+  resize();
+  window.addEventListener('resize', resize);
+  draw();
 })();
 
 /* ══════════════════════════════════════════════
-   MUSIC PLAYER
+   موزیک پس‌زمینه
    ══════════════════════════════════════════════ */
 (function music(){
-  const audio = $('#bgMusic'), btn = $('#musicBtn'), icon = $('#musicIcon');
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  const icon = document.getElementById('musicIcon');
   if (!audio || !btn || !icon) return;
-  const VOL = 0.15, FADE = 2000, KEY = 'portfolio_music_on';
-  let started = false, wantOn = true, raf = null;
+
+  const VOL = 0.15;
+  const FADE = 2000;
+  const KEY = 'portfolio_music_on';
+  let started = false;
+  let wantOn = true;
+  let raf = null;
 
   try {
     const s = localStorage.getItem(KEY);
     if (s === 'off') wantOn = false;
   } catch(e){}
 
-  function ui(){
+  function updateUI(){
     const playing = !audio.paused && !audio.ended && started;
     btn.classList.toggle('playing', playing);
     icon.className = playing ? 'fa-solid fa-volume-high' : 'fa-solid fa-volume-xmark';
+    btn.setAttribute('aria-label', playing ? 'توقف موسیقی' : 'پخش موسیقی');
   }
-  ui();
+  updateUI();
 
   function fadeTo(target, dur, done){
     if (raf) cancelAnimationFrame(raf);
-    const start = audio.volume, t0 = performance.now();
+    const start = audio.volume;
+    const t0 = performance.now();
     function step(now){
       const p = Math.min((now - t0) / dur, 1);
-      const e = p < .5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2) / 2;
+      const e = p < 0.5 ? 2*p*p : 1 - Math.pow(-2*p + 2, 2) / 2;
       audio.volume = Math.max(0, Math.min(1, start + (target - start) * e));
       if (p < 1) raf = requestAnimationFrame(step);
-      else { raf = null; done && done(); }
+      else { raf = null; if (typeof done === 'function') done(); }
     }
     raf = requestAnimationFrame(step);
   }
@@ -2434,22 +2640,30 @@ $('#searchInput').addEventListener('input', e => renderGrid(currentFilter, e.tar
   function start(){
     if (started) return;
     const p = audio.play();
-    if (p && p.then){
+    if (p && typeof p.then === 'function'){
       p.then(() => {
         started = true;
         audio.volume = 0;
         fadeTo(VOL, FADE);
-        ui();
-        removeL();
-      }).catch(() => ui());
+        updateUI();
+        removeListeners();
+      }).catch(() => updateUI());
     } else {
-      audio.volume = VOL; started = true; ui(); removeL();
+      audio.volume = VOL;
+      started = true;
+      updateUI();
+      removeListeners();
     }
   }
 
   function stop(fade){
-    if (!fade){ audio.pause(); audio.volume = 0; ui(); return; }
-    fadeTo(0, 700, () => { audio.pause(); ui(); });
+    if (!fade){
+      audio.pause();
+      audio.volume = 0;
+      updateUI();
+      return;
+    }
+    fadeTo(0, 700, () => { audio.pause(); updateUI(); });
   }
 
   btn.addEventListener('click', e => {
@@ -2457,12 +2671,16 @@ $('#searchInput').addEventListener('input', e => renderGrid(currentFilter, e.tar
     if (!started){
       wantOn = true;
       try { localStorage.setItem(KEY, 'on'); } catch(err){}
-      start(); return;
+      start();
+      return;
     }
     if (audio.paused){
       wantOn = true;
       try { localStorage.setItem(KEY, 'on'); } catch(err){}
-      audio.play().then(() => { fadeTo(VOL, 900); ui(); }).catch(()=>{});
+      audio.play().then(() => {
+        fadeTo(VOL, 900);
+        updateUI();
+      }).catch(() => {});
     } else {
       wantOn = false;
       try { localStorage.setItem(KEY, 'off'); } catch(err){}
@@ -2470,26 +2688,38 @@ $('#searchInput').addEventListener('input', e => renderGrid(currentFilter, e.tar
     }
   });
 
-  const evts = ['click','scroll','touchstart','keydown','pointerdown'];
-  function onFirst(){
+  const events = ['click', 'scroll', 'touchstart', 'keydown', 'pointerdown'];
+
+  function onFirstInteraction(){
     if (started) return;
     if (!wantOn) return;
     start();
   }
-  function addL(){ evts.forEach(e => window.addEventListener(e, onFirst, { passive: true })); }
-  function removeL(){ evts.forEach(e => window.removeEventListener(e, onFirst)); }
-  if (wantOn) addL();
 
+  function addListeners(){
+    events.forEach(evt => window.addEventListener(evt, onFirstInteraction, { passive: true }));
+  }
+  function removeListeners(){
+    events.forEach(evt => window.removeEventListener(evt, onFirstInteraction));
+  }
+
+  if (wantOn) addListeners();
+
+  /* توقف در تب مخفی */
   let wasPlaying = false;
   document.addEventListener('visibilitychange', () => {
     if (document.hidden){
       wasPlaying = !audio.paused && started;
-      if (wasPlaying){ audio.pause(); ui(); }
+      if (wasPlaying){ audio.pause(); updateUI(); }
     } else if (wasPlaying && wantOn && started){
-      audio.play().then(() => { fadeTo(VOL, 700); ui(); }).catch(()=>{});
+      audio.play().then(() => {
+        fadeTo(VOL, 700);
+        updateUI();
+      }).catch(() => {});
     }
   });
 
+  /* خطای بارگذاری فایل */
   audio.addEventListener('error', () => {
     btn.style.opacity = '.4';
     btn.style.cursor = 'not-allowed';
@@ -2498,9 +2728,13 @@ $('#searchInput').addEventListener('input', e => renderGrid(currentFilter, e.tar
 })();
 
 /* ══════════════════════════════════════════════
-   YEAR + INIT
+   سال جاری و راه‌اندازی اولیه
    ══════════════════════════════════════════════ */
-$('#year').textContent = toFa(new Date().getFullYear());
+(function year(){
+  const el = document.getElementById('year');
+  if (el) el.textContent = toFa(new Date().getFullYear());
+})();
+
 renderGrid('all');
 </script>
 
