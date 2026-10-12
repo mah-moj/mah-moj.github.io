@@ -1355,7 +1355,8 @@ TOOLS.push({
 
 
 
-TOOLS.push({
+
+    TOOLS.push({
   id:'bankcard', cat:'general', icon:'fa-solid fa-credit-card',
   title:'سازنده کارت بانکی', tag:'عمومی',
   desc:'یک کارت بانکی جذاب با گرادیانت‌های لوکس بسازید.',
@@ -1365,14 +1366,9 @@ TOOLS.push({
       .bk-preview-col{display:grid;place-items:center;padding:.5rem 0}
 
       .bk-card{
-        position:relative;
-        width:100%;
-        max-width:420px;
-        aspect-ratio:1.586 / 1;
-        border-radius:22px;
-        overflow:hidden;
-        color:#fff;
-        font-family:"Vazirmatn",system-ui,sans-serif;
+        position:relative;width:100%;max-width:420px;
+        aspect-ratio:1.586 / 1;border-radius:22px;overflow:hidden;
+        color:#fff;font-family:"Vazirmatn",system-ui,sans-serif;
         border:1px solid rgba(255,255,255,.16);
         box-shadow:0 26px 60px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04) inset;
         isolation:isolate;
@@ -1382,79 +1378,150 @@ TOOLS.push({
         position:absolute;inset:0;z-index:1;pointer-events:none;
         background:
           radial-gradient(circle at 18% 12%,rgba(255,255,255,.16),transparent 42%),
-          radial-gradient(circle at 88% 92%,rgba(255,255,255,.07),transparent 48%),
-          linear-gradient(115deg,transparent 35%,rgba(255,255,255,.05) 50%,transparent 65%);
+          radial-gradient(circle at 88% 92%,rgba(255,255,255,.07),transparent 48%);
       }
       .bk-card-inner{
         position:absolute;inset:0;z-index:2;
-        padding:1.4rem 1.6rem 1.25rem;
+        padding:1.3rem 1.5rem 1.2rem;
         display:flex;flex-direction:column;
       }
 
+      /* رفع باگ سرریز متن */
+      .bk-card *{
+        overflow-wrap:normal !important;
+        word-break:normal !important;
+        word-wrap:normal !important;
+        hyphens:none !important;
+      }
+
+      /* ===== TOP: لوگو راست، چیپ چپ ===== */
       .bk-top{
-        display:flex;justify-content:space-between;align-items:flex-start;
-        gap:.5rem;min-height:48px;flex:none;
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-start;
+        gap:.5rem;
+        flex:none;
+        height:60px;
       }
       .bk-logo-holder{
-        width:100px;height:48px;
-        display:grid;place-items:center;
-        flex:none;order:1;
+        width:120px;
+        height:60px;
+        flex:none;
+        display:flex;
+        align-items:center;
+        justify-content:flex-start;
       }
       .bk-logo-holder img{
-        max-width:100%;max-height:100%;
-        width:auto;height:auto;
-        object-fit:contain;display:block;
-        filter:drop-shadow(0 2px 5px rgba(0,0,0,.45));
+        max-width:100%;
+        max-height:100%;
+        width:auto;
+        height:auto;
+        object-fit:contain;
+        display:block;
+        filter:drop-shadow(0 2px 5px rgba(0,0,0,.5));
       }
-      .bk-logo-holder img.white{filter:brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0,0,0,.45))}
-      .bk-chip{width:44px;height:33px;flex:none;order:0;display:block}
+      .bk-logo-holder img.white{
+        filter:brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0,0,0,.5));
+      }
+      .bk-chip{
+        width:46px;
+        height:34px;
+        flex:none;
+        display:block;
+        align-self:flex-start;
+        margin-top:4px;
+      }
 
+      /* ===== MIDDLE ===== */
       .bk-middle{
-        flex:1;display:flex;flex-direction:column;
-        justify-content:center;align-items:flex-start;
-        gap:.4rem;padding:.3rem 0;min-height:0;
+        flex:1;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        gap:.5rem;
+        min-height:0;
+        padding:0;
       }
+
       .bk-iban{
         font-family:"Space Grotesk",ui-monospace,monospace;
-        font-size:clamp(.72rem,1.7vw,.9rem);
-        font-weight:500;opacity:.88;
-        direction:ltr;text-align:left;
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-        text-shadow:0 1px 4px rgba(0,0,0,.5);
-        letter-spacing:0;width:100%;min-height:1.1em;
+        font-size:clamp(.72rem,1.7vw,.88rem);
+        font-weight:500;
+        opacity:.85;
+        direction:ltr;
+        text-align:left;
+        white-space:nowrap;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        text-shadow:0 1px 4px rgba(0,0,0,.55);
+        letter-spacing:0;
+        width:100%;
+        line-height:1.2;
+        min-height:1.2em;
       }
+
       .bk-number{
         font-family:"Space Grotesk",ui-monospace,monospace;
-        font-size:clamp(1.15rem,4.4vw,1.85rem);
+        font-size:clamp(1.1rem,4.2vw,1.7rem);
         font-weight:700;
-        direction:ltr;text-align:center;
-        text-shadow:0 3px 12px rgba(0,0,0,.6);
-        letter-spacing:0;line-height:1.1;
+        direction:ltr;
+        text-align:left;
+        white-space:nowrap;
+        text-shadow:0 3px 12px rgba(0,0,0,.65);
+        letter-spacing:0;
+        line-height:1.1;
         width:100%;
-        display:grid;grid-template-columns:repeat(4,1fr);
-        gap:6px;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
       }
-      .bk-number span{display:block;letter-spacing:0}
+      .bk-number span{
+        display:block;
+        letter-spacing:0;
+      }
 
+      /* ===== BOTTOM: نام راست، بانک چپ ===== */
       .bk-bottom{
-        display:flex;justify-content:space-between;align-items:flex-end;
-        gap:.8rem;width:100%;flex:none;direction:rtl;
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        gap:.8rem;
+        width:100%;
+        flex:none;
+        padding-top:.4rem;
       }
       .bk-holder{
         font-family:"Vazirmatn",sans-serif;
-        font-size:clamp(.75rem,1.6vw,.92rem);
-        font-weight:800;text-align:right;
-        overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-        text-shadow:0 2px 6px rgba(0,0,0,.5);
-        letter-spacing:0;min-width:0;flex:1;
+        font-size:clamp(.78rem,1.7vw,.95rem);
+        font-weight:800;
+        text-align:right;
+        line-height:1.5;
+        padding-bottom:2px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        text-shadow:0 2px 6px rgba(0,0,0,.55);
+        letter-spacing:0;
+        flex:1;
+        min-width:0;
+        direction:rtl;
       }
       .bk-bank-name{
         font-family:"Vazirmatn",sans-serif;
         font-size:clamp(.68rem,1.4vw,.8rem);
-        font-weight:700;opacity:.9;text-align:left;
-        overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-        text-shadow:0 2px 6px rgba(0,0,0,.5);
-        letter-spacing:0;flex:none;max-width:48%;
+        font-weight:700;
+        opacity:.9;
+        text-align:left;
+        line-height:1.5;
+        padding-bottom:2px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        text-shadow:0 2px 6px rgba(0,0,0,.55);
+        letter-spacing:0;
+        flex:none;
+        max-width:48%;
+        direction:rtl;
       }
 
       .bk-presets{
@@ -1462,19 +1529,12 @@ TOOLS.push({
         gap:.5rem;margin-top:.4rem;
       }
       .bk-preset{
-        aspect-ratio:1.586 / 1;
-        border-radius:8px;
-        cursor:pointer;
+        aspect-ratio:1.586 / 1;border-radius:8px;cursor:pointer;
         border:2px solid transparent;
         transition:.35s cubic-bezier(.16,1,.3,1);
-        position:relative;
-        outline:none;
       }
       .bk-preset:hover{transform:translateY(-2px);border-color:rgba(217,194,0,.55)}
-      .bk-preset.active{
-        border-color:var(--gold);
-        box-shadow:0 0 14px rgba(217,194,0,.55);
-      }
+      .bk-preset.active{border-color:var(--gold);box-shadow:0 0 14px rgba(217,194,0,.55)}
 
       .bk-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
       .bk-actions .btn{flex:1 1 auto;min-width:130px}
@@ -1504,7 +1564,6 @@ TOOLS.push({
           </div>
         </div>
         <label class="chk" style="margin-top:.6rem"><input type="checkbox" id="bcLogoWhite" checked> نمایش لوگو به صورت سفید</label>
-
         <div class="f" style="margin-top:1rem"><label>تم گرادیانت</label></div>
         <div class="bk-presets" id="bcPresets"></div>
       </div>
@@ -1518,7 +1577,7 @@ TOOLS.push({
               <div class="bk-logo-holder">
                 <img id="bcLogo" class="white" src="img/bank/13.svg" alt="logo">
               </div>
-              <svg class="bk-chip" viewBox="0 0 44 33" xmlns="http://www.w3.org/2000/svg">
+              <svg class="bk-chip" viewBox="0 0 46 34" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                   <linearGradient id="bkChipGrad" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#bfa020"/>
@@ -1528,10 +1587,10 @@ TOOLS.push({
                     <stop offset="100%" stop-color="#b8981a"/>
                   </linearGradient>
                 </defs>
-                <rect x=".5" y=".5" width="43" height="32" rx="6" fill="url(#bkChipGrad)" stroke="rgba(0,0,0,.35)" stroke-width="1"/>
-                <line x1="9" y1="12" x2="35" y2="12" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
-                <line x1="9" y1="21" x2="35" y2="21" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
-                <line x1="22" y1="6" x2="22" y2="27" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
+                <rect x=".5" y=".5" width="45" height="33" rx="6" fill="url(#bkChipGrad)" stroke="rgba(0,0,0,.35)" stroke-width="1"/>
+                <line x1="10" y1="12" x2="36" y2="12" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
+                <line x1="10" y1="22" x2="36" y2="22" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
+                <line x1="23" y1="6" x2="23" y2="28" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
               </svg>
             </div>
             <div class="bk-middle">
@@ -1616,18 +1675,15 @@ TOOLS.push({
     const presetsWrap = $('#bcPresets'), logoWhite = $('#bcLogoWhite');
 
     let currentBank = BANKS[12];
-    let currentPreset = 0;
 
     sel.innerHTML = BANKS.map((b, i) => '<option value="' + i + '">' + esc(b.title) + '</option>').join('');
     sel.value = '12';
 
-    /* رندر پالت‌ها */
     presetsWrap.innerHTML = PRESETS.map((p, i) =>
       '<div class="bk-preset' + (i === 0 ? ' active' : '') + '" data-i="' + i + '" title="' + esc(p.n) + '" style="background:linear-gradient(135deg,' + p.g[0] + ' 0%,' + p.g[1] + ' 50%,' + p.g[2] + ' 100%)"></div>'
     ).join('');
 
     function applyPreset(i){
-      currentPreset = i;
       const p = PRESETS[i];
       bg.style.background = 'linear-gradient(135deg,' + p.g[0] + ' 0%,' + p.g[1] + ' 50%,' + p.g[2] + ' 100%)';
       presetsWrap.querySelectorAll('.bk-preset').forEach((el, idx) => {
@@ -1648,7 +1704,6 @@ TOOLS.push({
       else logo.classList.remove('white');
     }
 
-    /* شماره کارت: 4-4-4-4 */
     function updateNumber(){
       let raw = toEn(numIn.value).replace(/\D/g, '').slice(0, 16);
       const groups = [];
@@ -1658,7 +1713,6 @@ TOOLS.push({
       numPrev.innerHTML = groups.slice(0, 4).map(g => '<span>' + g + '</span>').join('');
     }
 
-    /* شبا: 2-4-4-4-4-4-2 بعد از IR */
     function updateIban(){
       if (!ibanTog.checked){
         ibanWrap.style.display = 'none';
@@ -1696,11 +1750,8 @@ TOOLS.push({
       applyPreset(+t.dataset.i);
     });
 
-    /* دانلود با رفع همه‌ی باگ‌ها */
     $('#bcDownload').addEventListener('click', async () => {
       if (typeof html2canvas !== 'function'){ toast('کتابخانه بارگذاری نشد'); return; }
-
-      /* 1. صبر برای بارگذاری فونت‌ها */
       if (document.fonts && document.fonts.ready){
         try { await document.fonts.ready; } catch(e){}
       }
@@ -1710,7 +1761,6 @@ TOOLS.push({
       const W = Math.round(rect.width);
       const H = Math.round(rect.height);
 
-      /* 2. کلون با ابعاد دقیق */
       const clone = card.cloneNode(true);
       clone.style.cssText =
         'position:fixed;top:0;left:-99999px;' +
@@ -1719,7 +1769,6 @@ TOOLS.push({
 
       document.body.appendChild(clone);
 
-      /* 3. رفع باگ متن: حذف letter-spacing و text-shadow از روی کلون */
       clone.querySelectorAll('*').forEach(el => {
         el.style.letterSpacing = '0';
         el.style.wordSpacing = '0';
@@ -1760,6 +1809,8 @@ TOOLS.push({
     updateName();
   }
 });
+
+
     
 
 
