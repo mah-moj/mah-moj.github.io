@@ -1353,34 +1353,172 @@ TOOLS.push({
 
 /* ▓▓▓ پیام ۴ ▓▓▓ */
 
-    TOOLS.push({
+
+TOOLS.push({
   id:'bankcard', cat:'general', icon:'fa-solid fa-credit-card',
   title:'سازنده کارت بانکی', tag:'عمومی',
   desc:'یک کارت بانکی جذاب با لوگو، شماره و نام خود بسازید.',
-  html:`<div class="bk-wrap">
+  html:`<style>
+      .bk-wrap{display:grid;grid-template-columns:1fr 1.1fr;gap:1rem;margin-bottom:1rem}
+      @media (max-width:720px){.bk-wrap{grid-template-columns:1fr}}
+      .bk-preview-col{display:grid;place-items:center;padding:.5rem 0}
+
+      .bk-card{
+        position:relative;
+        width:100%;
+        max-width:420px;
+        aspect-ratio:1.586 / 1;
+        border-radius:20px;
+        overflow:hidden;
+        color:#fff;
+        font-family:"Vazirmatn",system-ui,sans-serif;
+        box-shadow:
+          0 24px 60px rgba(0,0,0,.65),
+          0 0 0 1px rgba(255,255,255,.18) inset,
+          0 0 0 1px rgba(217,194,0,.15);
+        border:1px solid rgba(255,255,255,.14);
+        isolation:isolate;
+      }
+      .bk-card-bg{
+        position:absolute;inset:0;z-index:0;
+        background:#0a1535;
+        transition:background .4s cubic-bezier(.16,1,.3,1);
+      }
+      .bk-card-glow{
+        position:absolute;inset:0;z-index:1;pointer-events:none;
+        background:
+          radial-gradient(circle at 18% 15%,rgba(255,255,255,.18),transparent 45%),
+          radial-gradient(circle at 82% 85%,rgba(255,255,255,.08),transparent 50%),
+          linear-gradient(135deg,transparent 40%,rgba(255,255,255,.05) 55%,transparent 70%);
+      }
+      .bk-card-inner{
+        position:absolute;inset:0;z-index:2;
+        padding:1.35rem 1.6rem;
+        display:flex;flex-direction:column;justify-content:space-between;
+      }
+
+      .bk-top{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+      .bk-logo-holder{
+        width:72px;height:46px;
+        display:flex;align-items:center;justify-content:flex-start;
+        flex:none;overflow:hidden;
+      }
+      .bk-logo-holder img{
+        width:100%;height:100%;
+        object-fit:contain;object-position:left center;
+        filter:drop-shadow(0 2px 6px rgba(0,0,0,.4));
+      }
+      .bk-chip{width:48px;height:37px;flex:none;display:block}
+
+      .bk-middle{
+        display:flex;flex-direction:column;
+        justify-content:center;align-items:flex-start;
+        gap:.4rem;flex:1;
+        padding-left:.2rem;
+      }
+      .bk-iban{
+        font-family:"Space Grotesk",ui-monospace,monospace;
+        font-size:.95rem;
+        font-weight:500;
+        opacity:.88;
+        direction:ltr;
+        white-space:nowrap;
+        text-align:left;
+        text-shadow:0 1px 4px rgba(0,0,0,.55);
+        letter-spacing:0;
+      }
+      .bk-number{
+        font-family:"Space Grotesk",ui-monospace,monospace;
+        font-size:1.9rem;
+        font-weight:700;
+        direction:ltr;
+        white-space:nowrap;
+        text-align:left;
+        text-shadow:0 3px 12px rgba(0,0,0,.65);
+        letter-spacing:0;
+        line-height:1.15;
+      }
+      .bk-number span{display:inline-block;letter-spacing:0}
+      .bk-number span + span{margin-left:20px}
+      .bk-iban span + span{margin-left:8px}
+
+      .bk-bottom{
+        display:flex;
+        justify-content:space-between;
+        align-items:flex-end;
+        gap:.6rem;
+        direction:rtl;
+      }
+      .bk-holder{
+        font-family:"Vazirmatn",sans-serif;
+        font-size:1rem;
+        font-weight:800;
+        text-shadow:0 2px 6px rgba(0,0,0,.55);
+        text-align:right;
+        flex:1;min-width:0;
+        overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+        direction:rtl;
+      }
+      .bk-bank-name{
+        font-family:"Vazirmatn",sans-serif;
+        font-size:.8rem;
+        font-weight:700;
+        opacity:.92;
+        text-align:left;
+        flex:none;max-width:48%;
+        overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+        text-shadow:0 2px 6px rgba(0,0,0,.55);
+        direction:rtl;
+      }
+
+      .bk-actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.8rem}
+      .bk-actions .btn{flex:1 1 auto;min-width:130px}
+      .bk-hint{font-size:.68rem;color:var(--muted);margin-top:.5rem;line-height:1.7}
+    </style>
+
+    <div class="bk-wrap">
       <div>
         <div class="f"><label>انتخاب بانک</label><select id="bcBank"></select></div>
         <div class="f"><label>نام و نام خانوادگی</label><input type="text" id="bcName" placeholder="مثلاً: مهدی مجاهد" maxlength="24"></div>
-        <div class="f"><label>شماره کارت (۱۶ رقم)</label><input type="text" id="bcNumber" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" style="font-family:'Space Grotesk',ui-monospace,monospace;direction:ltr;text-align:center;font-size:1rem"></div>
+        <div class="f"><label>شماره کارت (۱۶ رقم)</label>
+          <input type="text" id="bcNumber" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric"
+            style="font-family:'Space Grotesk',ui-monospace,monospace;direction:ltr;text-align:center;font-size:1rem">
+        </div>
         <label class="chk"><input type="checkbox" id="bcIbanToggle"> نمایش شماره شبا</label>
         <div class="f" id="bcIbanWrap" style="display:none;margin-top:.4rem">
-          <label>شماره شبا (۲۴ رقم بعد از IR)</label>
+          <label>شماره شبا (۲۴ رقم)</label>
           <div style="position:relative">
-            <span style="position:absolute;right:.9rem;top:50%;transform:translateY(-50%);font-family:'Space Grotesk',monospace;color:var(--gold);font-weight:700;font-size:.85rem;pointer-events:none">IR</span>
-            <input type="text" id="bcIban" placeholder="0000 0000 0000 0000 0000 0000" maxlength="29" inputmode="numeric" style="font-family:'Space Grotesk',monospace;direction:ltr;padding-right:2.5rem;font-size:.85rem">
+            <span style="position:absolute;right:.9rem;top:50%;transform:translateY(-50%);font-family:'Space Grotesk',monospace;color:var(--gold);font-weight:700;font-size:.85rem;pointer-events:none;z-index:2">IR</span>
+            <input type="text" id="bcIban" placeholder="00 0000 0000 0000 0000 0000 00" maxlength="29" inputmode="numeric"
+              style="font-family:'Space Grotesk',monospace;direction:ltr;padding-right:2.5rem;font-size:.85rem">
           </div>
         </div>
       </div>
+
       <div class="bk-preview-col">
         <div class="bk-card" id="bcPreview">
           <div class="bk-card-bg" id="bcBg"></div>
           <div class="bk-card-glow"></div>
           <div class="bk-card-inner">
             <div class="bk-top">
-              <div class="bk-logo-holder" id="bcLogoBox">
+              <div class="bk-logo-holder">
                 <img id="bcLogo" src="img/bank/13.svg" alt="logo">
               </div>
-              <div class="bk-chip"></div>
+              <svg class="bk-chip" viewBox="0 0 48 37" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <linearGradient id="bkChipGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#bfa020"/>
+                    <stop offset="28%" stop-color="#f5e5a5"/>
+                    <stop offset="55%" stop-color="#a88810"/>
+                    <stop offset="80%" stop-color="#e8d47a"/>
+                    <stop offset="100%" stop-color="#b8981a"/>
+                  </linearGradient>
+                </defs>
+                <rect x=".5" y=".5" width="47" height="36" rx="6.5" fill="url(#bkChipGrad)" stroke="rgba(0,0,0,.35)" stroke-width="1"/>
+                <line x1="10" y1="13" x2="38" y2="13" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
+                <line x1="10" y1="24" x2="38" y2="24" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
+                <line x1="24" y1="7" x2="24" y2="30" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
+              </svg>
             </div>
             <div class="bk-middle">
               <div class="bk-iban" id="bcIbanPreview"></div>
@@ -1389,21 +1527,23 @@ TOOLS.push({
               </div>
             </div>
             <div class="bk-bottom">
-              <div class="bk-holder"><small>CARD HOLDER</small><span id="bcNamePreview">نام شما</span></div>
+              <div class="bk-holder" id="bcNamePreview">نام شما</div>
               <div class="bk-bank-name" id="bcBankNamePreview">بانک</div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
     <div class="bk-actions">
       <button class="btn primary" id="bcDownload"><span>دانلود کارت <i class="fa-solid fa-download"></i></span></button>
     </div>
     <p class="bk-hint">فایل‌های لوگو در پوشه <b style="font-family:monospace;color:var(--gold)">img/bank/</b> با نام عددی قرار می‌گیرند.</p>`,
+
   init(){
     const BANKS = [
       {f:'1',  title:'بانک انصار',                g:['#0a2f1a','#1a5c34']},
-      {f:'2',  title:'بانک آینده',                g:['#3d0a0a','#7a1a1a']},
+      {f:'2',  title:'بانک آینده',                g:['#4a0a0a','#8a1a1a']},
       {f:'3',  title:'بانک حکمت ایرانیان',        g:['#0a1a3a','#1a3a70']},
       {f:'4',  title:'بانک دی',                   g:['#2a0a3a','#54186e']},
       {f:'5',  title:'بانک اقتصاد نوین',          g:['#0a1a3d','#1a3d75']},
@@ -1413,12 +1553,12 @@ TOOLS.push({
       {f:'9',  title:'بانک کارآفرین',             g:['#3a240a','#6e4718']},
       {f:'10', title:'بانک کشاورزی',              g:['#0a2a14','#185032']},
       {f:'11', title:'بانک مسکن',                 g:['#0a2035','#1a4568']},
-      {f:'12', title:'بانک ملت',                  g:['#3d0a12','#7a1828']},
+      {f:'12', title:'بانک ملت',                  g:['#4a0a12','#8a1828']},
       {f:'13', title:'بانک ملی ایران',            g:['#0a1535','#1a2e6e']},
       {f:'14', title:'بانک پاسارگاد',             g:['#0d2a26','#185448']},
-      {f:'15', title:'بانک پارسیان',              g:['#3d0a18','#7a1828']},
+      {f:'15', title:'بانک پارسیان',              g:['#4a0a18','#8a1828']},
       {f:'16', title:'پست بانک ایران',            g:['#3a300a','#6e5c18']},
-      {f:'17', title:'بانک رفاه کارگران',         g:['#3d0a0a','#7a1818']},
+      {f:'17', title:'بانک رفاه کارگران',         g:['#4a0a0a','#8a1818']},
       {f:'18', title:'بانک صادرات ایران',         g:['#0a1a3a','#1a3a70']},
       {f:'19', title:'بانک سامان',                g:['#082a3d','#0e5075']},
       {f:'20', title:'بانک سپه',                  g:['#3a2c0a','#6e5418']},
@@ -1432,7 +1572,7 @@ TOOLS.push({
       {f:'28', title:'بانک مهر اقتصاد',           g:['#0a1a3a','#1a3a70']},
       {f:'29', title:'بانک صنعت و معدن',          g:['#0a1a3d','#1a3a70']},
       {f:'30', title:'بانک سرمایه',               g:['#0a2a1a','#185034']},
-      {f:'31', title:'بانک سینا',                 g:['#3d0a18','#7a1828']},
+      {f:'31', title:'بانک سینا',                 g:['#4a0a18','#8a1828']},
       {f:'32', title:'بانک صادرات',               g:['#0a1a3a','#1a3a70']},
       {f:'33', title:'بانک تعاون',                g:['#0a2a1a','#185034']},
       {f:'34', title:'بانک تجارت',                g:['#0f2540','#264c70']},
@@ -1443,7 +1583,7 @@ TOOLS.push({
 
     const sel = $('#bcBank'), nameIn = $('#bcName'), numIn = $('#bcNumber');
     const ibanTog = $('#bcIbanToggle'), ibanWrap = $('#bcIbanWrap'), ibanIn = $('#bcIban');
-    const bg = $('#bcBg'), logo = $('#bcLogo'), logoBox = $('#bcLogoBox');
+    const bg = $('#bcBg'), logo = $('#bcLogo');
     const numPrev = $('#bcNumPreview'), namePrev = $('#bcNamePreview');
     const bankPrev = $('#bcBankNamePreview'), ibanPrev = $('#bcIbanPreview');
 
@@ -1455,29 +1595,25 @@ TOOLS.push({
     function textColorFor(hex){
       const [r,g,b] = hexToRgb(hex);
       const lum = (0.299*r + 0.587*g + 0.114*b) / 255;
-      return lum > 0.6 ? '#0a1015' : '#ffffff';
+      return lum > 0.65 ? '#0a1015' : '#ffffff';
     }
 
     function applyBank(index){
       const b = BANKS[index] || BANKS[0];
       currentBank = b;
       bg.style.background = 'linear-gradient(135deg,' + b.g[0] + ' 0%,' + b.g[1] + ' 100%)';
-      const tc = textColorFor(b.g[0]);
+      const tc = textColorFor(b.g[1]);
       const card = $('#bcPreview');
       if (card) card.style.color = tc;
 
-      /* لوگو */
       logo.src = 'img/bank/' + b.f + '.svg';
       logo.alt = b.title;
 
-      /* رنگ‌ها */
       [numPrev, namePrev, bankPrev, ibanPrev].forEach(el => { if (el) el.style.color = tc; });
-      const small = document.querySelector('.bk-holder small');
-      if (small) small.style.color = tc;
-
       bankPrev.textContent = b.title;
     }
 
+    /* شماره کارت: 4-4-4-4 */
     function updateNumber(){
       let raw = toEn(numIn.value).replace(/\D/g, '').slice(0, 16);
       const groups = [];
@@ -1487,22 +1623,37 @@ TOOLS.push({
       numPrev.innerHTML = groups.slice(0, 4).map(g => '<span>' + g + '</span>').join('');
     }
 
-    function updateName(){
-      namePrev.textContent = nameIn.value.trim() || 'نام شما';
+    /* شبا: 2-4-4-4-4-4-2 */
+    function formatIbanGroups(digits){
+      const sizes = [2, 4, 4, 4, 4, 4, 2];
+      const groups = [];
+      let i = 0;
+      for (const size of sizes){
+        if (i >= digits.length) break;
+        groups.push(digits.substr(i, size));
+        i += size;
+      }
+      return groups;
     }
 
     function updateIban(){
       if (!ibanTog.checked){
         ibanWrap.style.display = 'none';
-        ibanPrev.textContent = '';
+        ibanPrev.innerHTML = '';
         return;
       }
       ibanWrap.style.display = 'block';
       let raw = toEn(ibanIn.value).replace(/\D/g, '').slice(0, 24);
-      const groups = [];
-      for (let i = 0; i < raw.length; i += 4) groups.push(raw.substr(i, 4));
+      const groups = formatIbanGroups(raw);
       ibanIn.value = groups.join(' ');
-      ibanPrev.textContent = raw.length ? 'IR' + groups.join('') : '';
+      if (!raw.length){ ibanPrev.innerHTML = ''; return; }
+      /* پیش‌نمایش: IR + groups */
+      const spans = groups.map(g => '<span>' + g + '</span>').join('');
+      ibanPrev.innerHTML = '<span style="opacity:.7">IR</span>' + spans;
+    }
+
+    function updateName(){
+      namePrev.textContent = nameIn.value.trim() || 'نام شما';
     }
 
     sel.addEventListener('change', () => applyBank(+sel.value));
@@ -1514,29 +1665,54 @@ TOOLS.push({
     $('#bcDownload').addEventListener('click', async () => {
       if (typeof html2canvas !== 'function'){ toast('کتابخانه دانلود بارگذاری نشد'); return; }
       const card = $('#bcPreview');
-      const all = card.querySelectorAll('*');
-      const saved = [];
-      all.forEach(el => {
-        const cs = getComputedStyle(el);
-        saved.push({ el, ls: el.style.letterSpacing, ws: el.style.wordSpacing, bs: el.style.boxShadow });
-        if (cs.letterSpacing && cs.letterSpacing !== 'normal') el.style.letterSpacing = 'normal';
-        el.style.wordSpacing = 'normal';
-      });
-      const bgSaved = card.style.boxShadow;
+
+      /* ابعاد دقیق پیکسل برای html2canvas (به‌جای aspect-ratio) */
+      const rect = card.getBoundingClientRect();
+      const W = Math.round(rect.width);
+      const H = Math.round(rect.height);
+      const savedW = card.style.width;
+      const savedH = card.style.height;
+      const savedAR = card.style.aspectRatio;
+      const savedBS = card.style.boxShadow;
+
+      card.style.width = W + 'px';
+      card.style.height = H + 'px';
+      card.style.aspectRatio = 'auto';
       card.style.boxShadow = 'none';
 
+      /* رفع باگ letter-spacing روی فارسی */
+      const all = card.querySelectorAll('*');
+      const savedLS = [];
+      all.forEach(el => {
+        const cs = getComputedStyle(el);
+        savedLS.push({ el, ls: el.style.letterSpacing });
+        if (cs.letterSpacing && cs.letterSpacing !== 'normal') el.style.letterSpacing = 'normal';
+      });
+
       try {
-        const canvas = await html2canvas(card, { backgroundColor: null, scale: 3, useCORS: true, allowTaint: true, logging: false });
+        const canvas = await html2canvas(card, {
+          backgroundColor: null,
+          scale: 3,
+          useCORS: true,
+          allowTaint: true,
+          logging: false,
+          width: W,
+          height: H
+        });
         canvas.toBlob(b => {
           if (!b){ toast('خطا در تولید تصویر'); return; }
           download(b, 'bank-card-' + currentBank.f + '.png');
           toast('کارت دانلود شد ✦');
         }, 'image/png');
       } catch(e){
-        console.error(e); toast('خطا در دانلود');
+        console.error(e);
+        toast('خطا در دانلود');
       } finally {
-        saved.forEach(s => { s.el.style.letterSpacing = s.ls; s.el.style.wordSpacing = s.ws; s.el.style.boxShadow = s.bs; });
-        card.style.boxShadow = bgSaved;
+        card.style.width = savedW;
+        card.style.height = savedH;
+        card.style.aspectRatio = savedAR;
+        card.style.boxShadow = savedBS;
+        savedLS.forEach(s => { s.el.style.letterSpacing = s.ls; });
       }
     });
 
@@ -1545,6 +1721,10 @@ TOOLS.push({
     updateName();
   }
 });
+
+
+
+    
 
 TOOLS.push({
   id:'age', cat:'general', icon:'fa-solid fa-cake-candles',
