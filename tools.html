@@ -1356,7 +1356,9 @@ TOOLS.push({
 
 
 
-    TOOLS.push({
+    
+      
+          TOOLS.push({
   id:'bankcard', cat:'general', icon:'fa-solid fa-credit-card',
   title:'سازنده کارت بانکی', tag:'عمومی',
   desc:'یک کارت بانکی جذاب با گرادیانت‌های لوکس بسازید.',
@@ -1367,167 +1369,110 @@ TOOLS.push({
 
       .bk-card{
         position:relative;width:100%;max-width:420px;
-        aspect-ratio:1.586 / 1;border-radius:22px;overflow:hidden;
+        aspect-ratio:1.586 / 1;border-radius:20px;overflow:hidden;
         color:#fff;font-family:"Vazirmatn",system-ui,sans-serif;
-        border:1px solid rgba(255,255,255,.16);
-        box-shadow:0 26px 60px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.04) inset;
-        isolation:isolate;
+        border:1px solid rgba(255,255,255,.14);
+        box-shadow:0 24px 60px rgba(0,0,0,.7);
+        isolation:isolate;box-sizing:border-box;
       }
       .bk-card-bg{position:absolute;inset:0;z-index:0;transition:background .5s cubic-bezier(.16,1,.3,1)}
       .bk-card-glow{
         position:absolute;inset:0;z-index:1;pointer-events:none;
         background:
-          radial-gradient(circle at 18% 12%,rgba(255,255,255,.16),transparent 42%),
-          radial-gradient(circle at 88% 92%,rgba(255,255,255,.07),transparent 48%);
-      }
-      .bk-card-inner{
-        position:absolute;inset:0;z-index:2;
-        padding:1.3rem 1.5rem 1.2rem;
-        display:flex;flex-direction:column;
+          radial-gradient(circle at 15% 12%,rgba(255,255,255,.12),transparent 45%),
+          radial-gradient(circle at 85% 88%,rgba(255,255,255,.06),transparent 50%);
       }
 
-      /* رفع باگ سرریز متن */
-      .bk-card *{
+      /* رفع باگ شکستن متن فارسی */
+      .bk-card, .bk-card *{
         overflow-wrap:normal !important;
         word-break:normal !important;
         word-wrap:normal !important;
         hyphens:none !important;
       }
 
-      /* ===== TOP: لوگو راست، چیپ چپ ===== */
-      .bk-top{
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        gap:.5rem;
-        flex:none;
-        height:60px;
-      }
+      /* ===== لوگو: گوشه راست بالا (absolute) ===== */
       .bk-logo-holder{
-        width:120px;
-        height:60px;
-        flex:none;
-        display:flex;
-        align-items:center;
-        justify-content:flex-start;
+        position:absolute;top:1.2rem;right:1.5rem;
+        width:120px;height:56px;z-index:3;
+        display:flex;align-items:center;justify-content:flex-end;
       }
       .bk-logo-holder img{
-        max-width:100%;
-        max-height:100%;
-        width:auto;
-        height:auto;
-        object-fit:contain;
-        display:block;
+        max-width:100%;max-height:100%;
+        width:auto;height:auto;object-fit:contain;display:block;
         filter:drop-shadow(0 2px 5px rgba(0,0,0,.5));
       }
       .bk-logo-holder img.white{
         filter:brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0,0,0,.5));
       }
-      .bk-chip{
-        width:46px;
-        height:34px;
-        flex:none;
-        display:block;
-        align-self:flex-start;
-        margin-top:4px;
-      }
 
-      /* ===== MIDDLE ===== */
+      /* ===== وسط: شبا + شماره کارت (absolute، مرکز عمودی) ===== */
       .bk-middle{
-        flex:1;
-        display:flex;
-        flex-direction:column;
-        justify-content:center;
-        gap:.5rem;
-        min-height:0;
-        padding:0;
+        position:absolute;
+        top:50%;left:1.5rem;right:1.5rem;
+        transform:translateY(-50%);
+        z-index:3;
+        display:flex;flex-direction:column;gap:.55rem;
       }
 
       .bk-iban{
-        font-family:"Space Grotesk",ui-monospace,monospace;
-        font-size:clamp(.72rem,1.7vw,.88rem);
-        font-weight:500;
-        opacity:.85;
-        direction:ltr;
-        text-align:left;
-        white-space:nowrap;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        text-shadow:0 1px 4px rgba(0,0,0,.55);
-        letter-spacing:0;
         width:100%;
-        line-height:1.2;
-        min-height:1.2em;
+        display:flex;justify-content:space-between;align-items:center;
+        font-family:"Space Grotesk",ui-monospace,monospace;
+        font-size:clamp(.66rem,1.55vw,.82rem);
+        font-weight:500;opacity:.9;
+        direction:ltr;letter-spacing:0;
+        line-height:1.4;
+        text-shadow:0 1px 3px rgba(0,0,0,.55);
+        min-height:1.4em;
       }
+      .bk-iban span{display:inline-block}
+      .bk-iban:empty{display:none}
 
       .bk-number{
+        width:100%;
+        display:flex;justify-content:space-between;align-items:center;
         font-family:"Space Grotesk",ui-monospace,monospace;
-        font-size:clamp(1.1rem,4.2vw,1.7rem);
+        font-size:clamp(1.3rem,4.8vw,1.85rem);
         font-weight:700;
-        direction:ltr;
-        text-align:left;
-        white-space:nowrap;
-        text-shadow:0 3px 12px rgba(0,0,0,.65);
-        letter-spacing:0;
-        line-height:1.1;
-        width:100%;
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
+        direction:ltr;letter-spacing:0;
+        line-height:1.3;
+        text-shadow:0 2px 8px rgba(0,0,0,.6);
       }
-      .bk-number span{
-        display:block;
-        letter-spacing:0;
-      }
+      .bk-number span{display:inline-block}
 
-      /* ===== BOTTOM: نام راست، بانک چپ ===== */
+      /* ===== پایین: نام راست، بانک چپ (absolute) ===== */
       .bk-bottom{
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-end;
+        position:absolute;
+        bottom:1.4rem;left:1.5rem;right:1.5rem;
+        z-index:3;
+        display:flex;justify-content:space-between;align-items:flex-end;
         gap:.8rem;
-        width:100%;
-        flex:none;
-        padding-top:.4rem;
       }
       .bk-holder{
         font-family:"Vazirmatn",sans-serif;
         font-size:clamp(.78rem,1.7vw,.95rem);
-        font-weight:800;
-        text-align:right;
-        line-height:1.5;
+        font-weight:800;text-align:right;direction:rtl;
+        line-height:1.55;
         padding-bottom:2px;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
         text-shadow:0 2px 6px rgba(0,0,0,.55);
         letter-spacing:0;
-        flex:1;
-        min-width:0;
-        direction:rtl;
+        flex:1;min-width:0;
       }
       .bk-bank-name{
         font-family:"Vazirmatn",sans-serif;
-        font-size:clamp(.68rem,1.4vw,.8rem);
-        font-weight:700;
-        opacity:.9;
-        text-align:left;
-        line-height:1.5;
+        font-size:clamp(.68rem,1.4vw,.82rem);
+        font-weight:700;text-align:left;direction:rtl;
+        opacity:.92;line-height:1.55;
         padding-bottom:2px;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
+        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
         text-shadow:0 2px 6px rgba(0,0,0,.55);
         letter-spacing:0;
-        flex:none;
-        max-width:48%;
-        direction:rtl;
+        flex:none;max-width:48%;
       }
 
-      .bk-presets{
-        display:grid;grid-template-columns:repeat(5,1fr);
-        gap:.5rem;margin-top:.4rem;
-      }
+      .bk-presets{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-top:.4rem}
       .bk-preset{
         aspect-ratio:1.586 / 1;border-radius:8px;cursor:pointer;
         border:2px solid transparent;
@@ -1572,37 +1517,21 @@ TOOLS.push({
         <div class="bk-card" id="bcPreview">
           <div class="bk-card-bg" id="bcBg"></div>
           <div class="bk-card-glow"></div>
-          <div class="bk-card-inner">
-            <div class="bk-top">
-              <div class="bk-logo-holder">
-                <img id="bcLogo" class="white" src="img/bank/13.svg" alt="logo">
-              </div>
-              <svg class="bk-chip" viewBox="0 0 46 34" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                  <linearGradient id="bkChipGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#bfa020"/>
-                    <stop offset="28%" stop-color="#f5e5a5"/>
-                    <stop offset="55%" stop-color="#a88810"/>
-                    <stop offset="80%" stop-color="#e8d47a"/>
-                    <stop offset="100%" stop-color="#b8981a"/>
-                  </linearGradient>
-                </defs>
-                <rect x=".5" y=".5" width="45" height="33" rx="6" fill="url(#bkChipGrad)" stroke="rgba(0,0,0,.35)" stroke-width="1"/>
-                <line x1="10" y1="12" x2="36" y2="12" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
-                <line x1="10" y1="22" x2="36" y2="22" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
-                <line x1="23" y1="6" x2="23" y2="28" stroke="rgba(0,0,0,.32)" stroke-width="1"/>
-              </svg>
+
+          <div class="bk-logo-holder">
+            <img id="bcLogo" class="white" src="img/bank/13.svg" alt="logo">
+          </div>
+
+          <div class="bk-middle">
+            <div class="bk-iban" id="bcIbanPreview"></div>
+            <div class="bk-number" id="bcNumPreview">
+              <span>0000</span><span>0000</span><span>0000</span><span>0000</span>
             </div>
-            <div class="bk-middle">
-              <div class="bk-iban" id="bcIbanPreview"></div>
-              <div class="bk-number" id="bcNumPreview">
-                <span>0000</span><span>0000</span><span>0000</span><span>0000</span>
-              </div>
-            </div>
-            <div class="bk-bottom">
-              <div class="bk-holder" id="bcNamePreview">نام شما</div>
-              <div class="bk-bank-name" id="bcBankNamePreview">بانک</div>
-            </div>
+          </div>
+
+          <div class="bk-bottom">
+            <div class="bk-holder" id="bcNamePreview">نام شما</div>
+            <div class="bk-bank-name" id="bcBankNamePreview">بانک</div>
           </div>
         </div>
       </div>
@@ -1615,56 +1544,32 @@ TOOLS.push({
 
   init(){
     const BANKS = [
-      {f:'1',  title:'بانک انصار'},
-      {f:'2',  title:'بانک آینده'},
-      {f:'3',  title:'بانک حکمت ایرانیان'},
-      {f:'4',  title:'بانک دی'},
-      {f:'5',  title:'بانک اقتصاد نوین'},
-      {f:'6',  title:'بانک گردشگری'},
-      {f:'7',  title:'بانک قوامین'},
-      {f:'8',  title:'بانک ایران زمین'},
-      {f:'9',  title:'بانک کارآفرین'},
-      {f:'10', title:'بانک کشاورزی'},
-      {f:'11', title:'بانک مسکن'},
-      {f:'12', title:'بانک ملت'},
-      {f:'13', title:'بانک ملی ایران'},
-      {f:'14', title:'بانک پاسارگاد'},
-      {f:'15', title:'بانک پارسیان'},
-      {f:'16', title:'پست بانک ایران'},
-      {f:'17', title:'بانک رفاه کارگران'},
-      {f:'18', title:'بانک صادرات ایران'},
-      {f:'19', title:'بانک سامان'},
-      {f:'20', title:'بانک سپه'},
-      {f:'21', title:'قرض الحسنه رسالت'},
-      {f:'22', title:'بانک شهر'},
-      {f:'23', title:'بلوبانک'},
-      {f:'24', title:'بانک مرکزی'},
-      {f:'25', title:'بانک خاورمیانه'},
-      {f:'26', title:'موسسه اعتباری کوثر'},
-      {f:'27', title:'قرض الحسنه مهر ایران'},
-      {f:'28', title:'بانک مهر اقتصاد'},
-      {f:'29', title:'بانک صنعت و معدن'},
-      {f:'30', title:'بانک سرمایه'},
-      {f:'31', title:'بانک سینا'},
-      {f:'32', title:'بانک صادرات'},
-      {f:'33', title:'بانک تعاون'},
-      {f:'34', title:'بانک تجارت'},
-      {f:'35', title:'بانک مهر'},
-      {f:'36', title:'بانک آرمان'},
-      {f:'37', title:'تعاون اسلامی'}
+      {f:'1',title:'بانک انصار'},{f:'2',title:'بانک آینده'},{f:'3',title:'بانک حکمت ایرانیان'},
+      {f:'4',title:'بانک دی'},{f:'5',title:'بانک اقتصاد نوین'},{f:'6',title:'بانک گردشگری'},
+      {f:'7',title:'بانک قوامین'},{f:'8',title:'بانک ایران زمین'},{f:'9',title:'بانک کارآفرین'},
+      {f:'10',title:'بانک کشاورزی'},{f:'11',title:'بانک مسکن'},{f:'12',title:'بانک ملت'},
+      {f:'13',title:'بانک ملی ایران'},{f:'14',title:'بانک پاسارگاد'},{f:'15',title:'بانک پارسیان'},
+      {f:'16',title:'پست بانک ایران'},{f:'17',title:'بانک رفاه کارگران'},{f:'18',title:'بانک صادرات ایران'},
+      {f:'19',title:'بانک سامان'},{f:'20',title:'بانک سپه'},{f:'21',title:'قرض الحسنه رسالت'},
+      {f:'22',title:'بانک شهر'},{f:'23',title:'بلوبانک'},{f:'24',title:'بانک مرکزی'},
+      {f:'25',title:'بانک خاورمیانه'},{f:'26',title:'موسسه اعتباری کوثر'},{f:'27',title:'قرض الحسنه مهر ایران'},
+      {f:'28',title:'بانک مهر اقتصاد'},{f:'29',title:'بانک صنعت و معدن'},{f:'30',title:'بانک سرمایه'},
+      {f:'31',title:'بانک سینا'},{f:'32',title:'بانک صادرات'},{f:'33',title:'بانک تعاون'},
+      {f:'34',title:'بانک تجارت'},{f:'35',title:'بانک مهر'},{f:'36',title:'بانک آرمان'},
+      {f:'37',title:'تعاون اسلامی'}
     ];
 
     const PRESETS = [
-      { n:'سرمه‌ای سلطنتی', g:['#0d1b3d','#1c2f5c','#0a1535'] },
-      { n:'خاکستری مات',   g:['#202024','#3a3a40','#26262b'] },
-      { n:'زمرد شب',       g:['#061f15','#0f4a2c','#082e1c'] },
-      { n:'شرابی مجلسی',   g:['#2a0810','#6e1524','#3a0d18'] },
-      { n:'ابسیدین',       g:['#0a0a0e','#1a1a22','#0e0e14'] },
-      { n:'بنفش سلطنتی',   g:['#15072e','#3a1a6e','#1c0a3d'] },
-      { n:'فیروزه شب',     g:['#052028','#0d4a58','#072e38'] },
-      { n:'قرمز مخملی',    g:['#2e0a12','#6e1524','#3a0d18'] },
-      { n:'جنگل شب',       g:['#0a1a0e','#1e4528','#0e2818'] },
-      { n:'برنز لوکس',     g:['#1e1208','#4a2e12','#2a1a0a'] }
+      {n:'سرمه‌ای سلطنتی',g:['#0d1b3d','#1c2f5c','#0a1535']},
+      {n:'خاکستری مات',  g:['#202024','#3a3a40','#26262b']},
+      {n:'زمرد شب',      g:['#061f15','#0f4a2c','#082e1c']},
+      {n:'شرابی مجلسی',  g:['#2a0810','#6e1524','#3a0d18']},
+      {n:'ابسیدین',      g:['#0a0a0e','#1a1a22','#0e0e14']},
+      {n:'بنفش سلطنتی',  g:['#15072e','#3a1a6e','#1c0a3d']},
+      {n:'فیروزه شب',    g:['#052028','#0d4a58','#072e38']},
+      {n:'قرمز مخملی',   g:['#2e0a12','#6e1524','#3a0d18']},
+      {n:'جنگل شب',      g:['#0a1a0e','#1e4528','#0e2818']},
+      {n:'برنز لوکس',    g:['#1e1208','#4a2e12','#2a1a0a']}
     ];
 
     const sel = $('#bcBank'), nameIn = $('#bcName'), numIn = $('#bcNumber');
@@ -1686,9 +1591,7 @@ TOOLS.push({
     function applyPreset(i){
       const p = PRESETS[i];
       bg.style.background = 'linear-gradient(135deg,' + p.g[0] + ' 0%,' + p.g[1] + ' 50%,' + p.g[2] + ' 100%)';
-      presetsWrap.querySelectorAll('.bk-preset').forEach((el, idx) => {
-        el.classList.toggle('active', idx === i);
-      });
+      presetsWrap.querySelectorAll('.bk-preset').forEach((el, idx) => el.classList.toggle('active', idx === i));
     }
 
     function applyBank(index){
@@ -1716,7 +1619,7 @@ TOOLS.push({
     function updateIban(){
       if (!ibanTog.checked){
         ibanWrap.style.display = 'none';
-        ibanPrev.textContent = '';
+        ibanPrev.innerHTML = '';
         return;
       }
       ibanWrap.style.display = 'block';
@@ -1730,7 +1633,8 @@ TOOLS.push({
         i += size;
       }
       ibanIn.value = groups.join(' ');
-      ibanPrev.textContent = raw.length ? ('IR' + groups.join(' ')) : '';
+      if (!raw.length){ ibanPrev.innerHTML = ''; return; }
+      ibanPrev.innerHTML = '<span>IR</span>' + groups.map(g => '<span>' + g + '</span>').join('');
     }
 
     function updateName(){
