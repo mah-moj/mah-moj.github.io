@@ -1358,7 +1358,9 @@ TOOLS.push({
 
     
       
-          TOOLS.push({
+          
+
+    TOOLS.push({
   id:'bankcard', cat:'general', icon:'fa-solid fa-credit-card',
   title:'سازنده کارت بانکی', tag:'عمومی',
   desc:'یک کارت بانکی جذاب با گرادیانت‌های لوکس بسازید.',
@@ -1382,94 +1384,103 @@ TOOLS.push({
           radial-gradient(circle at 15% 12%,rgba(255,255,255,.12),transparent 45%),
           radial-gradient(circle at 85% 88%,rgba(255,255,255,.06),transparent 50%);
       }
-
-      /* رفع باگ شکستن متن فارسی */
       .bk-card, .bk-card *{
         overflow-wrap:normal !important;
-        word-break:normal !important;
+        word-break:keep-all !important;
         word-wrap:normal !important;
         hyphens:none !important;
       }
 
-      /* ===== لوگو: گوشه راست بالا (absolute) ===== */
+      /* لوگو: گوشه راست بالا */
       .bk-logo-holder{
-        position:absolute;top:1.2rem;right:1.5rem;
-        width:120px;height:56px;z-index:3;
-        display:flex;align-items:center;justify-content:flex-end;
+        position:absolute;top:1rem;right:1.2rem;
+        width:120px;height:56px;z-index:5;
+        display:block;
       }
       .bk-logo-holder img{
-        max-width:100%;max-height:100%;
-        width:auto;height:auto;object-fit:contain;display:block;
+        width:100%;height:100%;
+        object-fit:contain;
+        object-position:right center;
+        display:block;
         filter:drop-shadow(0 2px 5px rgba(0,0,0,.5));
       }
       .bk-logo-holder img.white{
         filter:brightness(0) invert(1) drop-shadow(0 2px 5px rgba(0,0,0,.5));
       }
 
-      /* ===== وسط: شبا + شماره کارت (absolute، مرکز عمودی) ===== */
-      .bk-middle{
+      /* وسط: با پدینگ بالا و پایین تعیین شده */
+      .bk-center{
         position:absolute;
-        top:50%;left:1.5rem;right:1.5rem;
-        transform:translateY(-50%);
+        top:0;bottom:0;left:1.4rem;right:1.4rem;
+        display:flex;flex-direction:column;
+        justify-content:center;align-items:stretch;
+        gap:.4rem;
+        padding-top:4.2rem;
+        padding-bottom:3.4rem;
+        box-sizing:border-box;
         z-index:3;
-        display:flex;flex-direction:column;gap:.55rem;
       }
-
       .bk-iban{
         width:100%;
         display:flex;justify-content:space-between;align-items:center;
         font-family:"Space Grotesk",ui-monospace,monospace;
-        font-size:clamp(.66rem,1.55vw,.82rem);
-        font-weight:500;opacity:.9;
+        font-size:clamp(.6rem,1.5vw,.78rem);
+        font-weight:500;opacity:.88;
         direction:ltr;letter-spacing:0;
-        line-height:1.4;
-        text-shadow:0 1px 3px rgba(0,0,0,.55);
-        min-height:1.4em;
+        white-space:nowrap;
+        line-height:1.3;
+        text-shadow:0 1px 3px rgba(0,0,0,.65);
+        min-height:1.2em;
       }
-      .bk-iban span{display:inline-block}
       .bk-iban:empty{display:none}
+      .bk-iban span{display:inline-block;letter-spacing:0}
 
       .bk-number{
         width:100%;
         display:flex;justify-content:space-between;align-items:center;
         font-family:"Space Grotesk",ui-monospace,monospace;
-        font-size:clamp(1.3rem,4.8vw,1.85rem);
+        font-size:clamp(1.2rem,4.6vw,1.75rem);
         font-weight:700;
         direction:ltr;letter-spacing:0;
-        line-height:1.3;
-        text-shadow:0 2px 8px rgba(0,0,0,.6);
+        white-space:nowrap;
+        line-height:1.2;
+        text-shadow:0 2px 8px rgba(0,0,0,.65);
       }
-      .bk-number span{display:inline-block}
+      .bk-number span{display:inline-block;letter-spacing:0}
 
-      /* ===== پایین: نام راست، بانک چپ (absolute) ===== */
+      /* پایین: نام راست، بانک چپ */
       .bk-bottom{
         position:absolute;
-        bottom:1.4rem;left:1.5rem;right:1.5rem;
-        z-index:3;
+        bottom:1.1rem;left:1.4rem;right:1.4rem;
         display:flex;justify-content:space-between;align-items:flex-end;
-        gap:.8rem;
+        gap:.6rem;z-index:3;
       }
       .bk-holder{
         font-family:"Vazirmatn",sans-serif;
-        font-size:clamp(.78rem,1.7vw,.95rem);
-        font-weight:800;text-align:right;direction:rtl;
-        line-height:1.55;
+        font-size:clamp(.7rem,1.55vw,.86rem);
+        font-weight:800;
+        text-align:right;direction:rtl;
+        white-space:nowrap;
+        line-height:1.5;
         padding-bottom:2px;
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-        text-shadow:0 2px 6px rgba(0,0,0,.55);
         letter-spacing:0;
-        flex:1;min-width:0;
+        text-shadow:0 1px 4px rgba(0,0,0,.65);
+        flex:0 1 auto;
+        min-width:0;
       }
       .bk-bank-name{
         font-family:"Vazirmatn",sans-serif;
-        font-size:clamp(.68rem,1.4vw,.82rem);
-        font-weight:700;text-align:left;direction:rtl;
-        opacity:.92;line-height:1.55;
+        font-size:clamp(.6rem,1.3vw,.74rem);
+        font-weight:700;
+        text-align:left;direction:rtl;
+        white-space:nowrap;
+        line-height:1.5;
         padding-bottom:2px;
-        white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-        text-shadow:0 2px 6px rgba(0,0,0,.55);
         letter-spacing:0;
-        flex:none;max-width:48%;
+        opacity:.9;
+        text-shadow:0 1px 4px rgba(0,0,0,.65);
+        flex:0 1 auto;
+        min-width:0;
       }
 
       .bk-presets{display:grid;grid-template-columns:repeat(5,1fr);gap:.5rem;margin-top:.4rem}
@@ -1522,7 +1533,7 @@ TOOLS.push({
             <img id="bcLogo" class="white" src="img/bank/13.svg" alt="logo">
           </div>
 
-          <div class="bk-middle">
+          <div class="bk-center">
             <div class="bk-iban" id="bcIbanPreview"></div>
             <div class="bk-number" id="bcNumPreview">
               <span>0000</span><span>0000</span><span>0000</span><span>0000</span>
@@ -1661,37 +1672,26 @@ TOOLS.push({
       }
 
       const card = $('#bcPreview');
-      const rect = card.getBoundingClientRect();
-      const W = Math.round(rect.width);
-      const H = Math.round(rect.height);
+      const savedShadow = card.style.boxShadow;
+      card.style.boxShadow = 'none';
 
-      const clone = card.cloneNode(true);
-      clone.style.cssText =
-        'position:fixed;top:0;left:-99999px;' +
-        'width:' + W + 'px;height:' + H + 'px;' +
-        'aspect-ratio:auto;box-shadow:none;margin:0;transform:none;';
-
-      document.body.appendChild(clone);
-
-      clone.querySelectorAll('*').forEach(el => {
-        el.style.letterSpacing = '0';
-        el.style.wordSpacing = '0';
-        el.style.textShadow = 'none';
+      /* رفع باگ letter-spacing روی متن‌های فارسی */
+      const all = card.querySelectorAll('*');
+      const saved = [];
+      all.forEach(el => {
+        const cs = getComputedStyle(el);
+        saved.push({ el, ls: el.style.letterSpacing, ws: el.style.wordSpacing });
+        if (cs.letterSpacing && cs.letterSpacing !== 'normal') el.style.letterSpacing = 'normal';
+        el.style.wordSpacing = 'normal';
       });
 
       try {
-        const canvas = await html2canvas(clone, {
+        const canvas = await html2canvas(card, {
           backgroundColor: null,
           scale: 3,
           useCORS: true,
           allowTaint: true,
-          logging: false,
-          width: W,
-          height: H,
-          windowWidth: W,
-          windowHeight: H,
-          scrollX: 0,
-          scrollY: 0
+          logging: false
         });
         canvas.toBlob(b => {
           if (!b){ toast('خطا در تولید تصویر'); return; }
@@ -1702,7 +1702,8 @@ TOOLS.push({
         console.error(e);
         toast('خطا در دانلود');
       } finally {
-        document.body.removeChild(clone);
+        card.style.boxShadow = savedShadow;
+        saved.forEach(s => { s.el.style.letterSpacing = s.ls; s.el.style.wordSpacing = s.ws; });
       }
     });
 
@@ -1713,6 +1714,10 @@ TOOLS.push({
     updateName();
   }
 });
+
+    
+  
+
 
 
     
